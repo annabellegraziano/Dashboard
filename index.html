@@ -7,130 +7,101 @@
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-
-<!-- ── Sidebar ──────────────────────────────────────────────────────── -->
 <aside id="sidebar">
   <div class="sidebar-logo">Earnings<br>Research</div>
-
   <ul class="sidebar-nav">
     <li><a href="index.html" class="active">Material News</a></li>
     <li><a href="watchlist.html">My Watchlist</a></li>
     <li><a href="earnings-reviews.html">Earnings Reviews</a></li>
   </ul>
-
   <hr class="sidebar-divider"/>
   <div class="sidebar-section-label">Watchlist</div>
   <ul class="sidebar-watchlist-links" id="sidebar-wl-links">
-    <!-- Populated by app.js -->
     <li><a href="company.html?t=COST">COST</a></li>
     <li><a href="company.html?t=MSFT">MSFT</a></li>
     <li><a href="company.html?t=AMZN">AMZN</a></li>
   </ul>
 </aside>
-
-<!-- ── Main ─────────────────────────────────────────────────────────── -->
 <main id="main">
   <h1 class="page-title">Material News — Last 24 Hours</h1>
   <p class="page-subtitle-center">Curated earnings &amp; macro signals across your watchlist and coverage universe</p>
-
   <div class="news-grid" id="news-grid">
-
-    <!-- Card 1 -->
     <div class="news-card">
       <div class="nc-meta">GLW &nbsp;·&nbsp; Apr 29, 2026</div>
       <div class="nc-company">Corning Incorporated</div>
       <div class="nc-headline">Corning Q1 Core Sales +18%; Adds Two Large Hyperscale AI Data Center Agreements</div>
       <p class="nc-summary">Corning reported Q1 core sales of $3.86B (+18% YoY), beating consensus by ~3%. The company announced two additional long-term agreements with hyperscale customers for its Gen AI fiber and cable systems, lifting 2026 optical revenue visibility materially.</p>
       <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
-      <p class="nc-impact">Optical fiber demand from AI data center build-outs continues to accelerate well above prior expectations. The LTAs provide multi-year revenue visibility and support the Springboard revenue uplift target. Cloud capex commentary from AWS and Azure supports continued fiber demand through 2027.</p>
+      <p class="nc-impact">Optical fiber demand from AI data center build-outs continues to accelerate well above prior expectations. The LTAs provide multi-year revenue visibility and support the Springboard revenue uplift target.</p>
       <div class="nc-source">Corning IR &nbsp;·&nbsp; Press release via Business Wire</div>
     </div>
-
-    <!-- Card 2 -->
     <div class="news-card">
       <div class="nc-meta">MSFT &nbsp;·&nbsp; Apr 30, 2026</div>
       <div class="nc-company">Microsoft Corporation</div>
       <div class="nc-headline">Microsoft Azure Growth Re-Accelerates to +35% in Q3 FY2026; Copilot Seats Surpass 50M</div>
       <p class="nc-summary">Azure constant-currency growth came in at 35%, ahead of the 33% guide and the 31% print last quarter. AI Copilot seat count surpassed 50 million, and management raised FY2026 cloud revenue guidance by roughly $500M at the midpoint.</p>
       <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
-      <p class="nc-impact">Re-acceleration in Azure is the key bullish signal for Microsoft's long-term AI monetization story. Copilot attach rates in enterprise are now measuring to seat expansion rather than just pilots, suggesting durable incremental revenue. Margin beats further de-risk the valuation.</p>
+      <p class="nc-impact">Re-acceleration in Azure is the key bullish signal for Microsoft's long-term AI monetization story. Copilot attach rates in enterprise are now measuring to seat expansion rather than just pilots, suggesting durable incremental revenue.</p>
       <div class="nc-source">Microsoft IR &nbsp;·&nbsp; Earnings release &amp; transcript</div>
     </div>
-
-    <!-- Card 3 -->
     <div class="news-card">
       <div class="nc-meta">GOOGL &nbsp;·&nbsp; Apr 29, 2026</div>
       <div class="nc-company">Alphabet Inc.</div>
       <div class="nc-headline">Google Search Beats on Resilient Ad Pricing; Cloud Margin Expands to 18.7%</div>
       <p class="nc-summary">Alphabet Q1 2026 Search revenue grew 13.4%, ahead of the 11.5% buy-side estimate. Google Cloud reached $12.3B (+28% YoY) with operating margin of 18.7%, ahead of the 17.5% consensus. The company announced a $70B buyback authorization.</p>
       <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
-      <p class="nc-impact">Search durability in the face of AI-native search alternatives is a key debate; the beat supports the thesis that Gemini integration is defending and extending ad share. Cloud margin expansion is incremental positive and tracks ahead of the multi-year profitability ramp thesis.</p>
+      <p class="nc-impact">Search durability in the face of AI-native search alternatives is a key debate; the beat supports the thesis that Gemini integration is defending and extending ad share.</p>
       <div class="nc-source">Alphabet IR &nbsp;·&nbsp; Earnings release</div>
     </div>
-
-    <!-- Card 4 -->
     <div class="news-card">
       <div class="nc-meta">AMZN &nbsp;·&nbsp; May 1, 2026</div>
       <div class="nc-company">Amazon.com Inc.</div>
       <div class="nc-headline">AWS Operating Margin Expands to 38.9%; Prime Membership at All-Time High</div>
-      <p class="nc-summary">Amazon Q1 2026 AWS revenue grew 19% YoY to $29.3B with an operating margin of 38.9%, the highest ever for the segment. Retail operating income nearly doubled YoY as advertising revenue grew 18%, and Prime membership reached a record globally.</p>
+      <p class="nc-summary">Amazon Q1 2026 AWS revenue grew 19% YoY to $29.3B with an operating margin of 38.9%, the highest ever for the segment. Retail operating income nearly doubled YoY as advertising revenue grew 18%.</p>
       <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
-      <p class="nc-impact">AWS margin expansion validates the long-term structural profitability thesis and supports higher consolidated margin estimates. Ad revenue growth of 18% is a direct read-through for the digital advertising ecosystem — incrementally positive for GOOGL and META peers.</p>
+      <p class="nc-impact">AWS margin expansion validates the long-term structural profitability thesis. Ad revenue growth of 18% is a direct read-through for the digital advertising ecosystem.</p>
       <div class="nc-source">Amazon IR &nbsp;·&nbsp; Press release</div>
     </div>
-
-    <!-- Card 5 -->
     <div class="news-card">
       <div class="nc-meta">COST &nbsp;·&nbsp; Apr 28, 2026</div>
       <div class="nc-company">Costco Wholesale Corp.</div>
       <div class="nc-headline">Costco March Comps +6.8%; Membership Renewal Rate Holds at 93.4%</div>
-      <p class="nc-summary">Costco reported March comparable sales of +6.8% including gas and FX, with e-commerce comps of +21%. Renewal rate remained at a record 93.4% globally. Traffic was up 5.2% in the US, pointing to continued share gains from the value-oriented consumer.</p>
+      <p class="nc-summary">Costco reported March comparable sales of +6.8% including gas and FX, with e-commerce comps of +21%. Renewal rate remained at a record 93.4% globally. Traffic was up 5.2% in the US.</p>
       <span class="thesis-label thesis-neutral">Thesis Impact: Neutral</span>
-      <p class="nc-impact">The comp print is solid and broadly in line with expectations. The membership renewal stability removes a near-term bear case but is not a new catalyst. Watch for commentary on tariff-driven price adjustments and any shift in basket composition toward staples.</p>
+      <p class="nc-impact">The comp print is solid and broadly in line with expectations. The membership renewal stability removes a near-term bear case but is not a new catalyst.</p>
       <div class="nc-source">Costco IR &nbsp;·&nbsp; Monthly sales release</div>
     </div>
-
-    <!-- Card 6 -->
     <div class="news-card">
       <div class="nc-meta">NVDA &nbsp;·&nbsp; Apr 28, 2026</div>
       <div class="nc-company">NVIDIA Corporation</div>
       <div class="nc-headline">Blackwell GB300 Allocation Oversubscribed Through Q3; NVIDIA Raises Q1 FY2027 Guidance</div>
-      <p class="nc-summary">NVIDIA's management indicated at an investor event that GB300 allocation is oversubscribed through Q3 2026, with lead times extending to 16–20 weeks for new orders. The company raised its Q1 FY2027 revenue guidance to $43B–$45B from prior guidance of $41B–$43B.</p>
+      <p class="nc-summary">NVIDIA's management indicated that GB300 allocation is oversubscribed through Q3 2026, with lead times extending to 16–20 weeks. The company raised its Q1 FY2027 revenue guidance to $43B–$45B.</p>
       <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
-      <p class="nc-impact">Oversubscription through Q3 implies demand visibility and pricing power well above prior estimates. The guidance raise is incrementally positive for the AI capex supply chain — read-through positive for TSMC, ASML, memory suppliers, and optical interconnect.</p>
+      <p class="nc-impact">Oversubscription through Q3 implies demand visibility and pricing power well above prior estimates. Read-through positive for TSMC, ASML, memory suppliers, and optical interconnect.</p>
       <div class="nc-source">NVIDIA IR &nbsp;·&nbsp; Investor event transcript</div>
     </div>
-
-    <!-- Hidden cards (shown via "Show all") -->
     <div class="news-card hidden-card" style="display:none">
       <div class="nc-meta">META &nbsp;·&nbsp; Apr 30, 2026</div>
       <div class="nc-company">Meta Platforms Inc.</div>
       <div class="nc-headline">Meta Q1 Ad Revenue +18%; Reality Labs Losses Narrow; Llama 4 Adoption Cited</div>
-      <p class="nc-summary">Meta reported Q1 ad revenue of $41.9B (+18% YoY), driven by Reels ad load optimization and improved targeting from Llama 4 models. Reality Labs operating losses narrowed to $3.5B from $3.8B a year ago. DAP reached 3.4B.</p>
+      <p class="nc-summary">Meta reported Q1 ad revenue of $41.9B (+18% YoY), driven by Reels ad load optimization. Reality Labs operating losses narrowed to $3.5B from $3.8B a year ago. DAP reached 3.4B.</p>
       <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
-      <p class="nc-impact">Ad pricing power and volume growth both beat consensus, confirming the AI-driven targeting advantage thesis. Narrowing Reality Labs losses reduce the drag concern for investors focused on margin trajectory. Positive read-through for the digital ad ecosystem broadly.</p>
+      <p class="nc-impact">Ad pricing power and volume growth both beat consensus. Narrowing Reality Labs losses reduce the drag concern for investors focused on margin trajectory.</p>
       <div class="nc-source">Meta IR &nbsp;·&nbsp; Earnings release</div>
     </div>
-
     <div class="news-card hidden-card" style="display:none">
       <div class="nc-meta">TSM &nbsp;·&nbsp; Apr 17, 2026</div>
       <div class="nc-company">Taiwan Semiconductor Mfg.</div>
       <div class="nc-headline">TSMC Q1 Revenue NT$839B; CoWoS Capacity to Double by End-2026 on AI Demand</div>
-      <p class="nc-summary">TSMC reported Q1 revenue of NT$839.3B (+42% YoY), driven by AI accelerator demand. Management guided for 2026 capex of $38–42B and confirmed CoWoS advanced packaging capacity will roughly double by December 2026, with all capacity committed through 2027.</p>
+      <p class="nc-summary">TSMC reported Q1 revenue of NT$839.3B (+42% YoY). Management confirmed CoWoS advanced packaging capacity will roughly double by December 2026, with all capacity committed through 2027.</p>
       <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
-      <p class="nc-impact">TSMC's commentary validates sustained hyperscaler capex and NVIDIA's oversubscription. CoWoS doubling supports AI chip supply ramp and provides a gating factor read-through for NVDA near-term delivery timelines. Positive for the broader AI supply chain.</p>
+      <p class="nc-impact">TSMC's commentary validates sustained hyperscaler capex and NVIDIA's oversubscription. CoWoS doubling supports AI chip supply ramp.</p>
       <div class="nc-source">TSMC IR &nbsp;·&nbsp; Earnings release &amp; call transcript</div>
     </div>
-
-  </div><!-- /news-grid -->
-
-  <div class="show-more">
-    <a id="show-more-btn" data-open="false">Show all 8 articles ↓</a>
   </div>
+  <div class="show-more"><a id="show-more-btn" data-open="false">Show all 8 articles ↓</a></div>
   <p class="last-updated">Last updated: 2026-05-01 &nbsp;|&nbsp; Sources: Company IR, Reuters, WSJ, MarketScreener</p>
-
 </main>
-
 <script src="app.js"></script>
 </body>
 </html>

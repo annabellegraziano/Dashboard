@@ -1,205 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Earnings Research Dashboard — Earnings Reviews</title>
-  <link rel="stylesheet" href="styles.css"/>
-</head>
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Earnings Reviews</title><link rel="stylesheet" href="styles.css"/></head>
 <body>
-
-<!-- ── Sidebar ──────────────────────────────────────────────────────── -->
 <aside id="sidebar">
   <div class="sidebar-logo">Earnings<br>Research</div>
-
   <ul class="sidebar-nav">
     <li><a href="index.html">Material News</a></li>
     <li><a href="watchlist.html">My Watchlist</a></li>
     <li><a href="earnings-reviews.html" class="active">Earnings Reviews</a></li>
   </ul>
-
   <hr class="sidebar-divider"/>
   <div class="sidebar-section-label">Watchlist</div>
-  <ul class="sidebar-watchlist-links" id="sidebar-wl-links">
-    <li><a href="company.html?t=COST">COST</a></li>
-    <li><a href="company.html?t=MSFT">MSFT</a></li>
-    <li><a href="company.html?t=AMZN">AMZN</a></li>
-  </ul>
+  <ul class="sidebar-watchlist-links" id="sidebar-wl-links"><li><a href="company.html?t=COST">COST</a></li><li><a href="company.html?t=MSFT">MSFT</a></li><li><a href="company.html?t=AMZN">AMZN</a></li></ul>
 </aside>
-
-<!-- ── Main ─────────────────────────────────────────────────────────── -->
 <main id="main">
   <h1 class="page-title">Earnings Reviews</h1>
   <p class="page-subtitle-center">Full coverage universe — click any card to view the earnings review</p>
-
-  <!-- Filter row -->
   <div style="display:flex;gap:10px;justify-content:center;margin-bottom:8px;flex-wrap:wrap;">
-    <button class="tab-btn active" style="font-size:12px;padding:6px 14px;border:1px solid #e4e4e0;border-radius:2px;background:#111;color:#fff;" onclick="filterCards('all',this)">All</button>
+    <button class="tab-btn" style="font-size:12px;padding:6px 14px;border:1px solid #e4e4e0;border-radius:2px;background:#111;color:#fff;" onclick="filterCards('all',this)">All</button>
     <button class="tab-btn" style="font-size:12px;padding:6px 14px;border:1px solid #e4e4e0;border-radius:2px;background:#fff;color:#666;" onclick="filterCards('Q1',this)">Q1 2026</button>
     <button class="tab-btn" style="font-size:12px;padding:6px 14px;border:1px solid #e4e4e0;border-radius:2px;background:#fff;color:#666;" onclick="filterCards('Q4',this)">Q4 2025</button>
     <button class="tab-btn" style="font-size:12px;padding:6px 14px;border:1px solid #e4e4e0;border-radius:2px;background:#fff;color:#666;" onclick="filterCards('watchlist',this)">My Watchlist</button>
   </div>
-
   <div class="reviews-grid" id="reviews-grid">
-
-    <!-- Q1 2026 reviews -->
-    <a class="review-card" href="review-googl.html" data-quarter="Q1" data-wl="false">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">GOOGL</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q1" data-wl="true">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">MSFT</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q1" data-wl="true">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">AMZN</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q1" data-wl="false">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">META</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q1" data-wl="false">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">AAPL</div>
-    </a>
-    <a class="review-card" href="business-model-glw.html" data-quarter="Q1" data-wl="false">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">GLW</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q1" data-wl="false">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">VRT</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q1" data-wl="false">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">GEV</div>
-    </a>
-
-    <!-- Q4 2025 reviews -->
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">NVDA</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="true">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">COST</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">TSM</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">ISRG</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">SPOT</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">KLAC</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">LRCX</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">SNPS</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">BLK</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">MCO</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">SPGI</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">CME</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">UBER</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">DHR</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">NVO</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">PLD</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">KMI</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">EQT</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">CCL</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">ZM</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">DGX</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">INTC</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">MP</div>
-    </a>
-    <a class="review-card" href="review-googl.html" data-quarter="Q4" data-wl="false">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">MCK</div>
-    </a>
-
+    <a class="review-card" href="review-googl.html" data-quarter="Q1"><div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">GOOGL</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q1"><div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">MSFT</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q1"><div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">AMZN</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q1"><div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">META</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q1"><div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">AAPL</div></a>
+    <a class="review-card" href="business-model-glw.html" data-quarter="Q1"><div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">GLW</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q1"><div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">VRT</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q1"><div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">GEV</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">NVDA</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">COST</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">TSM</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">ISRG</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">SPOT</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">KLAC</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">LRCX</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">SNPS</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">BLK</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">MCO</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">SPGI</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">CME</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">UBER</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">DHR</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">NVO</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">PLD</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">KMI</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">EQT</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">CCL</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">ZM</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">INTC</div></a>
+    <a class="review-card" href="review-googl.html" data-quarter="Q4"><div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">MP</div></a>
   </div>
-
 </main>
-
 <script src="app.js"></script>
 <script>
 function filterCards(type, btn) {
-  const watchlist = JSON.parse(localStorage.getItem('watchlist') || '["COST","MSFT","AMZN"]');
-  const cards = document.querySelectorAll('.review-card');
-  // update button styles
-  document.querySelectorAll('#main button').forEach(b => {
-    b.style.background = '#fff'; b.style.color = '#666';
-  });
-  btn.style.background = '#111'; btn.style.color = '#fff';
-
-  cards.forEach(card => {
-    const q  = card.dataset.quarter;
+  const wl = JSON.parse(localStorage.getItem('watchlist') || '["COST","MSFT","AMZN"]');
+  document.querySelectorAll('#main button').forEach(b => { b.style.background='#fff'; b.style.color='#666'; });
+  btn.style.background='#111'; btn.style.color='#fff';
+  document.querySelectorAll('.review-card').forEach(card => {
+    const q = card.dataset.quarter;
     const ticker = card.querySelector('.rc-ticker').textContent.trim();
-    const inWL = watchlist.includes(ticker);
-    if (type === 'all')       card.style.display = 'block';
-    else if (type === 'Q1')   card.style.display = q === 'Q1' ? 'block' : 'none';
-    else if (type === 'Q4')   card.style.display = q === 'Q4' ? 'block' : 'none';
-    else if (type === 'watchlist') card.style.display = inWL ? 'block' : 'none';
+    if (type==='all') card.style.display='block';
+    else if (type==='Q1') card.style.display = q==='Q1'?'block':'none';
+    else if (type==='Q4') card.style.display = q==='Q4'?'block':'none';
+    else if (type==='watchlist') card.style.display = wl.includes(ticker)?'block':'none';
   });
 }
 document.addEventListener('DOMContentLoaded', () => renderSidebarWatchlist());
 </script>
-</body>
-</html>
+</body></html>
