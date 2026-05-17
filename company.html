@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Earnings Research Dashboard — Company Overview</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- ── Sidebar ──────────────────────────────────────────────────────── -->
+<aside id="sidebar">
+  <a href="index.html" class="sidebar-back">&larr; All Tickers</a>
+
+  <div class="sidebar-ticker" id="s-ticker">—</div>
+  <div class="sidebar-company" id="s-company">Loading…</div>
+
+  <ul class="sidebar-nav">
+    <li><a href="#" class="active">Overview</a></li>
+    <li><a href="business-model-glw.html" id="s-biz">Business Model</a></li>
+    <li><a href="financials-googl.html" id="s-fin">Financials</a></li>
+    <li><a href="#">Thematics</a></li>
+    <li><a href="#">Management</a></li>
+    <li><a href="#">Valuation</a></li>
+    <li><a href="#">Sentiment</a></li>
+  </ul>
+
+  <div class="sidebar-section-label">Earnings</div>
+  <ul class="sidebar-earnings-links" id="s-earnings-links">
+    <li><a href="preview-googl.html">2026Q1 Preview</a></li>
+    <li><a href="review-googl.html">2025Q4 Review</a></li>
+  </ul>
+</aside>
+
+<!-- ── Main ─────────────────────────────────────────────────────────── -->
+<main id="main">
+
+  <h1 class="preview-title" id="m-title">Company Overview</h1>
+  <p class="preview-subtitle" id="m-subtitle">Loading company information…</p>
+
+  <!-- KPI row -->
+  <div class="kpi-grid" id="m-kpis">
+    <div class="kpi-card">
+      <div class="kpi-label">Next Earnings</div>
+      <div class="kpi-value" id="kpi-next">—</div>
+      <div class="kpi-desc" id="kpi-date">—</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">52-Wk Return</div>
+      <div class="kpi-value" id="kpi-return">—</div>
+      <div class="kpi-desc">Price performance (placeholder)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Market Cap</div>
+      <div class="kpi-value" id="kpi-mcap">—</div>
+      <div class="kpi-desc">Approximate (placeholder)</div>
+    </div>
+    <div class="kpi-card highlight">
+      <div class="kpi-label">Thesis Stance</div>
+      <div class="kpi-value gold" id="kpi-stance">—</div>
+      <div class="kpi-desc" id="kpi-stance-desc">—</div>
+    </div>
+  </div>
+
+  <!-- Thesis summary -->
+  <div class="section-header">Thesis Summary</div>
+  <div class="exec-summary" id="m-thesis">
+    <p id="m-thesis-text">Loading…</p>
+  </div>
+
+  <!-- Navigation shortcuts -->
+  <div class="section-header">Research Pages</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:4px">
+    <a class="review-card" href="preview-googl.html" style="text-decoration:none">
+      <div class="rc-quarter">Earnings</div>
+      <div class="rc-ticker" style="font-size:1rem">Q1 2026 Preview →</div>
+    </a>
+    <a class="review-card" href="review-googl.html" style="text-decoration:none">
+      <div class="rc-quarter">Earnings</div>
+      <div class="rc-ticker" style="font-size:1rem">Q4 2025 Review →</div>
+    </a>
+    <a class="review-card" href="financials-googl.html" style="text-decoration:none">
+      <div class="rc-quarter">Data</div>
+      <div class="rc-ticker" style="font-size:1rem">8-Qtr Financials →</div>
+    </a>
+    <a class="review-card" href="business-model-glw.html" style="text-decoration:none">
+      <div class="rc-quarter">Research</div>
+      <div class="rc-ticker" style="font-size:1rem">Business Model →</div>
+    </a>
+    <a class="review-card" href="index.html" style="text-decoration:none">
+      <div class="rc-quarter">News</div>
+      <div class="rc-ticker" style="font-size:1rem">Material News →</div>
+    </a>
+    <a class="review-card" href="earnings-reviews.html" style="text-decoration:none">
+      <div class="rc-quarter">Coverage</div>
+      <div class="rc-ticker" style="font-size:1rem">All Reviews →</div>
+    </a>
+  </div>
+
+  <p class="footer-note" style="margin-top:40px">
+    This is a placeholder overview page. For full research, navigate to the individual section pages via the sidebar or the cards above.
+    All data is hardcoded for demonstration purposes.
+  </p>
+
+</main>
+
+<script src="app.js"></script>
+<script>
+/* Populate page from URL ?t=TICKER */
+const OVERVIEW_DATA = {
+  COST: {
+    name: "Costco Wholesale Corp.",
+    subtitle: "Membership-model warehouse retailer | S&P 500 | Sector: Consumer Staples",
+    next: "Q3 FY2026", date: "May 29, 2026 AMC",
+    return: "+18.4%", mcap: "$380B", stance: "Positive",
+    stanceDesc: "Strong comps + renewal rate moat",
+    thesis: "Costco's membership model creates a recurring, high-renewal annuity that funds below-cost merchandise pricing — creating a durable competitive moat against both traditional grocery and e-commerce alternatives. The 93.4% global renewal rate is near-record and signals extraordinarily high switching costs. Comparable sales of +6–7% are above the food retail peer group, and the e-commerce channel (+20%+) is growing without cannibalizing in-store. The primary risk is valuation: COST trades at a significant premium to retail peers (35–40x P/E), leaving limited room for any execution miss. Watch tariff pass-through dynamics and basket composition in 2026.",
+  },
+  MSFT: {
+    name: "Microsoft Corporation",
+    subtitle: "Cloud, productivity software & AI platforms | S&P 500 | Sector: Technology",
+    next: "Q3 FY2026", date: "Apr 30, 2026 AMC",
+    return: "+22.1%", mcap: "$3.1T", stance: "Positive",
+    stanceDesc: "Azure re-accel + Copilot monetization",
+    thesis: "Microsoft is the most diversified AI monetization play in large-cap tech, with Azure re-accelerating to 35% growth and Copilot seat counts surpassing 50M. The combination of enterprise software lock-in (Office 365, Teams, Dynamics), cloud infrastructure, and AI assistant products creates three compounding revenue streams. Operating margin expansion is tracking above consensus as AI workloads carry higher gross margins than legacy on-premise software. Key risks: antitrust scrutiny of OpenAI partnership, Azure growth sustainability vs. the law of large numbers, and Copilot conversion from trial to paid.",
+  },
+  AMZN: {
+    name: "Amazon.com Inc.",
+    subtitle: "E-commerce, cloud (AWS), advertising & logistics | S&P 500 | Sector: Consumer Discretionary",
+    next: "Q1 2026", date: "May 1, 2026 AMC",
+    return: "+28.7%", mcap: "$2.2T", stance: "Positive",
+    stanceDesc: "AWS margin expansion + ad flywheel",
+    thesis: "Amazon's long-term re-rating thesis rests on three pillars: (1) AWS reaching 40%+ operating margins as AI workloads scale, (2) advertising revenue compounding at 18–20% with near-100% gross margins, and (3) retail operating income inflecting from near-zero to structurally positive as logistics efficiency improves. AWS is now the most profitable hyperscaler per dollar of revenue, and the advertising business is on track to surpass $60B annually. The primary near-term risk is AWS growth deceleration as enterprise optimization cycles resurface; however, Q1 2026 re-acceleration to 19% YoY significantly reduces that concern.",
+  },
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  const ticker = (params.get("t") || "COST").toUpperCase();
+  const data   = OVERVIEW_DATA[ticker] || OVERVIEW_DATA["COST"];
+
+  document.title = `${ticker} — Overview | Earnings Research Dashboard`;
+  document.getElementById("s-ticker").textContent   = ticker;
+  document.getElementById("s-company").textContent  = data.name;
+  document.getElementById("m-title").textContent    = `${ticker} — Overview`;
+  document.getElementById("m-subtitle").textContent = data.subtitle;
+  document.getElementById("kpi-next").textContent   = data.next;
+  document.getElementById("kpi-date").textContent   = data.date;
+  document.getElementById("kpi-return").textContent = data.return;
+  document.getElementById("kpi-mcap").textContent   = data.mcap;
+  document.getElementById("kpi-stance").textContent = data.stance;
+  document.getElementById("kpi-stance-desc").textContent = data.stanceDesc;
+  document.getElementById("m-thesis-text").textContent   = data.thesis;
+
+  renderSidebarWatchlist(ticker);
+});
+</script>
+</body>
+</html>

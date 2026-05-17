@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Earnings Research Dashboard — My Watchlist</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- ── Sidebar ──────────────────────────────────────────────────────── -->
+<aside id="sidebar">
+  <div class="sidebar-logo">Earnings<br>Research</div>
+
+  <ul class="sidebar-nav">
+    <li><a href="index.html">Material News</a></li>
+    <li><a href="watchlist.html" class="active">My Watchlist</a></li>
+    <li><a href="earnings-reviews.html">Earnings Reviews</a></li>
+  </ul>
+
+  <hr class="sidebar-divider"/>
+  <div class="sidebar-section-label">Watchlist</div>
+  <ul class="sidebar-watchlist-links" id="sidebar-wl-links">
+    <li><a href="company.html?t=COST">COST</a></li>
+    <li><a href="company.html?t=MSFT">MSFT</a></li>
+    <li><a href="company.html?t=AMZN">AMZN</a></li>
+  </ul>
+</aside>
+
+<!-- ── Main ─────────────────────────────────────────────────────────── -->
+<main id="main">
+  <h1 class="page-title">My Watchlist</h1>
+  <p class="page-subtitle-center">Companies you are actively tracking — click any card to navigate to research pages</p>
+
+  <div class="watchlist-grid" id="watchlist-grid">
+    <!-- Populated by app.js — shown below as initial static fallback -->
+
+    <div class="wl-card">
+      <button class="wl-remove" onclick="handleRemove('COST')" title="Remove">&times;</button>
+      <div class="wl-ticker">COST</div>
+      <div class="wl-name">Costco Wholesale Corp.</div>
+      <div class="wl-row">Next earnings: <span>Q3 FY2026</span></div>
+      <div class="wl-row">Reports: <span>May 29, 2026 AMC</span></div>
+      <div class="wl-links">
+        <a class="wl-link" href="preview-googl.html">Preview</a>
+        <a class="wl-link" href="financials-googl.html">Financials</a>
+        <a class="wl-link" href="review-googl.html">Review</a>
+      </div>
+    </div>
+
+    <div class="wl-card">
+      <button class="wl-remove" onclick="handleRemove('MSFT')" title="Remove">&times;</button>
+      <div class="wl-ticker">MSFT</div>
+      <div class="wl-name">Microsoft Corporation</div>
+      <div class="wl-row">Next earnings: <span>Q3 FY2026</span></div>
+      <div class="wl-row">Reports: <span>Apr 30, 2026 AMC</span></div>
+      <div class="wl-links">
+        <a class="wl-link" href="preview-googl.html">Preview</a>
+        <a class="wl-link" href="financials-googl.html">Financials</a>
+        <a class="wl-link" href="review-googl.html">Review</a>
+      </div>
+    </div>
+
+    <div class="wl-card">
+      <button class="wl-remove" onclick="handleRemove('AMZN')" title="Remove">&times;</button>
+      <div class="wl-ticker">AMZN</div>
+      <div class="wl-name">Amazon.com Inc.</div>
+      <div class="wl-row">Next earnings: <span>Q1 2026</span></div>
+      <div class="wl-row">Reports: <span>May 1, 2026 AMC</span></div>
+      <div class="wl-links">
+        <a class="wl-link" href="preview-googl.html">Preview</a>
+        <a class="wl-link" href="financials-googl.html">Financials</a>
+        <a class="wl-link" href="review-googl.html">Review</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Research Radar: suggested companies to add -->
+  <div class="section-header" style="margin-top:48px">Research Radar — Companies to Consider</div>
+  <p class="section-sub">Sectors with strong earnings momentum and read-through relevance to your current holdings.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Ticker</th>
+          <th>Company</th>
+          <th>Sector</th>
+          <th>Why Watch</th>
+          <th>Next Event</th>
+          <th style="text-align:center">Add</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>NVDA</strong></td>
+          <td>NVIDIA Corporation</td>
+          <td>Semiconductors</td>
+          <td>AI capex bellwether; demand visibility = cloud capex signal for MSFT/AMZN/GOOGL</td>
+          <td>Q1 FY2027 — May 28, 2026</td>
+          <td style="text-align:center"><button class="add-btn" onclick="quickAdd('NVDA')" style="padding:4px 12px;font-size:12px">+ Add</button></td>
+        </tr>
+        <tr>
+          <td><strong>META</strong></td>
+          <td>Meta Platforms Inc.</td>
+          <td>Digital Advertising</td>
+          <td>Ad pricing / volume proxy; Llama AI read-through for AI monetization broadly</td>
+          <td>Q1 2026 — Apr 30, 2026</td>
+          <td style="text-align:center"><button class="add-btn" onclick="quickAdd('META')" style="padding:4px 12px;font-size:12px">+ Add</button></td>
+        </tr>
+        <tr>
+          <td><strong>GOOGL</strong></td>
+          <td>Alphabet Inc.</td>
+          <td>Internet / Cloud</td>
+          <td>Search durability vs. AI native; Cloud margin ramp; $70B buyback authorization</td>
+          <td>Q1 2026 — Apr 29, 2026</td>
+          <td style="text-align:center"><button class="add-btn" onclick="quickAdd('GOOGL')" style="padding:4px 12px;font-size:12px">+ Add</button></td>
+        </tr>
+        <tr>
+          <td><strong>TSM</strong></td>
+          <td>Taiwan Semiconductor</td>
+          <td>Foundry</td>
+          <td>CoWoS capacity = gating factor for NVDA AI chip supply; 2026 capex guide key</td>
+          <td>Q2 2026 — Jul 17, 2026</td>
+          <td style="text-align:center"><button class="add-btn" onclick="quickAdd('TSM')" style="padding:4px 12px;font-size:12px">+ Add</button></td>
+        </tr>
+        <tr>
+          <td><strong>GLW</strong></td>
+          <td>Corning Incorporated</td>
+          <td>Specialty Materials</td>
+          <td>Fiber + optical read-through for data center build-out; Springboard revenue ramp</td>
+          <td>Q2 2026 — Jul 29, 2026</td>
+          <td style="text-align:center"><button class="add-btn" onclick="quickAdd('GLW')" style="padding:4px 12px;font-size:12px">+ Add</button></td>
+        </tr>
+        <tr>
+          <td><strong>WMT</strong></td>
+          <td>Walmart Inc.</td>
+          <td>Retail / Consumer</td>
+          <td>Consumer health proxy; advertising revenue comps with COST; private label share</td>
+          <td>Q1 FY2027 — May 15, 2026</td>
+          <td style="text-align:center"><button class="add-btn" onclick="quickAdd('WMT')" style="padding:4px 12px;font-size:12px">+ Add</button></td>
+        </tr>
+        <tr>
+          <td><strong>AAPL</strong></td>
+          <td>Apple Inc.</td>
+          <td>Consumer Tech</td>
+          <td>Services margin compares; AI feature adoption; consumer spending health</td>
+          <td>Q2 FY2026 — May 1, 2026</td>
+          <td style="text-align:center"><button class="add-btn" onclick="quickAdd('AAPL')" style="padding:4px 12px;font-size:12px">+ Add</button></td>
+        </tr>
+        <tr>
+          <td><strong>LRCX</strong></td>
+          <td>Lam Research</td>
+          <td>Semiconductor Equip.</td>
+          <td>WFE demand proxy; NAND recovery timing; leading indicator for chip cycle</td>
+          <td>Q3 FY2026 — Jul 23, 2026</td>
+          <td style="text-align:center"><button class="add-btn" onclick="quickAdd('LRCX')" style="padding:4px 12px;font-size:12px">+ Add</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add custom ticker form -->
+  <div class="add-form">
+    <label for="ticker-input">Add a ticker:</label>
+    <input type="text" id="ticker-input" class="add-input" placeholder="e.g. AAPL" maxlength="6"/>
+    <button id="add-btn" class="add-btn">Add to Watchlist</button>
+    <span id="add-msg" class="add-msg"></span>
+  </div>
+
+</main>
+
+<script src="app.js"></script>
+<script>
+function quickAdd(ticker) {
+  const err = addTicker(ticker);
+  if (!err) {
+    renderWatchlistCards();
+    renderSidebarWatchlist();
+    // brief flash on the button
+    const btns = document.querySelectorAll('.add-btn');
+    btns.forEach(b => { if (b.textContent.trim() === '+ Add') b.textContent = '✓ Added'; });
+    setTimeout(() => btns.forEach(b => { if (b.textContent.trim() === '✓ Added') b.textContent = '+ Add'; }), 1400);
+  }
+}
+// Override renderWatchlistCards to refresh this page's static HTML too
+document.addEventListener('DOMContentLoaded', () => {
+  renderSidebarWatchlist();
+  // The static cards serve as fallback; JS-driven re-render happens on add/remove
+});
+</script>
+</body>
+</html>
