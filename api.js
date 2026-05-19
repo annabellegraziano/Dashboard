@@ -67,7 +67,7 @@ async function fetchIncomeStatement(ticker, limit = 8) {
 /* ── FMP: Company profile + live quote ────────────────────────────── */
 
 async function fetchProfile(ticker) {
-  const data = await fmpFetch(`/profile/${ticker}`, 5 * 60_000);
+  const data = await fmpFetch(`/quote/${ticker}`, 5 * 60_000);
   return Array.isArray(data) && data[0] ? data[0] : null;
 }
 
