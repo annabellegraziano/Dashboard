@@ -56,35 +56,7 @@
 
 <main id="main">
   <h1 class="page-title">Settings</h1>
-  <p class="page-subtitle-center">API keys are stored in your browser only — never sent to any server except the API provider directly.</p>
-
-  <!-- API Keys -->
-  <div class="settings-section">
-
-    <div class="api-card">
-      <div class="api-card-header">
-        <div class="api-card-title">Alpha Vantage</div>
-        <div class="api-card-status"><span class="status-dot" id="dot-av"></span><span id="status-av">Not configured</span></div>
-      </div>
-      <div class="key-row">
-        <label>API Key</label>
-        <input type="password" class="key-input" id="av-key" placeholder="Enter your Alpha Vantage API key"/>
-        <button class="key-toggle" onclick="toggleVis('av-key', this)">Show</button>
-      </div>
-      <div class="help-text">Used for: live price quotes and % change on the Watchlist and company pages.<br>
-        Free tier: 25 req/day, 5 req/min. Results cached 15 min. Get your key at <strong>alphavantage.co</strong>.</div>
-      <div style="margin-top:12px;display:flex;gap:8px">
-        <button class="test-btn" onclick="testAV()">Test Connection</button>
-        <span class="test-result" id="test-av"></span>
-      </div>
-    </div>
-
-    <div class="save-row">
-      <button class="add-btn" onclick="saveKeys()">Save Key</button>
-      <button class="test-btn" onclick="clearKeys()">Clear Key</button>
-      <span class="save-msg" id="save-msg"></span>
-    </div>
-  </div>
+  <p class="page-subtitle-center">Live data comes from Yahoo Finance — no API key required.</p>
 
   <!-- Watchlist -->
   <div class="settings-section">
@@ -107,7 +79,7 @@
       <button class="test-btn" onclick="clearCache()">Clear All Cached Data</button>
       <span id="cache-msg" style="font-size:12px;color:#2d7a2d"></span>
     </div>
-    <div class="help-text" style="margin-top:8px">Cache TTL: Prices = 15 min (Alpha Vantage)</div>
+    <div class="help-text" style="margin-top:8px">Cache TTL: prices = 5 min, earnings estimates = 1 hour (Yahoo Finance)</div>
   </div>
 
 </main>
@@ -116,57 +88,10 @@
 <script src="api.js"></script>
 <script src="app.js"></script>
 <script>
-/* ── Populate inputs from localStorage ── */
 document.addEventListener('DOMContentLoaded', () => {
-  const keys = getKeys();
-  if (keys.av) document.getElementById('av-key').value = keys.av;
-  updateDots();
   renderWLTags();
   renderSidebarWatchlist();
 });
-
-function toggleVis(id, btn) {
-  const input = document.getElementById(id);
-  input.type = input.type === 'password' ? 'text' : 'password';
-  btn.textContent = input.type === 'password' ? 'Show' : 'Hide';
-}
-
-function saveKeys() {
-  const av = document.getElementById('av-key').value.trim();
-  if (av) localStorage.setItem('av_key', av); else localStorage.removeItem('av_key');
-  updateDots();
-  const msg = document.getElementById('save-msg');
-  msg.textContent = 'Key saved ✓';
-  setTimeout(() => msg.textContent = '', 2500);
-}
-
-function clearKeys() {
-  localStorage.removeItem('av_key');
-  document.getElementById('av-key').value = '';
-  updateDots();
-}
-
-function updateDots() {
-  const keys = getKeys();
-  const dot = document.getElementById('dot-av');
-  const lbl = document.getElementById('status-av');
-  if (keys.av) { dot.className = 'status-dot dot-ok';   lbl.textContent = 'Configured';     lbl.style.color = '#2d7a2d'; }
-  else          { dot.className = 'status-dot dot-miss'; lbl.textContent = 'Not configured'; lbl.style.color = '#aaa'; }
-}
-
-async function testAV() {
-  const el = document.getElementById('test-av');
-  el.textContent = 'Testing…'; el.className = 'test-result';
-  try {
-    const key = document.getElementById('av-key').value.trim() || getKeys().av;
-    if (!key) { el.textContent = 'No key entered.'; el.className = 'test-result test-err'; return; }
-    const r = await fetch(`${AV_BASE}?function=GLOBAL_QUOTE&symbol=MSFT&apikey=${key}`);
-    const d = await r.json();
-    if (d['Global Quote']?.['05. price']) { el.textContent = `✓ Connected — MSFT $${parseFloat(d['Global Quote']['05. price']).toFixed(2)}`; el.className = 'test-result test-ok'; }
-    else if (d.Note) { el.textContent = '✗ Rate limit hit — try again in a minute'; el.className = 'test-result test-err'; }
-    else { el.textContent = '✗ Invalid key'; el.className = 'test-result test-err'; }
-  } catch(e) { el.textContent = '✗ ' + e.message; el.className = 'test-result test-err'; }
-}
 
 /* ── Watchlist management ── */
 function getCustomWL() {

@@ -109,16 +109,16 @@ function quickAdd(ticker) {
 
 function loadLiveData() {
   const list = getWatchlist();
-  if (!list.length || !getKeys().av) return;
-  fetchAVQuotes(list).then(avResults => {
+  if (!list.length) return;
+  fetchYFQuotes(list).then(results => {
     list.forEach(t => {
-      const av      = avResults[t];
+      const q       = results[t];
       const priceEl = document.getElementById(`wl-price-${t}`);
       if (!priceEl) return;
-      if (av) {
-        const sign  = parseFloat(av.change) >= 0 ? '+' : '';
-        const color = parseFloat(av.change) >= 0 ? '#2d7a2d' : '#c0392b';
-        priceEl.innerHTML = `<span style="font-size:1.25rem;font-weight:bold;color:#000">$${av.price}</span> <span style="font-size:12px;color:${color}">${sign}${av.change} (${sign}${av.changePct}%)</span>`;
+      if (q) {
+        const sign  = parseFloat(q.change) >= 0 ? '+' : '';
+        const color = parseFloat(q.change) >= 0 ? '#2d7a2d' : '#c0392b';
+        priceEl.innerHTML = `<span style="font-size:1.25rem;font-weight:bold;color:#000">$${q.price}</span> <span style="font-size:12px;color:${color}">${sign}${q.change} (${sign}${q.changePct}%)</span>`;
       } else {
         priceEl.textContent = '';
       }

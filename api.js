@@ -1,5 +1,5 @@
 /* ── Cache helpers ─────────────────────────────────────────────────
-   TTL-based localStorage cache to respect free-tier rate limits.
+   TTL-based localStorage cache to avoid hammering free-tier APIs.
    ─────────────────────────────────────────────────────────────── */
 
 function cacheGet(key) {
@@ -18,42 +18,91 @@ function cacheClear(prefix) {
   Object.keys(localStorage).filter(k => k.startsWith('_c_' + (prefix || ''))).forEach(k => localStorage.removeItem(k));
 }
 
-/* ── Alpha Vantage: Global Quote ───────────────────────────────────── */
-/* Free tier: 25 requests/day. Results cached 15 min per ticker.      */
+/* ── Yahoo Finance via allorigins CORS proxy ───────────────────────
+   No API key required. Proxy returns { contents: "<json string>" }.
+   ─────────────────────────────────────────────────────────────── */
 
-async function fetchAVQuote(ticker) {
-  const cacheKey = `av_${ticker}`;
+/* TSMC trades as TSM (ADR) on US exchanges */
+const YF_TICKERS = { TSMC: 'TSM' };
+
+async function yfFetch(path, ttlMs = 300_000) {
+  const cacheKey = path.replace(/[^a-z0-9]/gi, '_');
   const cached = cacheGet(cacheKey);
   if (cached) return cached;
+  const yfUrl = `https://query1.finance.yahoo.com${path}`;
+  const url = `https://api.allorigins.win/get?url=${encodeURIComponent(yfUrl)}`;
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`Proxy ${r.status}`);
+  const wrapper = await r.json();
+  if (!wrapper.contents) throw new Error('Empty proxy response');
+  const data = JSON.parse(wrapper.contents);
+  cacheSet(cacheKey, data, ttlMs);
+  return data;
+}
 
-  const key = getKeys().av;
-  if (!key) return null;
-
+/* Returns { price, change, changePct } or null */
+async function fetchYFQuote(ticker) {
   try {
-    const url = `${AV_BASE}?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=${key}`;
-    const r = await fetch(url);
-    const data = await r.json();
-    const q = data['Global Quote'];
-    if (!q || !q['05. price']) return null;
-
-    const result = {
-      price:     parseFloat(q['05. price']).toFixed(2),
-      change:    parseFloat(q['09. change']).toFixed(2),
-      changePct: parseFloat(q['10. change percent']).toFixed(2),
+    const sym = YF_TICKERS[ticker] || ticker;
+    const data = await yfFetch(`/v8/finance/chart/${sym}?range=1d&interval=1d`, 5 * 60_000);
+    const meta = data?.chart?.result?.[0]?.meta;
+    if (!meta?.regularMarketPrice) return null;
+    const price = meta.regularMarketPrice;
+    const prev  = meta.chartPreviousClose ?? meta.previousClose ?? price;
+    const change    = price - prev;
+    const changePct = prev ? (change / prev) * 100 : 0;
+    return {
+      price:     price.toFixed(2),
+      change:    change.toFixed(2),
+      changePct: changePct.toFixed(2),
     };
-    cacheSet(cacheKey, result, 15 * 60_000);
-    return result;
   } catch { return null; }
 }
 
-/* Fetch AV quotes sequentially (respect 5 req/min limit) */
-async function fetchAVQuotes(tickers) {
+/* Fetch quotes sequentially with 300ms pacing to avoid proxy throttling */
+async function fetchYFQuotes(tickers) {
   const results = {};
   for (const t of tickers) {
-    results[t] = await fetchAVQuote(t);
-    await new Promise(res => setTimeout(res, 250));
+    results[t] = await fetchYFQuote(t);
+    await new Promise(res => setTimeout(res, 300));
   }
   return results;
+}
+
+/* Returns { earningsDate, revenueEst, epsEst } or null */
+async function fetchYFEarnings(ticker) {
+  try {
+    const sym  = YF_TICKERS[ticker] || ticker;
+    const path = `/v10/finance/quoteSummary/${sym}?modules=calendarEvents%2CearningsTrend`;
+    const data = await yfFetch(path, 60 * 60_000);
+    const result = data?.quoteSummary?.result?.[0];
+    if (!result) return null;
+
+    const cal   = result.calendarEvents?.earnings;
+    const trend = result.earningsTrend?.trend ?? [];
+    const curQ  = trend.find(t => t.period === '0q');
+
+    let earningsDate = null;
+    if (cal?.earningsDate?.[0]) {
+      const d   = cal.earningsDate[0];
+      const raw = d.fmt || (d.raw ? new Date(d.raw * 1000).toISOString().slice(0, 10) : null);
+      if (raw) {
+        earningsDate = new Date(raw + 'T12:00:00Z')
+          .toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+    }
+
+    const revRaw = cal?.revenueAverage?.raw ?? curQ?.revenueEstimate?.avg?.raw ?? null;
+    const revenueEst = revRaw != null
+      ? (revRaw >= 1e9 ? `$${(revRaw / 1e9).toFixed(1)}B` : `$${(revRaw / 1e6).toFixed(0)}M`)
+      : null;
+
+    const epsRaw = cal?.earningsAverage?.raw ?? cal?.epsAverage?.raw
+      ?? curQ?.earningsEstimate?.avg?.raw ?? null;
+    const epsEst = epsRaw != null ? `$${epsRaw.toFixed(2)}` : null;
+
+    return { earningsDate, revenueEst, epsEst };
+  } catch { return null; }
 }
 
 /* ── Notes: persist analyst notes per ticker/page to localStorage ─── */

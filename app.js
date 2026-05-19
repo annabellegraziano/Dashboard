@@ -27,6 +27,17 @@ function initNotesEditor(type, ticker) {
   window.addEventListener('beforeunload', () => { clearTimeout(saveTimer); saveNote(type, ticker, ta.value); });
 }
 
+/* ── Populate an editable KPI from live data if user hasn't typed a value */
+function populateKPIIfEmpty(pageKey, ticker, field, value) {
+  if (!value) return;
+  const lsKey = `kpi_${pageKey}_${ticker}_${field}`;
+  if (localStorage.getItem(lsKey)) return;
+  const el = document.querySelector(`.kpi-editable[data-field="${field}"]`);
+  if (!el) return;
+  el.textContent = value;
+  localStorage.setItem(lsKey, value);
+}
+
 /* ── Editable KPI values (contenteditable, auto-saved to localStorage) */
 function initEditableKPIs(pageKey, ticker) {
   document.querySelectorAll('.kpi-editable').forEach(el => {

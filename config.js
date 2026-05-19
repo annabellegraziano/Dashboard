@@ -1,5 +1,5 @@
 /* ── App configuration ─────────────────────────────────────────────
-   API keys stored in localStorage — enter at settings.html.
+   No API keys required — Yahoo Finance accessed via allorigins proxy.
    ─────────────────────────────────────────────────────────────── */
 
 const SECTORS = {
@@ -31,11 +31,3 @@ Object.entries(SECTORS).forEach(([s, tickers]) => tickers.forEach(t => TICKER_SE
 function sectorClass(sector) {
   return sector === 'Semis/AI' ? 'semis' : sector === 'Software/Cloud' ? 'software' : 'fig';
 }
-
-const AV_BASE = 'https://www.alphavantage.co/query';
-
-function getKeys() {
-  return { av: localStorage.getItem('av_key') || '' };
-}
-
-function hasKey(name) { return !!getKeys()[name]; }

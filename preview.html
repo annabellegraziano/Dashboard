@@ -46,7 +46,7 @@
     <div class="kpi-card">
       <div class="kpi-label">Current Price</div>
       <div class="kpi-value" id="kpi-price">—</div>
-      <div class="kpi-desc" id="kpi-change">Alpha Vantage</div>
+      <div class="kpi-desc" id="kpi-change">Yahoo Finance</div>
     </div>
   </div>
 
@@ -84,13 +84,20 @@ document.addEventListener('DOMContentLoaded', () => {
   initNotesEditor('preview', TICKER);
   initEditableKPIs('preview', TICKER);
 
-  fetchAVQuote(TICKER).then(av => {
-    if (!av) return;
-    document.getElementById('kpi-price').textContent = `$${av.price}`;
-    const sign  = parseFloat(av.change) >= 0 ? '+' : '';
-    const color = parseFloat(av.change) >= 0 ? '#2d7a2d' : '#c0392b';
+  fetchYFQuote(TICKER).then(q => {
+    if (!q) return;
+    document.getElementById('kpi-price').textContent = `$${q.price}`;
+    const sign  = parseFloat(q.change) >= 0 ? '+' : '';
+    const color = parseFloat(q.change) >= 0 ? '#2d7a2d' : '#c0392b';
     document.getElementById('kpi-change').innerHTML =
-      `<span style="color:${color}">${sign}${av.change} (${sign}${av.changePct}%)</span>`;
+      `<span style="color:${color}">${sign}${q.change} (${sign}${q.changePct}%)</span>`;
+  }).catch(() => {});
+
+  fetchYFEarnings(TICKER).then(e => {
+    if (!e) return;
+    populateKPIIfEmpty('preview', TICKER, 'date', e.earningsDate);
+    populateKPIIfEmpty('preview', TICKER, 'rev',  e.revenueEst);
+    populateKPIIfEmpty('preview', TICKER, 'eps',  e.epsEst);
   }).catch(() => {});
 });
 </script>
