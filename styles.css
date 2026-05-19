@@ -216,6 +216,16 @@ a { color: inherit; }
 }
 .kpi-card.highlight { border-color: #d4a017; background: #fffdf4; }
 
+.kpi-editable {
+  cursor: text;
+  border-bottom: 1px dashed #ccc;
+  min-width: 40px;
+  display: inline-block;
+  outline: none;
+}
+.kpi-editable:focus { border-bottom-color: #555; }
+.kpi-editable:empty::before { content: '—'; color: #bbb; }
+
 .kpi-label {
   font-size: 9.5px;
   text-transform: uppercase;

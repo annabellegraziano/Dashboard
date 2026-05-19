@@ -18,68 +18,6 @@ function cacheClear(prefix) {
   Object.keys(localStorage).filter(k => k.startsWith('_c_' + (prefix || ''))).forEach(k => localStorage.removeItem(k));
 }
 
-/* ── FMP helpers ───────────────────────────────────────────────────── */
-
-async function fmpFetch(path, ttlMs = 300_000) {
-  const key = getKeys().fmp;
-  if (!key) throw new Error('FMP API key not configured — go to Settings.');
-  const cacheKey = path.replace(/[^a-z0-9]/gi, '_');
-  const cached = cacheGet(cacheKey);
-  if (cached) return cached;
-  const url = `${FMP_BASE}${path}${path.includes('?') ? '&' : '?'}apikey=${key}`;
-  const r = await fetch(url);
-  if (!r.ok) throw new Error(`FMP ${r.status}: ${r.statusText}`);
-  const data = await r.json();
-  if (data && !data['Error Message']) cacheSet(cacheKey, data, ttlMs);
-  return data;
-}
-
-/* ── FMP: Stock news ───────────────────────────────────────────────── */
-
-async function fetchNews(tickers = WATCHLIST, limit = 20) {
-  const data = await fmpFetch(`/news/stock?symbols=${tickers.join(',')}&limit=${limit}`, 15 * 60_000);
-  return Array.isArray(data) ? data : [];
-}
-
-/* ── FMP: Earnings calendar (next 45 days, filtered to watchlist) ──── */
-
-async function fetchEarningsCalendar() {
-  const from = new Date().toISOString().slice(0, 10);
-  const to   = new Date(Date.now() + 45 * 86_400_000).toISOString().slice(0, 10);
-  const data = await fmpFetch(`/earnings-calendar?from=${from}&to=${to}`, 60 * 60_000);
-  return Array.isArray(data) ? data.filter(e => WATCHLIST.includes(e.symbol)) : [];
-}
-
-/* ── FMP: Earnings surprises (historical beat/miss) ────────────────── */
-
-async function fetchEarningsSurprises(ticker) {
-  const data = await fmpFetch(`/earnings-surprises?symbol=${ticker}`, 6 * 60 * 60_000);
-  return Array.isArray(data) ? data.slice(0, 8) : [];
-}
-
-/* ── FMP: Quarterly income statement ──────────────────────────────── */
-
-async function fetchIncomeStatement(ticker, limit = 8) {
-  const data = await fmpFetch(`/income-statement?symbol=${ticker}&period=quarter&limit=${limit}`, 6 * 60 * 60_000);
-  return Array.isArray(data) ? data : [];
-}
-
-/* ── FMP: Company profile + live quote ────────────────────────────── */
-
-async function fetchProfile(ticker) {
-  const data = await fmpFetch(`/quote?symbol=${ticker}`, 5 * 60_000);
-  return Array.isArray(data) && data[0] ? data[0] : null;
-}
-
-async function fetchQuoteBulk(tickers) {
-  const joined = tickers.join(',');
-  const data = await fmpFetch(`/quote?symbol=${joined}`, 5 * 60_000);
-  if (!Array.isArray(data)) return {};
-  const map = {};
-  data.forEach(q => { map[q.symbol] = q; });
-  return map;
-}
-
 /* ── Alpha Vantage: Global Quote ───────────────────────────────────── */
 /* Free tier: 25 requests/day. Results cached 15 min per ticker.      */
 
@@ -102,7 +40,6 @@ async function fetchAVQuote(ticker) {
       price:     parseFloat(q['05. price']).toFixed(2),
       change:    parseFloat(q['09. change']).toFixed(2),
       changePct: parseFloat(q['10. change percent']).toFixed(2),
-      source:    'Alpha Vantage',
     };
     cacheSet(cacheKey, result, 15 * 60_000);
     return result;
@@ -114,32 +51,13 @@ async function fetchAVQuotes(tickers) {
   const results = {};
   for (const t of tickers) {
     results[t] = await fetchAVQuote(t);
-    await new Promise(res => setTimeout(res, 250)); // gentle pacing
+    await new Promise(res => setTimeout(res, 250));
   }
   return results;
 }
 
-/* ── Merge price data: AV primary, FMP fallback ──────────────────── */
-
-function normalizeQuote(fmpQ, avQ) {
-  if (avQ) return avQ;
-  if (!fmpQ) return null;
-  return {
-    price:     fmpQ.price?.toFixed(2),
-    change:    fmpQ.change?.toFixed(2),
-    changePct: fmpQ.changePercentage?.toFixed(2),
-    source:    'FMP',
-  };
-}
-
 /* ── Notes: persist analyst notes per ticker/page to localStorage ─── */
 
-function getNoteKey(type, ticker) {
-  return `note_${type}_${ticker}`;
-}
-function loadNote(type, ticker) {
-  return localStorage.getItem(getNoteKey(type, ticker)) || '';
-}
-function saveNote(type, ticker, text) {
-  localStorage.setItem(getNoteKey(type, ticker), text);
-}
+function getNoteKey(type, ticker) { return `note_${type}_${ticker}`; }
+function loadNote(type, ticker)   { return localStorage.getItem(getNoteKey(type, ticker)) || ''; }
+function saveNote(type, ticker, text) { localStorage.setItem(getNoteKey(type, ticker), text); }

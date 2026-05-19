@@ -1,3 +1,44 @@
+/* ── Shared notes editor ──────────────────────────────────────────── */
+function initNotesEditor(type, ticker) {
+  const ta       = document.getElementById('notes-ta');
+  const statusEl = document.getElementById('notes-status');
+  const clearBtn = document.getElementById('notes-clear');
+  if (!ta) return;
+
+  ta.value = loadNote(type, ticker);
+  let saveTimer;
+  ta.addEventListener('input', () => {
+    clearTimeout(saveTimer);
+    if (statusEl) statusEl.textContent = 'Saving…';
+    saveTimer = setTimeout(() => {
+      saveNote(type, ticker, ta.value);
+      if (statusEl) { statusEl.textContent = 'Saved'; setTimeout(() => { statusEl.textContent = ''; }, 1500); }
+    }, 600);
+  });
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      if (!ta.value || confirm('Clear all notes for ' + ticker + '?')) {
+        ta.value = '';
+        saveNote(type, ticker, '');
+        if (statusEl) { statusEl.textContent = 'Cleared'; setTimeout(() => { statusEl.textContent = ''; }, 1500); }
+      }
+    });
+  }
+  window.addEventListener('beforeunload', () => { clearTimeout(saveTimer); saveNote(type, ticker, ta.value); });
+}
+
+/* ── Editable KPI values (contenteditable, auto-saved to localStorage) */
+function initEditableKPIs(pageKey, ticker) {
+  document.querySelectorAll('.kpi-editable').forEach(el => {
+    const field = el.dataset.field;
+    if (!field) return;
+    const lsKey = `kpi_${pageKey}_${ticker}_${field}`;
+    const saved = localStorage.getItem(lsKey);
+    if (saved) el.textContent = saved;
+    el.addEventListener('input', () => localStorage.setItem(lsKey, el.textContent.trim() || '—'));
+  });
+}
+
 /* ── Watchlist ─────────────────────────────────────────────────────── */
 const DEFAULT_WATCHLIST = WATCHLIST.slice();
 
@@ -80,7 +121,6 @@ function renderWatchlistCards() {
       <div class="wl-ticker">${t}</div>
       <div class="wl-name">${name}</div>
       <div class="wl-row" id="wl-price-${t}" style="font-size:13px;color:#aaa">Loading price…</div>
-      <div class="wl-row" id="wl-earn-${t}" style="font-size:12px;color:#aaa">Loading earnings…</div>
       <div class="wl-links">
         <a class="wl-link" href="preview.html?t=${t}">Preview</a>
         <a class="wl-link" href="financials.html?t=${t}">Financials</a>

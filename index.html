@@ -165,7 +165,7 @@
   <div class="show-more">
     <a id="show-more-btn" data-open="false">Show all 12 articles ↓</a>
   </div>
-  <p class="last-updated" id="last-updated">Static content · Add your FMP key in Settings to load live news</p>
+  <p class="last-updated">Curated research — update cards as earnings events occur</p>
 
 </main>
 
@@ -173,39 +173,7 @@
 <script src="api.js"></script>
 <script src="app.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', async () => {
-  renderSidebarWatchlist();
-
-  if (!getKeys().fmp) return;
-
-  const grid = document.getElementById('news-grid');
-  const lu   = document.getElementById('last-updated');
-
-  try {
-    const articles = await fetchNews(WATCHLIST, 18);
-    if (!articles.length) return;
-
-    grid.innerHTML = articles.map(a => {
-      const sym    = a.symbol || '';
-      const sector = TICKER_SECTOR[sym] || '';
-      const badge  = sector ? `<span class="sector-badge sector-${sectorClass(sector)}">${sector}</span>` : '';
-      return `
-        <div class="news-card">
-          <div class="nc-meta">${sym} &nbsp;·&nbsp; ${(a.publishedDate || '').slice(0, 10)}</div>
-          <div class="nc-company">${COMPANY_NAMES[sym] || sym}</div>
-          ${badge}
-          <div class="nc-headline"><a href="${a.url}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">${a.title}</a></div>
-          <p class="nc-summary">${(a.text || '').slice(0, 260)}…</p>
-          <div class="nc-source">${a.site || 'FMP News'}</div>
-        </div>`;
-    }).join('');
-
-    document.getElementById('show-more-btn')?.closest('.show-more')?.remove();
-    lu.textContent = `Live · FMP · Refreshed ${new Date().toLocaleTimeString()} · ${articles.length} articles`;
-  } catch(e) {
-    console.warn('FMP news fetch failed:', e.message);
-  }
-});
+document.addEventListener('DOMContentLoaded', () => { renderSidebarWatchlist(); });
 </script>
 </body>
 </html>

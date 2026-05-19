@@ -231,34 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("m-thesis-text").textContent   = data.thesis;
 
   renderSidebarWatchlist(ticker);
-
-  /* Notes auto-save */
-  const ta = document.getElementById("notes-ta");
-  const statusEl = document.getElementById("notes-status");
-  ta.value = loadNote("company", ticker);
-  let saveTimer;
-  ta.addEventListener("input", () => {
-    clearTimeout(saveTimer);
-    statusEl.textContent = "Saving…";
-    saveTimer = setTimeout(() => {
-      saveNote("company", ticker, ta.value);
-      statusEl.textContent = "Saved";
-      setTimeout(() => statusEl.textContent = "", 1500);
-    }, 600);
-  });
-  document.getElementById("notes-clear").addEventListener("click", () => {
-    if (!ta.value || confirm("Clear all notes for " + ticker + "?")) {
-      ta.value = "";
-      saveNote("company", ticker, "");
-      statusEl.textContent = "Cleared";
-      setTimeout(() => statusEl.textContent = "", 1500);
-    }
-  });
-
-  window.addEventListener("beforeunload", () => {
-    clearTimeout(saveTimer);
-    saveNote("company", ticker, ta.value);
-  });
+  initNotesEditor("company", ticker);
 });
 </script>
 </body>

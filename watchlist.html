@@ -107,54 +107,23 @@ function quickAdd(ticker) {
   }
 }
 
-async function loadLiveData() {
+function loadLiveData() {
   const list = getWatchlist();
-  if (!list.length) return;
-
-  // FMP bulk quotes for price + earnings calendar for dates
-  try {
-    const [quotes, calendar] = await Promise.all([
-      fetchQuoteBulk(list).catch(() => ({})),
-      fetchEarningsCalendar().catch(() => []),
-    ]);
-
+  if (!list.length || !getKeys().av) return;
+  fetchAVQuotes(list).then(avResults => {
     list.forEach(t => {
+      const av      = avResults[t];
       const priceEl = document.getElementById(`wl-price-${t}`);
-      const earnEl  = document.getElementById(`wl-earn-${t}`);
       if (!priceEl) return;
-
-      const q = quotes[t];
-      if (q) {
-        const sign = q.change >= 0 ? '+' : '';
-        priceEl.innerHTML = `<span style="font-size:1.25rem;font-weight:bold;color:#000">$${q.price?.toFixed(2)}</span> <span style="font-size:12px;color:${q.change >= 0 ? '#2d7a2d' : '#c0392b'}">${sign}${q.change?.toFixed(2)} (${sign}${q.changePercentage?.toFixed(2)}%) today</span>`;
+      if (av) {
+        const sign  = parseFloat(av.change) >= 0 ? '+' : '';
+        const color = parseFloat(av.change) >= 0 ? '#2d7a2d' : '#c0392b';
+        priceEl.innerHTML = `<span style="font-size:1.25rem;font-weight:bold;color:#000">$${av.price}</span> <span style="font-size:12px;color:${color}">${sign}${av.change} (${sign}${av.changePct}%)</span>`;
       } else {
         priceEl.textContent = '';
       }
-
-      const ev = calendar.find(e => e.symbol === t);
-      if (earnEl) {
-        earnEl.textContent = ev
-          ? `Next earnings: ${ev.date}${ev.time === 'amc' ? ' AMC' : ev.time === 'bmo' ? ' BMO' : ''}`
-          : 'Next earnings: —';
-        earnEl.style.color = '#666';
-      }
     });
-
-    // Try AV for more accurate prices (sequential, non-blocking)
-    fetchAVQuotes(list).then(avResults => {
-      list.forEach(t => {
-        const av = avResults[t];
-        if (!av) return;
-        const priceEl = document.getElementById(`wl-price-${t}`);
-        if (!priceEl) return;
-        const sign = parseFloat(av.change) >= 0 ? '+' : '';
-        priceEl.innerHTML = `<span style="font-size:1.25rem;font-weight:bold;color:#000">$${av.price}</span> <span style="font-size:12px;color:${parseFloat(av.change) >= 0 ? '#2d7a2d' : '#c0392b'}">${sign}${av.change} (${sign}${av.changePct}%) · AV</span>`;
-      });
-    }).catch(() => {});
-
-  } catch(e) {
-    console.warn('Live data load failed:', e.message);
-  }
+  }).catch(() => {});
 }
 
 document.addEventListener('DOMContentLoaded', () => {

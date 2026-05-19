@@ -14,89 +14,54 @@
   <div class="sidebar-company" id="s-company"></div>
   <ul class="sidebar-nav">
     <li><a href="#" id="s-overview">Overview</a></li>
-    <li><a href="#" id="s-biz">Business Model</a></li>
-    <li><a href="#" id="s-fin" class="active">&gt; Financials</a></li>
-    <li><a href="#">Thematics</a></li>
-    <li><a href="#">Management</a></li>
-    <li><a href="#">Valuation</a></li>
-    <li><a href="#">Sentiment</a></li>
+    <li><a href="#" class="active">&gt; Financials</a></li>
+    <li><a href="#" id="s-preview">Earnings Preview</a></li>
+    <li><a href="#" id="s-review">Earnings Review</a></li>
   </ul>
-  <div class="sidebar-section-label">Earnings</div>
-  <ul class="sidebar-earnings-links" id="s-earnings"></ul>
   <hr class="sidebar-divider"/>
-  <div id="sidebar-cal"></div>
+  <div class="sidebar-section-label">Coverage</div>
+  <div id="sidebar-wl-links"></div>
 </aside>
 
 <main id="main">
-  <div id="loading-state" class="loading-block">
-    <div class="spinner"></div>
-    <p>Loading financial data…</p>
-  </div>
+  <h1 class="preview-title" id="m-title">Financials</h1>
+  <p class="preview-subtitle" id="m-subtitle"></p>
 
-  <div id="content-state" style="display:none">
-    <h1 class="preview-title" id="m-title">Financials</h1>
-    <p class="preview-subtitle" id="m-subtitle"></p>
-
-    <!-- Summary KPIs -->
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-label">TTM Revenue</div>
-        <div class="kpi-value" id="kpi-ttm-rev">—</div>
-        <div class="kpi-desc">trailing 4 quarters</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Latest Qtr YoY</div>
-        <div class="kpi-value" id="kpi-yoy">—</div>
-        <div class="kpi-desc" id="kpi-yoy-desc">vs. prior year quarter</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Latest Op. Margin</div>
-        <div class="kpi-value" id="kpi-om">—</div>
-        <div class="kpi-desc">operating income / revenue</div>
-      </div>
-      <div class="kpi-card">
-        <div class="kpi-label">Latest EPS</div>
-        <div class="kpi-value" id="kpi-eps">—</div>
-        <div class="kpi-desc" id="kpi-eps-desc">diluted earnings per share</div>
-      </div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">TTM Revenue</div>
+      <div class="kpi-value kpi-editable" data-field="ttm-rev" contenteditable="true" spellcheck="false">—</div>
+      <div class="kpi-desc">Click to edit</div>
     </div>
-
-    <!-- 8-quarter income statement table -->
-    <div class="section-header" style="margin-top:32px">8-Quarter Income Statement Trend</div>
-    <p class="section-sub">Quarterly actuals from Financial Modeling Prep — trailing 8 quarters.</p>
-    <div class="table-wrap">
-      <table id="fin-table">
-        <thead>
-          <tr>
-            <th>Quarter</th>
-            <th>Revenue</th>
-            <th>YoY</th>
-            <th>Gross Profit</th>
-            <th>Gross Margin</th>
-            <th>Op. Income</th>
-            <th>Op. Margin</th>
-            <th>Net Income</th>
-            <th>EPS</th>
-          </tr>
-        </thead>
-        <tbody id="fin-body">
-          <tr><td colspan="9" style="color:#aaa;text-align:center">Loading…</td></tr>
-        </tbody>
-      </table>
+    <div class="kpi-card">
+      <div class="kpi-label">Latest Qtr YoY</div>
+      <div class="kpi-value kpi-editable" data-field="yoy" contenteditable="true" spellcheck="false">—</div>
+      <div class="kpi-desc">Click to edit</div>
     </div>
-
-    <p class="footer-note">
-      All financials from Financial Modeling Prep quarterly income statement API.
-      YoY calculated vs. same quarter prior year. Data subject to restatement — verify before use.
-    </p>
-  </div>
-
-  <div id="error-state" style="display:none">
-    <div class="error-block">
-      <p id="error-msg"></p>
-      <p style="margin-top:10px;font-size:12px">Make sure your <a href="settings.html" style="color:#1a0dab">FMP API key is configured</a>.</p>
+    <div class="kpi-card">
+      <div class="kpi-label">Latest Op. Margin</div>
+      <div class="kpi-value kpi-editable" data-field="op-margin" contenteditable="true" spellcheck="false">—</div>
+      <div class="kpi-desc">Click to edit</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Latest EPS</div>
+      <div class="kpi-value kpi-editable" data-field="eps" contenteditable="true" spellcheck="false">—</div>
+      <div class="kpi-desc">Click to edit</div>
     </div>
   </div>
+
+  <div class="section-header">Income Statement Notes</div>
+  <p class="section-sub" style="margin-bottom:12px">Paste in quarterly financials, track revenue/EPS trends, note margin dynamics.</p>
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+    <span class="notes-status" id="notes-status"></span>
+    <button class="notes-clear" id="notes-clear">Clear</button>
+  </div>
+  <textarea id="notes-ta" class="notes-editor" style="min-height:280px" placeholder="Paste quarterly income statement data here — revenue, gross profit, operating income, net income, EPS (diluted), YoY growth rates, margin trends, beat/miss vs consensus…&#10;&#10;Example format:&#10;Q1 2026: Rev $44.1B (+69% YoY), GM 73.5%, Op. Inc $27.1B, EPS $0.61 (beat $0.58 est.)&#10;Q4 2025: Rev $39.3B (+78% YoY), GM 73.0%, Op. Inc $24.0B, EPS $0.89 (beat $0.84 est.)"></textarea>
+
+  <p class="footer-note" style="margin-top:32px">
+    KPI cards are editable — click any value to type. Notes auto-save to your browser.
+    Source your data from earnings releases, IR pages, or Bloomberg/FactSet.
+  </p>
 </main>
 
 <script src="config.js"></script>
@@ -104,86 +69,23 @@
 <script src="app.js"></script>
 <script>
 const params = new URLSearchParams(window.location.search);
-const TICKER = (params.get('t') || 'GOOGL').toUpperCase();
+const TICKER = (params.get('t') || 'NVDA').toUpperCase();
 const CONAME = COMPANY_NAMES[TICKER] || TICKER;
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
+  document.title = `${TICKER} — Financials`;
   document.getElementById('s-ticker').textContent  = TICKER;
   document.getElementById('s-company').textContent = CONAME;
   document.getElementById('s-overview').href = `company.html?t=${TICKER}`;
-  document.getElementById('s-earnings').innerHTML = `
-    <li><a href="preview.html?t=${TICKER}">Next Earnings Preview</a></li>
-    <li><a href="review.html?t=${TICKER}">Latest Review</a></li>`;
-  document.title = `${TICKER} — Financials`;
-  renderSidebarWatchlist();
+  document.getElementById('s-preview').href  = `preview.html?t=${TICKER}`;
+  document.getElementById('s-review').href   = `review.html?t=${TICKER}`;
+  document.getElementById('m-title').textContent    = `${TICKER} — Financials`;
+  document.getElementById('m-subtitle').textContent = `${CONAME} | Income statement & key metrics`;
 
-  try {
-    const [income, calendar] = await Promise.all([
-      fetchIncomeStatement(TICKER, 8),
-      fetchEarningsCalendar(),
-    ]);
-
-    renderEarningsCalendar(calendar);
-
-    const latest  = income[0];
-    const yearAgo = income[4];
-
-    document.getElementById('m-title').textContent    = `${TICKER} — Financials`;
-    document.getElementById('m-subtitle').textContent =
-      `${CONAME} | 8-Quarter Quarterly Income Statement | Source: Financial Modeling Prep`;
-
-    if (latest) {
-      const ttm = income.slice(0, 4).reduce((s, q) => s + (q.revenue || 0), 0);
-      const yoy = yearAgo && yearAgo.revenue
-        ? ((latest.revenue / yearAgo.revenue - 1) * 100).toFixed(1)
-        : null;
-      document.getElementById('kpi-ttm-rev').textContent  = `$${(ttm / 1e9).toFixed(1)}B`;
-      document.getElementById('kpi-yoy').textContent      = yoy !== null ? `${parseFloat(yoy) >= 0 ? '+' : ''}${yoy}%` : '—';
-      document.getElementById('kpi-yoy-desc').textContent = yearAgo ? `vs. ${yearAgo.date}` : 'prior year quarter';
-      document.getElementById('kpi-om').textContent       = latest.operatingIncomeRatio
-        ? `${(latest.operatingIncomeRatio * 100).toFixed(1)}%` : '—';
-      document.getElementById('kpi-eps').textContent      = latest.eps ? `$${latest.eps.toFixed(2)}` : '—';
-      document.getElementById('kpi-eps-desc').textContent = `Q ended ${latest.date}`;
-    }
-
-    populateFinTable(income);
-
-    document.getElementById('loading-state').style.display = 'none';
-    document.getElementById('content-state').style.display = 'block';
-
-  } catch(e) {
-    document.getElementById('loading-state').style.display = 'none';
-    document.getElementById('error-state').style.display   = 'block';
-    document.getElementById('error-msg').textContent = e.message;
-  }
+  renderSidebarWatchlist(TICKER);
+  initNotesEditor('financials', TICKER);
+  initEditableKPIs('financials', TICKER);
 });
-
-function populateFinTable(income) {
-  const tbody = document.getElementById('fin-body');
-  if (!income.length) {
-    tbody.innerHTML = '<tr><td colspan="9" style="color:#aaa;text-align:center">No data available</td></tr>';
-    return;
-  }
-  tbody.innerHTML = income.map((q, i) => {
-    const prev    = income[i + 4];
-    const yoyNum  = prev && prev.revenue ? (q.revenue / prev.revenue - 1) * 100 : null;
-    const yoy     = yoyNum !== null ? `${yoyNum >= 0 ? '+' : ''}${yoyNum.toFixed(1)}%` : '—';
-    const yoyCls  = yoyNum !== null ? (yoyNum >= 0 ? 'c-pos' : 'c-neg') : '';
-    const gm      = q.grossProfitRatio    ? `${(q.grossProfitRatio    * 100).toFixed(1)}%` : '—';
-    const om      = q.operatingIncomeRatio ? `${(q.operatingIncomeRatio * 100).toFixed(1)}%` : '—';
-    return `<tr>
-      <td><strong>${q.date}</strong></td>
-      <td>$${(q.revenue / 1e9).toFixed(2)}B</td>
-      <td class="${yoyCls}">${yoy}</td>
-      <td>$${(q.grossProfit / 1e9).toFixed(2)}B</td>
-      <td>${gm}</td>
-      <td>$${(q.operatingIncome / 1e9).toFixed(2)}B</td>
-      <td>${om}</td>
-      <td>$${(q.netIncome / 1e9).toFixed(2)}B</td>
-      <td>${q.eps ? '$' + q.eps.toFixed(2) : '—'}</td>
-    </tr>`;
-  }).join('');
-}
 </script>
 </body>
 </html>

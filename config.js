@@ -32,14 +32,10 @@ function sectorClass(sector) {
   return sector === 'Semis/AI' ? 'semis' : sector === 'Software/Cloud' ? 'software' : 'fig';
 }
 
-const FMP_BASE = 'https://financialmodelingprep.com/stable';
-const AV_BASE  = 'https://www.alphavantage.co/query';
+const AV_BASE = 'https://www.alphavantage.co/query';
 
 function getKeys() {
-  return {
-    fmp: localStorage.getItem('fmp_key') || '',
-    av:  localStorage.getItem('av_key')  || '',
-  };
+  return { av: localStorage.getItem('av_key') || '' };
 }
 
 function hasKey(name) { return !!getKeys()[name]; }
