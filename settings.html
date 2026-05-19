@@ -73,10 +73,12 @@
       </div>
       <div class="help-text">Used for: earnings calendar, news feed, income statements, revenue/EPS actuals, quotes.<br>
         Free tier: 250 req/day. Get your key at <strong>financialmodelingprep.com</strong> → free plan.</div>
-      <div style="margin-top:12px;display:flex;gap:8px">
+      <div style="margin-top:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
         <button class="test-btn" onclick="testFMP()">Test Connection</button>
+        <button class="test-btn" onclick="testFMPRaw()">Raw Debug</button>
         <span class="test-result" id="test-fmp"></span>
       </div>
+      <pre id="fmp-raw" style="display:none;margin-top:10px;padding:12px;background:#f5f5f3;border:1px solid #e4e4e0;font-size:11px;line-height:1.5;white-space:pre-wrap;word-break:break-all;border-radius:2px;color:#333;max-height:220px;overflow:auto"></pre>
     </div>
 
     <div class="api-card">
@@ -175,6 +177,26 @@ function updateDots() {
     if (keys[k]) { dot.className = 'status-dot dot-ok';   lbl.textContent = 'Configured';     lbl.style.color = '#2d7a2d'; }
     else          { dot.className = 'status-dot dot-miss'; lbl.textContent = 'Not configured'; lbl.style.color = '#aaa'; }
   });
+}
+
+async function testFMPRaw() {
+  const rawEl = document.getElementById('fmp-raw');
+  const statusEl = document.getElementById('test-fmp');
+  rawEl.style.display = 'block';
+  rawEl.textContent = 'Fetching…';
+  statusEl.textContent = '';
+  try {
+    const key = document.getElementById('fmp-key').value.trim() || getKeys().fmp;
+    if (!key) { rawEl.textContent = 'No key entered.'; return; }
+    const url = `${FMP_BASE}/profile/AAPL?apikey=${key}`;
+    const r = await fetch(url);
+    const text = await r.text();
+    let body;
+    try { body = JSON.stringify(JSON.parse(text), null, 2); } catch { body = text; }
+    rawEl.textContent = `HTTP ${r.status} ${r.statusText}\nURL: ${url.replace(key, key.slice(0,4) + '…')}\n\n${body}`;
+  } catch(e) {
+    rawEl.textContent = `Fetch failed: ${e.message}\n\nThis usually means a network error or CORS block — not an API key issue.`;
+  }
 }
 
 async function testFMP() {
