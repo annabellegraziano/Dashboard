@@ -25,15 +25,13 @@ const COMPANY_SECTORS = {
   GS:    'Investment Banking',
 };
 
-const FMP_BASE   = 'https://financialmodelingprep.com/api/v3';
-const AV_BASE    = 'https://www.alphavantage.co/query';
-const CLAUDE_URL = 'https://api.anthropic.com/v1/messages';
+const FMP_BASE = 'https://financialmodelingprep.com/api/v3';
+const AV_BASE  = 'https://www.alphavantage.co/query';
 
 function getKeys() {
   return {
-    fmp:    localStorage.getItem('fmp_key')    || '',
-    av:     localStorage.getItem('av_key')     || '',
-    claude: localStorage.getItem('claude_key') || '',
+    fmp: localStorage.getItem('fmp_key') || '',
+    av:  localStorage.getItem('av_key')  || '',
   };
 }
 

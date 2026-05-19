@@ -97,24 +97,6 @@
       </div>
     </div>
 
-    <div class="api-card">
-      <div class="api-card-header">
-        <div class="api-card-title">Anthropic (Claude API)</div>
-        <div class="api-card-status"><span class="status-dot" id="dot-claude"></span><span id="status-claude">Not configured</span></div>
-      </div>
-      <div class="key-row">
-        <label>API Key</label>
-        <input type="password" class="key-input" id="claude-key" placeholder="sk-ant-…"/>
-        <button class="key-toggle" onclick="toggleVis('claude-key', this)">Show</button>
-      </div>
-      <div class="help-text">Used for: "Generate Preview" and "Generate Review" buttons on company pages.<br>
-        Calls claude-sonnet-4-6. Costs ~$0.003 per generation. Get your key at <strong>console.anthropic.com</strong>.</div>
-      <div style="margin-top:12px;display:flex;gap:8px">
-        <button class="test-btn" onclick="testClaude()">Test Connection</button>
-        <span class="test-result" id="test-claude"></span>
-      </div>
-    </div>
-
     <div class="save-row">
       <button class="add-btn" onclick="saveKeys()">Save All Keys</button>
       <button class="test-btn" onclick="clearKeys()">Clear All Keys</button>
@@ -155,9 +137,8 @@
 /* ── Populate inputs from localStorage ── */
 document.addEventListener('DOMContentLoaded', () => {
   const keys = getKeys();
-  if (keys.fmp)    document.getElementById('fmp-key').value    = keys.fmp;
-  if (keys.av)     document.getElementById('av-key').value     = keys.av;
-  if (keys.claude) document.getElementById('claude-key').value = keys.claude;
+  if (keys.fmp) document.getElementById('fmp-key').value = keys.fmp;
+  if (keys.av)  document.getElementById('av-key').value  = keys.av;
   updateDots();
   renderWLTags();
   renderSidebarWatchlist();
@@ -170,12 +151,10 @@ function toggleVis(id, btn) {
 }
 
 function saveKeys() {
-  const fmp    = document.getElementById('fmp-key').value.trim();
-  const av     = document.getElementById('av-key').value.trim();
-  const claude = document.getElementById('claude-key').value.trim();
-  if (fmp)    localStorage.setItem('fmp_key', fmp);    else localStorage.removeItem('fmp_key');
-  if (av)     localStorage.setItem('av_key', av);      else localStorage.removeItem('av_key');
-  if (claude) localStorage.setItem('claude_key', claude); else localStorage.removeItem('claude_key');
+  const fmp = document.getElementById('fmp-key').value.trim();
+  const av  = document.getElementById('av-key').value.trim();
+  if (fmp) localStorage.setItem('fmp_key', fmp); else localStorage.removeItem('fmp_key');
+  if (av)  localStorage.setItem('av_key',  av);  else localStorage.removeItem('av_key');
   updateDots();
   const msg = document.getElementById('save-msg');
   msg.textContent = 'Keys saved ✓';
@@ -183,17 +162,17 @@ function saveKeys() {
 }
 
 function clearKeys() {
-  ['fmp_key','av_key','claude_key'].forEach(k => localStorage.removeItem(k));
-  ['fmp-key','av-key','claude-key'].forEach(id => document.getElementById(id).value = '');
+  ['fmp_key', 'av_key'].forEach(k => localStorage.removeItem(k));
+  ['fmp-key', 'av-key'].forEach(id => document.getElementById(id).value = '');
   updateDots();
 }
 
 function updateDots() {
   const keys = getKeys();
-  [['fmp','dot-fmp','status-fmp'],['av','dot-av','status-av'],['claude','dot-claude','status-claude']].forEach(([k, dotId, lblId]) => {
+  [['fmp', 'dot-fmp', 'status-fmp'], ['av', 'dot-av', 'status-av']].forEach(([k, dotId, lblId]) => {
     const dot = document.getElementById(dotId);
     const lbl = document.getElementById(lblId);
-    if (keys[k]) { dot.className = 'status-dot dot-ok'; lbl.textContent = 'Configured'; lbl.style.color = '#2d7a2d'; }
+    if (keys[k]) { dot.className = 'status-dot dot-ok';   lbl.textContent = 'Configured';     lbl.style.color = '#2d7a2d'; }
     else          { dot.className = 'status-dot dot-miss'; lbl.textContent = 'Not configured'; lbl.style.color = '#aaa'; }
   });
 }
@@ -222,22 +201,6 @@ async function testAV() {
     if (d['Global Quote']?.['05. price']) { el.textContent = `✓ Connected — MSFT $${parseFloat(d['Global Quote']['05. price']).toFixed(2)}`; el.className = 'test-result test-ok'; }
     else if (d.Note) { el.textContent = '✗ Rate limit hit — try again in a minute'; el.className = 'test-result test-err'; }
     else { el.textContent = '✗ Invalid key'; el.className = 'test-result test-err'; }
-  } catch(e) { el.textContent = '✗ ' + e.message; el.className = 'test-result test-err'; }
-}
-
-async function testClaude() {
-  const el = document.getElementById('test-claude');
-  el.textContent = 'Testing…'; el.className = 'test-result';
-  try {
-    const key = document.getElementById('claude-key').value.trim() || getKeys().claude;
-    if (!key) { el.textContent = 'No key entered.'; el.className = 'test-result test-err'; return; }
-    const r = await fetch(CLAUDE_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 20, messages: [{ role: 'user', content: 'Say OK' }] }),
-    });
-    if (r.ok) { el.textContent = '✓ Connected'; el.className = 'test-result test-ok'; }
-    else { const d = await r.json(); el.textContent = '✗ ' + (d.error?.message || r.status); el.className = 'test-result test-err'; }
   } catch(e) { el.textContent = '✗ ' + e.message; el.className = 'test-result test-err'; }
 }
 
