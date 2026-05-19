@@ -1,21 +1,5 @@
 /* ── Watchlist ─────────────────────────────────────────────────────── */
-const COMPANY_INFO = {
-  NVDA:  { name: "NVIDIA Corporation",      sector: "Semiconductors" },
-  MSFT:  { name: "Microsoft Corporation",   sector: "Cloud / Software" },
-  COIN:  { name: "Coinbase Global Inc.",     sector: "Crypto / Fintech" },
-  GOOGL: { name: "Alphabet Inc.",           sector: "Internet / Cloud" },
-  AMD:   { name: "Advanced Micro Devices",  sector: "Semiconductors" },
-  CRWD:  { name: "CrowdStrike Holdings",    sector: "Cybersecurity" },
-  GS:    { name: "Goldman Sachs Group",     sector: "Investment Banking" },
-  COST:  { name: "Costco Wholesale Corp.",  sector: "Consumer Staples" },
-  AMZN:  { name: "Amazon.com Inc.",         sector: "Consumer / Cloud" },
-  META:  { name: "Meta Platforms Inc.",     sector: "Digital Advertising" },
-  AAPL:  { name: "Apple Inc.",              sector: "Consumer Tech" },
-  GLW:   { name: "Corning Incorporated",    sector: "Specialty Materials" },
-  TSM:   { name: "Taiwan Semiconductor",    sector: "Foundry" },
-};
-
-const DEFAULT_WATCHLIST = ["NVDA", "MSFT", "COIN", "GOOGL", "AMD", "CRWD", "GS"];
+const DEFAULT_WATCHLIST = WATCHLIST.slice();
 
 function getWatchlist() {
   const raw = localStorage.getItem("watchlist");
@@ -58,15 +42,25 @@ function renderEarningsCalendar(calendar) {
       </div>`).join('');
 }
 
-/* ── Render sidebar watchlist links ───────────────────────────────── */
-function renderSidebarWatchlist(activeTickerOrPage) {
-  const el = document.getElementById("sidebar-wl-links");
+/* ── Render sidebar watchlist as collapsible sector groups ────────── */
+function renderSidebarWatchlist(activeTicker) {
+  const el = document.getElementById('sidebar-wl-links');
   if (!el) return;
-  const list = getWatchlist();
-  el.innerHTML = list.map(t => {
-    const active = t === activeTickerOrPage ? ' class="active"' : '';
-    return `<li><a href="company.html?t=${t}"${active}>${t}</a></li>`;
-  }).join("");
+  const wl = getWatchlist();
+  el.innerHTML = Object.entries(SECTORS).map(([sector, tickers]) => {
+    const visible = tickers.filter(t => wl.includes(t));
+    if (!visible.length) return '';
+    const links = visible.map(t => {
+      const cls = t === activeTicker ? ' class="active"' : '';
+      return `<li><a href="company.html?t=${t}"${cls}>${t}</a></li>`;
+    }).join('');
+    return `<details class="sidebar-sector" open>
+      <summary class="sidebar-sector-hdr">
+        <span class="sidebar-sector-dot sector-dot-${sectorClass(sector)}"></span>${sector}
+      </summary>
+      <ul class="sidebar-sector-tickers">${links}</ul>
+    </details>`;
+  }).join('');
 }
 
 /* ── Render watchlist page cards ──────────────────────────────────── */
@@ -79,12 +73,12 @@ function renderWatchlistCards() {
     return;
   }
   grid.innerHTML = list.map(t => {
-    const info = COMPANY_INFO[t] || { name: t, sector: "" };
+    const name = COMPANY_NAMES[t] || t;
     return `
     <div class="wl-card" id="card-${t}">
       <button class="wl-remove" onclick="handleRemove('${t}')" title="Remove">&times;</button>
       <div class="wl-ticker">${t}</div>
-      <div class="wl-name">${info.name}</div>
+      <div class="wl-name">${name}</div>
       <div class="wl-row" id="wl-price-${t}" style="font-size:13px;color:#aaa">Loading price…</div>
       <div class="wl-row" id="wl-earn-${t}" style="font-size:12px;color:#aaa">Loading earnings…</div>
       <div class="wl-links">
@@ -225,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const open = showMoreBtn.dataset.open === "true";
       hiddenCards.forEach(c => c.style.display = open ? "none" : "flex");
-      showMoreBtn.textContent = open ? "Show all 8 articles ↓" : "Hide extra articles ↑";
+      showMoreBtn.textContent = open ? `Show all ${hiddenCards.length} articles ↓` : "Hide extra articles ↑";
       showMoreBtn.dataset.open = (!open).toString();
     });
   }

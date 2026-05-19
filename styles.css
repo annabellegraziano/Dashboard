@@ -662,6 +662,66 @@ td.vs-miss { color: #c0392b; font-weight: 600; }
 .settings-input:focus { outline: none; border-color: #888; }
 .settings-row { display: flex; gap: 10px; align-items: center; }
 
+/* ── Sidebar collapsible sector groups ────────────────────────────── */
+.sidebar-sector { margin-bottom: 10px; }
+.sidebar-sector summary::-webkit-details-marker { display: none; }
+.sidebar-sector-hdr {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #bbb;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 7px;
+  padding: 2px 0;
+}
+.sidebar-sector-hdr::after { content: " ▾"; font-size: 8px; color: #ccc; }
+.sidebar-sector:not([open]) .sidebar-sector-hdr::after { content: " ▸"; }
+.sidebar-sector-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.sector-dot-semis    { background: #1a5fa0; }
+.sector-dot-software { background: #5a3a9a; }
+.sector-dot-fig      { background: #1a7a5a; }
+
+.sidebar-sector-tickers {
+  list-style: none;
+  padding-left: 12px;
+  margin-bottom: 4px;
+}
+.sidebar-sector-tickers li { margin-bottom: 7px; }
+.sidebar-sector-tickers a {
+  text-decoration: none;
+  color: #666;
+  font-size: 12px;
+  display: block;
+}
+.sidebar-sector-tickers a:hover { color: #000; }
+.sidebar-sector-tickers a.active { font-weight: bold; color: #000; }
+.sidebar-sector-tickers a.active::before { content: "> "; }
+
+/* ── Sector badges on news cards ──────────────────────────────────── */
+.sector-badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 2px;
+  margin-bottom: 8px;
+}
+.sector-semis    { background: #e6eef8; color: #1a5fa0; }
+.sector-software { background: #ece8f8; color: #5a3a9a; }
+.sector-fig      { background: #e6f4ef; color: #1a7a5a; }
+
 /* ── Responsive: narrow screens ───────────────────────────────────── */
 @media (max-width: 900px) {
   .news-grid   { grid-template-columns: repeat(2, 1fr); }

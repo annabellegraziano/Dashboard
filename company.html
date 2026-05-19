@@ -8,7 +8,6 @@
 </head>
 <body>
 
-<!-- ── Sidebar ──────────────────────────────────────────────────────── -->
 <aside id="sidebar">
   <a href="index.html" class="sidebar-back">&larr; All Tickers</a>
 
@@ -17,25 +16,21 @@
 
   <ul class="sidebar-nav">
     <li><a href="#" class="active">Overview</a></li>
-    <li><a href="business-model-glw.html" id="s-biz">Business Model</a></li>
     <li><a href="#" id="s-fin">Financials</a></li>
-    <li><a href="#">Thematics</a></li>
-    <li><a href="#">Management</a></li>
-    <li><a href="#">Valuation</a></li>
-    <li><a href="#">Sentiment</a></li>
+    <li><a href="#" id="s-preview">Earnings Preview</a></li>
+    <li><a href="#" id="s-review">Earnings Review</a></li>
   </ul>
 
-  <div class="sidebar-section-label">Earnings</div>
-  <ul class="sidebar-earnings-links" id="s-earnings-links"></ul>
+  <hr class="sidebar-divider"/>
+  <div class="sidebar-section-label">Coverage</div>
+  <div id="sidebar-wl-links"></div>
 </aside>
 
-<!-- ── Main ─────────────────────────────────────────────────────────── -->
 <main id="main">
 
   <h1 class="preview-title" id="m-title">Company Overview</h1>
   <p class="preview-subtitle" id="m-subtitle">Loading company information…</p>
 
-  <!-- KPI row -->
   <div class="kpi-grid" id="m-kpis">
     <div class="kpi-card">
       <div class="kpi-label">Next Earnings</div>
@@ -43,14 +38,14 @@
       <div class="kpi-desc" id="kpi-date">—</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">52-Wk Return</div>
-      <div class="kpi-value" id="kpi-return">—</div>
-      <div class="kpi-desc">Price performance (placeholder)</div>
+      <div class="kpi-label">Sector</div>
+      <div class="kpi-value" id="kpi-sector" style="font-size:1rem">—</div>
+      <div class="kpi-desc" id="kpi-sector-desc">—</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Market Cap</div>
       <div class="kpi-value" id="kpi-mcap">—</div>
-      <div class="kpi-desc">Approximate (placeholder)</div>
+      <div class="kpi-desc">Approximate</div>
     </div>
     <div class="kpi-card highlight">
       <div class="kpi-label">Thesis Stance</div>
@@ -59,30 +54,24 @@
     </div>
   </div>
 
-  <!-- Thesis summary -->
   <div class="section-header">Thesis Summary</div>
   <div class="exec-summary" id="m-thesis">
     <p id="m-thesis-text">Loading…</p>
   </div>
 
-  <!-- Navigation shortcuts -->
   <div class="section-header">Research Pages</div>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:4px">
-    <a class="review-card" href="preview-googl.html" style="text-decoration:none">
+    <a class="review-card" id="rc-preview" href="#" style="text-decoration:none">
       <div class="rc-quarter">Earnings</div>
-      <div class="rc-ticker" style="font-size:1rem">Q1 2026 Preview →</div>
+      <div class="rc-ticker" style="font-size:1rem">Preview →</div>
     </a>
-    <a class="review-card" href="review-googl.html" style="text-decoration:none">
+    <a class="review-card" id="rc-review" href="#" style="text-decoration:none">
       <div class="rc-quarter">Earnings</div>
-      <div class="rc-ticker" style="font-size:1rem">Q4 2025 Review →</div>
+      <div class="rc-ticker" style="font-size:1rem">Review →</div>
     </a>
-    <a class="review-card" href="financials-googl.html" style="text-decoration:none">
+    <a class="review-card" id="rc-financials" href="#" style="text-decoration:none">
       <div class="rc-quarter">Data</div>
       <div class="rc-ticker" style="font-size:1rem">8-Qtr Financials →</div>
-    </a>
-    <a class="review-card" href="business-model-glw.html" style="text-decoration:none">
-      <div class="rc-quarter">Research</div>
-      <div class="rc-ticker" style="font-size:1rem">Business Model →</div>
     </a>
     <a class="review-card" href="index.html" style="text-decoration:none">
       <div class="rc-quarter">News</div>
@@ -92,68 +81,165 @@
       <div class="rc-quarter">Coverage</div>
       <div class="rc-ticker" style="font-size:1rem">All Reviews →</div>
     </a>
+    <a class="review-card" href="watchlist.html" style="text-decoration:none">
+      <div class="rc-quarter">Watchlist</div>
+      <div class="rc-ticker" style="font-size:1rem">My Watchlist →</div>
+    </a>
   </div>
 
-  <p class="footer-note" style="margin-top:40px">
-    This is a placeholder overview page. For full research, navigate to the individual section pages via the sidebar or the cards above.
-    All data is hardcoded for demonstration purposes.
-  </p>
+  <div class="section-header" style="margin-top:36px">My Notes</div>
+  <div class="notes-editor">
+    <textarea id="notes-ta" placeholder="Type your analysis, key thesis points, or observations here — auto-saved to your browser." rows="8"></textarea>
+    <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+      <span class="notes-status" id="notes-status"></span>
+      <button class="notes-clear" id="notes-clear">Clear notes</button>
+    </div>
+  </div>
 
 </main>
 
+<script src="config.js"></script>
+<script src="api.js"></script>
 <script src="app.js"></script>
 <script>
-/* Populate page from URL ?t=TICKER */
 const OVERVIEW_DATA = {
-  COST: {
-    name: "Costco Wholesale Corp.",
-    subtitle: "Membership-model warehouse retailer | S&P 500 | Sector: Consumer Staples",
-    next: "Q3 FY2026", date: "May 29, 2026 AMC",
-    return: "+18.4%", mcap: "$380B", stance: "Positive",
-    stanceDesc: "Strong comps + renewal rate moat",
-    thesis: "Costco's membership model creates a recurring, high-renewal annuity that funds below-cost merchandise pricing — creating a durable competitive moat against both traditional grocery and e-commerce alternatives. The 93.4% global renewal rate is near-record and signals extraordinarily high switching costs. Comparable sales of +6–7% are above the food retail peer group, and the e-commerce channel (+20%+) is growing without cannibalizing in-store. The primary risk is valuation: COST trades at a significant premium to retail peers (35–40x P/E), leaving limited room for any execution miss. Watch tariff pass-through dynamics and basket composition in 2026.",
+  NVDA: {
+    name: "NVIDIA Corporation",
+    subtitle: "AI GPU & accelerated computing | Nasdaq | Semis/AI",
+    next: "Q1 FY2027", date: "May 28, 2026 AMC",
+    mcap: "$2.9T", stance: "Positive",
+    stanceDesc: "Blackwell oversubscribed through Q3",
+    thesis: "NVIDIA is the dominant supplier of AI accelerators with near-monopoly share in training and inference workloads. The GB300 Blackwell platform is oversubscribed through Q3 2026 with 16–20 week lead times, and guidance was raised to $43–45B for Q1 FY2027. The strategic advantage rests on the CUDA software stack — a decade-long developer ecosystem that competitors cannot replicate quickly. The AI infrastructure build-out by hyperscalers (Microsoft, Google, Meta, Amazon) and sovereign AI buyers creates multi-year demand visibility. Key risks: customer concentration, geopolitical export restrictions on China sales, and eventual ROCm/AMD competitive threat.",
+  },
+  AMD: {
+    name: "Advanced Micro Devices",
+    subtitle: "CPUs, GPUs & adaptive computing | Nasdaq | Semis/AI",
+    next: "Q2 2026", date: "Jul 29, 2026 AMC",
+    mcap: "$255B", stance: "Positive",
+    stanceDesc: "MI300X share gains + Epyc at 33%",
+    thesis: "AMD is the primary challenger to NVIDIA in AI accelerators and Intel in server CPUs. MI300X data center GPU revenue is tracking toward $4B+ in 2026 with deployments at Microsoft, Meta, and Oracle. Epyc server CPU market share hit a record 33.4%, benefiting from Intel's execution missteps. The bull thesis requires AMD to sustain MI300X momentum through NVIDIA's Blackwell transition and to continue ROCm software investment to close the developer experience gap. The valuation is less demanding than NVIDIA, offering a risk-adjusted way to play AI infrastructure share gains.",
+  },
+  TSMC: {
+    name: "Taiwan Semiconductor",
+    subtitle: "Pure-play foundry — world's leading chipmaker | NYSE:TSM | Semis/AI",
+    next: "Q2 2026", date: "Jul 17, 2026",
+    mcap: "$870B", stance: "Positive",
+    stanceDesc: "CoWoS monopoly + N3/N5 AI demand",
+    thesis: "TSMC is the binding supply constraint for the global AI chip ecosystem — NVIDIA, AMD, Apple, and Qualcomm all depend on TSMC's leading-edge N3/N5 nodes and CoWoS advanced packaging. Q1 2026 revenue grew 42% YoY to NT$839B. CoWoS capacity is committed to double by end-2026, with all allocation pre-sold through 2027. The 2026 capex guide of $38–42B signals sustained investment in the AI supply chain. Key risks: geopolitical exposure (Taiwan concentration), customer concentration (Apple ~25% of revenue), and the eventual ramp of Intel Foundry as a potential alternative.",
+  },
+  ASML: {
+    name: "ASML Holding",
+    subtitle: "Lithography equipment — sole EUV supplier | Nasdaq | Semis/AI",
+    next: "Q2 2026", date: "Jul 16, 2026",
+    mcap: "$295B", stance: "Positive",
+    stanceDesc: "EUV monopoly; High-NA milestone H2",
+    thesis: "ASML holds a natural monopoly on EUV lithography — the only technology capable of manufacturing chips at 5nm and below. There is no credible near-term competitor. The High-NA EUV (EXE:5000) system is on track for first production wafers at TSMC in H2 2026, unlocking 2nm-and-below nodes. Q1 2026 net bookings of €3.9B support the 2025–26 revenue guidance of €30–40B. The primary risk is the China export restriction headwind (~29% of prior revenue), which creates near-term revenue uncertainty. Long-term, the AI-driven demand for leading-edge chips makes ASML structurally irreplaceable.",
   },
   MSFT: {
     name: "Microsoft Corporation",
-    subtitle: "Cloud, productivity software & AI platforms | S&P 500 | Sector: Technology",
-    next: "Q3 FY2026", date: "Apr 30, 2026 AMC",
-    return: "+22.1%", mcap: "$3.1T", stance: "Positive",
-    stanceDesc: "Azure re-accel + Copilot monetization",
-    thesis: "Microsoft is the most diversified AI monetization play in large-cap tech, with Azure re-accelerating to 35% growth and Copilot seat counts surpassing 50M. The combination of enterprise software lock-in (Office 365, Teams, Dynamics), cloud infrastructure, and AI assistant products creates three compounding revenue streams. Operating margin expansion is tracking above consensus as AI workloads carry higher gross margins than legacy on-premise software. Key risks: antitrust scrutiny of OpenAI partnership, Azure growth sustainability vs. the law of large numbers, and Copilot conversion from trial to paid.",
+    subtitle: "Cloud, productivity software & AI | Nasdaq | Software/Cloud",
+    next: "Q4 FY2026", date: "Jul 30, 2026 AMC",
+    mcap: "$3.1T", stance: "Positive",
+    stanceDesc: "Azure re-accel + Copilot 50M seats",
+    thesis: "Microsoft is the most diversified AI monetization play in large-cap tech. Azure re-accelerated to 35% constant-currency growth in Q3 FY2026, and Copilot seat counts surpassed 50M — signaling conversion from pilot to paid. The combination of enterprise software lock-in (Office 365, Teams, Dynamics), cloud infrastructure, and AI assistant products creates three compounding revenue streams. Operating margin expansion is tracking above consensus as AI workloads carry higher gross margins. Key risks: antitrust scrutiny of the OpenAI partnership, Azure growth sustainability against the law of large numbers, and competitive intensity from AWS and Google Cloud.",
   },
-  AMZN: {
-    name: "Amazon.com Inc.",
-    subtitle: "E-commerce, cloud (AWS), advertising & logistics | S&P 500 | Sector: Consumer Discretionary",
-    next: "Q1 2026", date: "May 1, 2026 AMC",
-    return: "+28.7%", mcap: "$2.2T", stance: "Positive",
-    stanceDesc: "AWS margin expansion + ad flywheel",
-    thesis: "Amazon's long-term re-rating thesis rests on three pillars: (1) AWS reaching 40%+ operating margins as AI workloads scale, (2) advertising revenue compounding at 18–20% with near-100% gross margins, and (3) retail operating income inflecting from near-zero to structurally positive as logistics efficiency improves. AWS is now the most profitable hyperscaler per dollar of revenue, and the advertising business is on track to surpass $60B annually. The primary near-term risk is AWS growth deceleration as enterprise optimization cycles resurface; however, Q1 2026 re-acceleration to 19% YoY significantly reduces that concern.",
+  GOOGL: {
+    name: "Alphabet Inc.",
+    subtitle: "Search, cloud & digital advertising | Nasdaq | Software/Cloud",
+    next: "Q2 2026", date: "Jul 29, 2026 AMC",
+    mcap: "$2.1T", stance: "Positive",
+    stanceDesc: "Search resilient + Cloud margin 18.7%",
+    thesis: "Alphabet's bull thesis rests on two pillars: Search durability against AI-native alternatives and Google Cloud margin expansion. Q1 2026 Search revenue grew 13.4% — ahead of buy-side estimates — suggesting Gemini integration is defending share rather than cannibalizing it. Google Cloud reached $12.3B (+28% YoY) with 18.7% operating margin, ahead of the multi-year profitability ramp thesis. The $70B buyback authorization signals management confidence. Key risks: AI search disruption risk (Perplexity, ChatGPT Search), antitrust remedies from DOJ suit, and YouTube monetization growth deceleration.",
+  },
+  META: {
+    name: "Meta Platforms Inc.",
+    subtitle: "Social media & digital advertising | Nasdaq | Software/Cloud",
+    next: "Q2 2026", date: "Jul 30, 2026 AMC",
+    mcap: "$1.5T", stance: "Positive",
+    stanceDesc: "Ad +18%, Llama 4 targeting gains",
+    thesis: "Meta is the most capital-efficient large-cap AI compounder — Llama 4-powered ad targeting improvements are directly monetizable through higher CPMs and better conversion rates. Q1 2026 ad revenue grew 18% to $41.9B, with both pricing and volume beating consensus. Reality Labs operating losses narrowed to $3.5B, reducing the margin drag concern. With 3.4B daily active people, the audience scale is a durable advantage. Key risks: regulatory pressure in Europe, advertiser concentration risk, and the open question of whether heavy AI capex ($60–65B guide) will generate sufficient returns.",
+  },
+  COIN: {
+    name: "Coinbase Global Inc.",
+    subtitle: "Crypto exchange & infrastructure | Nasdaq | FIG/Crypto",
+    next: "Q2 2026", date: "Aug 6, 2026 AMC",
+    mcap: "$65B", stance: "Watch",
+    stanceDesc: "BTC ETF leverage; Base L2 building",
+    thesis: "Coinbase is the highest-beta way to play crypto cycle upswings in large-cap equities. Q1 2026 net revenue of $2.0B beat consensus by 12%, driven by elevated trading volumes tied to Bitcoin ETF institutional inflows. USDC stablecoin revenue ($285M, +18% QoQ) and Base Layer-2 TVL ($3.2B) represent the recurring-revenue building blocks that could reduce vol dependency over time. The bear case is that transaction revenue remains cyclical and mean-reverts sharply in a crypto bear market. Watch BTC ETF flow continuation, regulatory clarity, and Base L2 adoption as the three key thesis monitors.",
+  },
+  JPM: {
+    name: "JPMorgan Chase & Co.",
+    subtitle: "Largest US bank — consumer, IB & markets | NYSE | FIG/Crypto",
+    next: "Q2 2026", date: "Jul 11, 2026 BMO",
+    mcap: "$760B", stance: "Positive",
+    stanceDesc: "NII resilient; IB fees recovering",
+    thesis: "JPMorgan is the premier risk-adjusted way to own the US financial system. Q1 2026 NII of $23.4B beat estimates by $600M as deposit repricing proved more resilient than feared — removing a key near-term bear case. Investment banking fees of $2.1B grew 12% YoY, led by M&A advisory recovery from the 2022–23 drought. CET1 of 15.3% is well above regulatory requirements, supporting buybacks. Key risks: credit card delinquency deterioration as the leading consumer health indicator, rate cut timing impact on deposit spreads, and commercial real estate credit quality.",
+  },
+  GS: {
+    name: "Goldman Sachs Group",
+    subtitle: "Investment bank — trading, IB & asset management | NYSE | FIG/Crypto",
+    next: "Q2 2026", date: "Jul 14, 2026 BMO",
+    mcap: "$210B", stance: "Positive",
+    stanceDesc: "FICC $4.7B; equities best since 2021",
+    thesis: "Goldman Sachs is the highest-quality pure-play on capital markets normalization and institutional trading activity. Q1 2026 net revenues of $14.2B beat consensus by 8%, driven by FICC revenues of $4.7B (+15% YoY) on rates and FX volatility. Equity underwriting of $900M was the best since 2021, reflecting IPO calendar reopening. ROE of 14.3% is tracking toward management's 15–17% medium-term target. Key risks: trading revenue vol dependency (FICC strength is cycle-sensitive), asset management fee growth sustainability, and whether the IB normalization cycle sustains into H2 2026.",
   },
 };
 
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
-  const ticker = (params.get("t") || "COST").toUpperCase();
-  const data   = OVERVIEW_DATA[ticker] || OVERVIEW_DATA["COST"];
+  const ticker = (params.get("t") || "NVDA").toUpperCase();
+  const data   = OVERVIEW_DATA[ticker] || { name: ticker, subtitle: "", next: "—", date: "—", mcap: "—", stance: "—", stanceDesc: "", thesis: "No overview data available." };
+  const sector = TICKER_SECTOR[ticker] || "";
 
   document.title = `${ticker} — Overview | Earnings Research Dashboard`;
-  document.getElementById("s-ticker").textContent   = ticker;
-  document.getElementById("s-company").textContent  = data.name;
-  document.getElementById("s-fin").href             = `financials.html?t=${ticker}`;
-  document.getElementById("s-earnings-links").innerHTML = `
-    <li><a href="preview.html?t=${ticker}">Next Earnings Preview</a></li>
-    <li><a href="review.html?t=${ticker}">Latest Review</a></li>`;
-  document.getElementById("m-title").textContent    = `${ticker} — Overview`;
+  document.getElementById("s-ticker").textContent  = ticker;
+  document.getElementById("s-company").textContent = data.name;
+  document.getElementById("s-fin").href            = `financials.html?t=${ticker}`;
+  document.getElementById("s-preview").href        = `preview.html?t=${ticker}`;
+  document.getElementById("s-review").href         = `review.html?t=${ticker}`;
+  document.getElementById("rc-preview").href       = `preview.html?t=${ticker}`;
+  document.getElementById("rc-review").href        = `review.html?t=${ticker}`;
+  document.getElementById("rc-financials").href    = `financials.html?t=${ticker}`;
+  document.getElementById("m-title").textContent   = `${ticker} — Overview`;
   document.getElementById("m-subtitle").textContent = data.subtitle;
-  document.getElementById("kpi-next").textContent   = data.next;
-  document.getElementById("kpi-date").textContent   = data.date;
-  document.getElementById("kpi-return").textContent = data.return;
-  document.getElementById("kpi-mcap").textContent   = data.mcap;
+  document.getElementById("kpi-next").textContent  = data.next;
+  document.getElementById("kpi-date").textContent  = data.date;
+  document.getElementById("kpi-sector").textContent = sector || "—";
+  document.getElementById("kpi-sector-desc").textContent = sector ? `${WATCHLIST.indexOf(ticker) + 1} of ${WATCHLIST.length} tracked` : "";
+  document.getElementById("kpi-mcap").textContent  = data.mcap;
   document.getElementById("kpi-stance").textContent = data.stance;
   document.getElementById("kpi-stance-desc").textContent = data.stanceDesc;
   document.getElementById("m-thesis-text").textContent   = data.thesis;
 
   renderSidebarWatchlist(ticker);
+
+  /* Notes auto-save */
+  const ta = document.getElementById("notes-ta");
+  const statusEl = document.getElementById("notes-status");
+  ta.value = loadNote("company", ticker);
+  let saveTimer;
+  ta.addEventListener("input", () => {
+    clearTimeout(saveTimer);
+    statusEl.textContent = "Saving…";
+    saveTimer = setTimeout(() => {
+      saveNote("company", ticker, ta.value);
+      statusEl.textContent = "Saved";
+      setTimeout(() => statusEl.textContent = "", 1500);
+    }, 600);
+  });
+  document.getElementById("notes-clear").addEventListener("click", () => {
+    if (!ta.value || confirm("Clear all notes for " + ticker + "?")) {
+      ta.value = "";
+      saveNote("company", ticker, "");
+      statusEl.textContent = "Cleared";
+      setTimeout(() => statusEl.textContent = "", 1500);
+    }
+  });
+
+  window.addEventListener("beforeunload", () => {
+    clearTimeout(saveTimer);
+    saveNote("company", ticker, ta.value);
+  });
 });
 </script>
 </body>

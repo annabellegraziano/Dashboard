@@ -20,8 +20,8 @@
   </ul>
 
   <hr class="sidebar-divider"/>
-  <div class="sidebar-section-label">Watchlist</div>
-  <ul class="sidebar-watchlist-links" id="sidebar-wl-links"></ul>
+  <div class="sidebar-section-label">Coverage</div>
+  <div id="sidebar-wl-links"></div>
 </aside>
 
 <!-- ── Main ─────────────────────────────────────────────────────────── -->
@@ -33,86 +33,49 @@
     <!-- Populated by renderWatchlistCards() in app.js -->
   </div>
 
-  <!-- Research Radar: suggested companies to add -->
-  <div class="section-header" style="margin-top:48px">Research Radar — Companies to Consider</div>
-  <p class="section-sub">Sectors with strong earnings momentum and read-through relevance to your current holdings.</p>
+  <!-- Cross-sector read-throughs -->
+  <div class="section-header" style="margin-top:48px">Cross-Sector Read-Throughs</div>
+  <p class="section-sub">Key signal chains across the three coverage sectors.</p>
 
   <div class="table-wrap">
     <table>
       <thead>
         <tr>
-          <th>Ticker</th>
-          <th>Company</th>
-          <th>Sector</th>
-          <th>Why Watch</th>
-          <th>Next Event</th>
-          <th style="text-align:center">Add</th>
+          <th>Signal Source</th>
+          <th>Read-Through To</th>
+          <th>What to Watch</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><strong>NVDA</strong></td>
-          <td>NVIDIA Corporation</td>
-          <td>Semiconductors</td>
-          <td>AI capex bellwether; demand visibility = cloud capex signal for MSFT/AMZN/GOOGL</td>
-          <td>Q1 FY2027 — May 28, 2026</td>
-          <td style="text-align:center"><button class="add-btn" onclick="quickAdd('NVDA')" style="padding:4px 12px;font-size:12px">+ Add</button></td>
+          <td><strong>NVDA</strong> guidance</td>
+          <td>TSMC, ASML, AMD</td>
+          <td>Blackwell demand visibility → CoWoS capacity bind → competing GPU traction</td>
         </tr>
         <tr>
-          <td><strong>META</strong></td>
-          <td>Meta Platforms Inc.</td>
-          <td>Digital Advertising</td>
-          <td>Ad pricing / volume proxy; Llama AI read-through for AI monetization broadly</td>
-          <td>Q1 2026 — Apr 30, 2026</td>
-          <td style="text-align:center"><button class="add-btn" onclick="quickAdd('META')" style="padding:4px 12px;font-size:12px">+ Add</button></td>
+          <td><strong>TSMC</strong> capex / CoWoS</td>
+          <td>ASML, NVDA, AMD</td>
+          <td>Advanced packaging capacity = gating factor for AI chip shipment volumes</td>
         </tr>
         <tr>
-          <td><strong>GOOGL</strong></td>
-          <td>Alphabet Inc.</td>
-          <td>Internet / Cloud</td>
-          <td>Search durability vs. AI native; Cloud margin ramp; $70B buyback authorization</td>
-          <td>Q1 2026 — Apr 29, 2026</td>
-          <td style="text-align:center"><button class="add-btn" onclick="quickAdd('GOOGL')" style="padding:4px 12px;font-size:12px">+ Add</button></td>
+          <td><strong>MSFT/GOOGL</strong> cloud growth</td>
+          <td>NVDA, AMD, TSMC</td>
+          <td>Hyperscaler capex guides directly drive AI accelerator demand</td>
         </tr>
         <tr>
-          <td><strong>TSM</strong></td>
-          <td>Taiwan Semiconductor</td>
-          <td>Foundry</td>
-          <td>CoWoS capacity = gating factor for NVDA AI chip supply; 2026 capex guide key</td>
-          <td>Q2 2026 — Jul 17, 2026</td>
-          <td style="text-align:center"><button class="add-btn" onclick="quickAdd('TSM')" style="padding:4px 12px;font-size:12px">+ Add</button></td>
+          <td><strong>META</strong> ad revenue</td>
+          <td>GOOGL</td>
+          <td>Digital ad pricing / volume — both compete for same advertiser budgets</td>
         </tr>
         <tr>
-          <td><strong>GLW</strong></td>
-          <td>Corning Incorporated</td>
-          <td>Specialty Materials</td>
-          <td>Fiber + optical read-through for data center build-out; Springboard revenue ramp</td>
-          <td>Q2 2026 — Jul 29, 2026</td>
-          <td style="text-align:center"><button class="add-btn" onclick="quickAdd('GLW')" style="padding:4px 12px;font-size:12px">+ Add</button></td>
+          <td><strong>JPM</strong> NII &amp; credit</td>
+          <td>GS, COIN</td>
+          <td>Consumer credit health, rate environment, and IB pipeline normalization</td>
         </tr>
         <tr>
-          <td><strong>WMT</strong></td>
-          <td>Walmart Inc.</td>
-          <td>Retail / Consumer</td>
-          <td>Consumer health proxy; advertising revenue comps with COST; private label share</td>
-          <td>Q1 FY2027 — May 15, 2026</td>
-          <td style="text-align:center"><button class="add-btn" onclick="quickAdd('WMT')" style="padding:4px 12px;font-size:12px">+ Add</button></td>
-        </tr>
-        <tr>
-          <td><strong>AAPL</strong></td>
-          <td>Apple Inc.</td>
-          <td>Consumer Tech</td>
-          <td>Services margin compares; AI feature adoption; consumer spending health</td>
-          <td>Q2 FY2026 — May 1, 2026</td>
-          <td style="text-align:center"><button class="add-btn" onclick="quickAdd('AAPL')" style="padding:4px 12px;font-size:12px">+ Add</button></td>
-        </tr>
-        <tr>
-          <td><strong>LRCX</strong></td>
-          <td>Lam Research</td>
-          <td>Semiconductor Equip.</td>
-          <td>WFE demand proxy; NAND recovery timing; leading indicator for chip cycle</td>
-          <td>Q3 FY2026 — Jul 23, 2026</td>
-          <td style="text-align:center"><button class="add-btn" onclick="quickAdd('LRCX')" style="padding:4px 12px;font-size:12px">+ Add</button></td>
+          <td><strong>COIN</strong> volumes</td>
+          <td>GS (equities)</td>
+          <td>Crypto cycle = risk appetite proxy; correlates with IPO / underwriting activity</td>
         </tr>
       </tbody>
     </table>

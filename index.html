@@ -8,122 +8,142 @@
 </head>
 <body>
 
-<!-- ── Sidebar ──────────────────────────────────────────────────────── -->
 <aside id="sidebar">
   <div class="sidebar-logo">Earnings<br>Research</div>
-
   <ul class="sidebar-nav">
     <li><a href="index.html" class="active">Material News</a></li>
     <li><a href="watchlist.html">My Watchlist</a></li>
     <li><a href="earnings-reviews.html">Earnings Reviews</a></li>
     <li><a href="settings.html" style="color:#ccc;font-size:12px">⚙ Settings</a></li>
   </ul>
-
   <hr class="sidebar-divider"/>
-  <div class="sidebar-section-label">Watchlist</div>
-  <ul class="sidebar-watchlist-links" id="sidebar-wl-links"></ul>
+  <div class="sidebar-section-label">Coverage</div>
+  <div id="sidebar-wl-links"></div>
 </aside>
 
-<!-- ── Main ─────────────────────────────────────────────────────────── -->
 <main id="main">
-  <h1 class="page-title">Material News — Last 24 Hours</h1>
-  <p class="page-subtitle-center">Curated earnings &amp; macro signals across your watchlist and coverage universe</p>
+  <h1 class="page-title">Material News</h1>
+  <p class="page-subtitle-center">Earnings &amp; macro signals across Semis/AI · Software/Cloud · FIG/Crypto</p>
 
   <div class="news-grid" id="news-grid">
 
-    <!-- Card 1 -->
-    <div class="news-card">
-      <div class="nc-meta">GLW &nbsp;·&nbsp; Apr 29, 2026</div>
-      <div class="nc-company">Corning Incorporated</div>
-      <div class="nc-headline">Corning Q1 Core Sales +18%; Adds Two Large Hyperscale AI Data Center Agreements</div>
-      <p class="nc-summary">Corning reported Q1 core sales of $3.86B (+18% YoY), beating consensus by ~3%. The company announced two additional long-term agreements with hyperscale customers for its Gen AI fiber and cable systems, lifting 2026 optical revenue visibility materially.</p>
-      <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
-      <p class="nc-impact">Optical fiber demand from AI data center build-outs continues to accelerate well above prior expectations. The LTAs provide multi-year revenue visibility and support the Springboard revenue uplift target. Cloud capex commentary from AWS and Azure supports continued fiber demand through 2027.</p>
-      <div class="nc-source">Corning IR &nbsp;·&nbsp; Press release via Business Wire</div>
-    </div>
-
-    <!-- Card 2 -->
-    <div class="news-card">
-      <div class="nc-meta">MSFT &nbsp;·&nbsp; Apr 30, 2026</div>
-      <div class="nc-company">Microsoft Corporation</div>
-      <div class="nc-headline">Microsoft Azure Growth Re-Accelerates to +35% in Q3 FY2026; Copilot Seats Surpass 50M</div>
-      <p class="nc-summary">Azure constant-currency growth came in at 35%, ahead of the 33% guide and the 31% print last quarter. AI Copilot seat count surpassed 50 million, and management raised FY2026 cloud revenue guidance by roughly $500M at the midpoint.</p>
-      <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
-      <p class="nc-impact">Re-acceleration in Azure is the key bullish signal for Microsoft's long-term AI monetization story. Copilot attach rates in enterprise are now measuring to seat expansion rather than just pilots, suggesting durable incremental revenue. Margin beats further de-risk the valuation.</p>
-      <div class="nc-source">Microsoft IR &nbsp;·&nbsp; Earnings release &amp; transcript</div>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="news-card">
-      <div class="nc-meta">GOOGL &nbsp;·&nbsp; Apr 29, 2026</div>
-      <div class="nc-company">Alphabet Inc.</div>
-      <div class="nc-headline">Google Search Beats on Resilient Ad Pricing; Cloud Margin Expands to 18.7%</div>
-      <p class="nc-summary">Alphabet Q1 2026 Search revenue grew 13.4%, ahead of the 11.5% buy-side estimate. Google Cloud reached $12.3B (+28% YoY) with operating margin of 18.7%, ahead of the 17.5% consensus. The company announced a $70B buyback authorization.</p>
-      <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
-      <p class="nc-impact">Search durability in the face of AI-native search alternatives is a key debate; the beat supports the thesis that Gemini integration is defending and extending ad share. Cloud margin expansion is incremental positive and tracks ahead of the multi-year profitability ramp thesis.</p>
-      <div class="nc-source">Alphabet IR &nbsp;·&nbsp; Earnings release</div>
-    </div>
-
-    <!-- Card 4 -->
-    <div class="news-card">
-      <div class="nc-meta">AMZN &nbsp;·&nbsp; May 1, 2026</div>
-      <div class="nc-company">Amazon.com Inc.</div>
-      <div class="nc-headline">AWS Operating Margin Expands to 38.9%; Prime Membership at All-Time High</div>
-      <p class="nc-summary">Amazon Q1 2026 AWS revenue grew 19% YoY to $29.3B with an operating margin of 38.9%, the highest ever for the segment. Retail operating income nearly doubled YoY as advertising revenue grew 18%, and Prime membership reached a record globally.</p>
-      <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
-      <p class="nc-impact">AWS margin expansion validates the long-term structural profitability thesis and supports higher consolidated margin estimates. Ad revenue growth of 18% is a direct read-through for the digital advertising ecosystem — incrementally positive for GOOGL and META peers.</p>
-      <div class="nc-source">Amazon IR &nbsp;·&nbsp; Press release</div>
-    </div>
-
-    <!-- Card 5 -->
-    <div class="news-card">
-      <div class="nc-meta">COST &nbsp;·&nbsp; Apr 28, 2026</div>
-      <div class="nc-company">Costco Wholesale Corp.</div>
-      <div class="nc-headline">Costco March Comps +6.8%; Membership Renewal Rate Holds at 93.4%</div>
-      <p class="nc-summary">Costco reported March comparable sales of +6.8% including gas and FX, with e-commerce comps of +21%. Renewal rate remained at a record 93.4% globally. Traffic was up 5.2% in the US, pointing to continued share gains from the value-oriented consumer.</p>
-      <span class="thesis-label thesis-neutral">Thesis Impact: Neutral</span>
-      <p class="nc-impact">The comp print is solid and broadly in line with expectations. The membership renewal stability removes a near-term bear case but is not a new catalyst. Watch for commentary on tariff-driven price adjustments and any shift in basket composition toward staples.</p>
-      <div class="nc-source">Costco IR &nbsp;·&nbsp; Monthly sales release</div>
-    </div>
-
-    <!-- Card 6 -->
     <div class="news-card">
       <div class="nc-meta">NVDA &nbsp;·&nbsp; Apr 28, 2026</div>
       <div class="nc-company">NVIDIA Corporation</div>
-      <div class="nc-headline">Blackwell GB300 Allocation Oversubscribed Through Q3; NVIDIA Raises Q1 FY2027 Guidance</div>
-      <p class="nc-summary">NVIDIA's management indicated at an investor event that GB300 allocation is oversubscribed through Q3 2026, with lead times extending to 16–20 weeks for new orders. The company raised its Q1 FY2027 revenue guidance to $43B–$45B from prior guidance of $41B–$43B.</p>
+      <span class="sector-badge sector-semis">Semis/AI</span>
+      <div class="nc-headline">Blackwell GB300 Allocation Oversubscribed Through Q3; Guidance Raised to $43–45B</div>
+      <p class="nc-summary">NVIDIA's management confirmed GB300 is oversubscribed through Q3 2026 with 16–20 week lead times. Q1 FY2027 revenue guidance raised to $43B–$45B from $41B–$43B prior, implying sequential growth of ~10%.</p>
       <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
-      <p class="nc-impact">Oversubscription through Q3 implies demand visibility and pricing power well above prior estimates. The guidance raise is incrementally positive for the AI capex supply chain — read-through positive for TSMC, ASML, memory suppliers, and optical interconnect.</p>
+      <p class="nc-impact">Oversubscription through Q3 implies demand visibility and pricing power well above prior estimates. Guidance raise is positive for the AI capex supply chain — direct read-through to TSMC, ASML, and memory suppliers.</p>
       <div class="nc-source">NVIDIA IR &nbsp;·&nbsp; Investor event transcript</div>
     </div>
 
-    <!-- Hidden cards (shown via "Show all") -->
-    <div class="news-card hidden-card" style="display:none">
-      <div class="nc-meta">META &nbsp;·&nbsp; Apr 30, 2026</div>
-      <div class="nc-company">Meta Platforms Inc.</div>
-      <div class="nc-headline">Meta Q1 Ad Revenue +18%; Reality Labs Losses Narrow; Llama 4 Adoption Cited</div>
-      <p class="nc-summary">Meta reported Q1 ad revenue of $41.9B (+18% YoY), driven by Reels ad load optimization and improved targeting from Llama 4 models. Reality Labs operating losses narrowed to $3.5B from $3.8B a year ago. DAP reached 3.4B.</p>
+    <div class="news-card">
+      <div class="nc-meta">MSFT &nbsp;·&nbsp; Apr 30, 2026</div>
+      <div class="nc-company">Microsoft Corporation</div>
+      <span class="sector-badge sector-software">Software/Cloud</span>
+      <div class="nc-headline">Azure Re-Accelerates to +35% CC; Copilot Seats Surpass 50M</div>
+      <p class="nc-summary">Azure constant-currency growth came in at 35%, ahead of the 33% guide and the 31% print last quarter. AI Copilot seat count surpassed 50 million, and management raised FY2026 cloud revenue guidance by ~$500M at the midpoint.</p>
       <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
-      <p class="nc-impact">Ad pricing power and volume growth both beat consensus, confirming the AI-driven targeting advantage thesis. Narrowing Reality Labs losses reduce the drag concern for investors focused on margin trajectory. Positive read-through for the digital ad ecosystem broadly.</p>
-      <div class="nc-source">Meta IR &nbsp;·&nbsp; Earnings release</div>
+      <p class="nc-impact">Re-acceleration is the key bullish signal for Microsoft's AI monetization thesis. Copilot attach rates are now measuring to seat expansion rather than pilots, suggesting durable incremental revenue. Margin beats de-risk the valuation.</p>
+      <div class="nc-source">Microsoft IR &nbsp;·&nbsp; Earnings release &amp; transcript</div>
     </div>
 
-    <div class="news-card hidden-card" style="display:none">
-      <div class="nc-meta">TSM &nbsp;·&nbsp; Apr 17, 2026</div>
-      <div class="nc-company">Taiwan Semiconductor Mfg.</div>
-      <div class="nc-headline">TSMC Q1 Revenue NT$839B; CoWoS Capacity to Double by End-2026 on AI Demand</div>
-      <p class="nc-summary">TSMC reported Q1 revenue of NT$839.3B (+42% YoY), driven by AI accelerator demand. Management guided for 2026 capex of $38–42B and confirmed CoWoS advanced packaging capacity will roughly double by December 2026, with all capacity committed through 2027.</p>
+    <div class="news-card">
+      <div class="nc-meta">GOOGL &nbsp;·&nbsp; Apr 29, 2026</div>
+      <div class="nc-company">Alphabet Inc.</div>
+      <span class="sector-badge sector-software">Software/Cloud</span>
+      <div class="nc-headline">Search Beats on Resilient Ad Pricing; Cloud Margin Expands to 18.7%</div>
+      <p class="nc-summary">Alphabet Q1 2026 Search revenue grew 13.4%, ahead of the 11.5% buy-side estimate. Google Cloud reached $12.3B (+28% YoY) with operating margin of 18.7%. A $70B buyback authorization was announced.</p>
       <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
-      <p class="nc-impact">TSMC's commentary validates sustained hyperscaler capex and NVIDIA's oversubscription. CoWoS doubling supports AI chip supply ramp and provides a gating factor read-through for NVDA near-term delivery timelines. Positive for the broader AI supply chain.</p>
+      <p class="nc-impact">Search durability against AI-native alternatives is the key debate — the beat supports the thesis that Gemini integration is defending share. Cloud margin ahead of the multi-year profitability ramp thesis.</p>
+      <div class="nc-source">Alphabet IR &nbsp;·&nbsp; Earnings release</div>
+    </div>
+
+    <div class="news-card">
+      <div class="nc-meta">AMD &nbsp;·&nbsp; Apr 29, 2026</div>
+      <div class="nc-company">Advanced Micro Devices</div>
+      <span class="sector-badge sector-semis">Semis/AI</span>
+      <div class="nc-headline">MI300X Data Center GPU Revenue Tracking Toward $4B+; Epyc Gaining Against Intel</div>
+      <p class="nc-summary">AMD reported data center revenue of $2.3B in Q1 (+80% YoY), driven by MI300X AI GPU deployments at Microsoft, Meta, and Oracle. Epyc server CPU market share hit 33.4%, the highest on record. Q2 data center guidance implies sequential acceleration.</p>
+      <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
+      <p class="nc-impact">MI300X traction at hyperscalers validates the AI accelerator share-gain thesis. The key watch is whether AMD can sustain momentum as NVIDIA transitions to Blackwell — pricing power and ROCm software maturity remain open debates.</p>
+      <div class="nc-source">AMD IR &nbsp;·&nbsp; Earnings release</div>
+    </div>
+
+    <div class="news-card">
+      <div class="nc-meta">TSMC &nbsp;·&nbsp; Apr 17, 2026</div>
+      <div class="nc-company">Taiwan Semiconductor</div>
+      <span class="sector-badge sector-semis">Semis/AI</span>
+      <div class="nc-headline">Q1 Revenue NT$839B (+42% YoY); CoWoS Capacity to Double by End-2026</div>
+      <p class="nc-summary">TSMC reported Q1 revenue of NT$839.3B (+42% YoY), driven by AI accelerator demand on N3/N5 nodes. 2026 capex guided at $38–42B. CoWoS advanced packaging capacity committed to double by December 2026, with all allocation pre-committed through 2027.</p>
+      <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
+      <p class="nc-impact">TSMC's CoWoS monopoly makes it the binding supply constraint for NVIDIA AI chips — capacity doubling directly supports NVDA's ability to fulfill GB300 backlog. Strong NTM visibility supports the thesis of sustained AI infrastructure investment.</p>
       <div class="nc-source">TSMC IR &nbsp;·&nbsp; Earnings release &amp; call transcript</div>
     </div>
 
-  </div><!-- /news-grid -->
+    <div class="news-card">
+      <div class="nc-meta">META &nbsp;·&nbsp; Apr 30, 2026</div>
+      <div class="nc-company">Meta Platforms Inc.</div>
+      <span class="sector-badge sector-software">Software/Cloud</span>
+      <div class="nc-headline">Q1 Ad Revenue +18%; Reality Labs Losses Narrow; Llama 4 Driving Targeting Gains</div>
+      <p class="nc-summary">Meta reported Q1 ad revenue of $41.9B (+18% YoY), driven by Reels ad load optimization and Llama 4-powered targeting improvements. Reality Labs operating losses narrowed to $3.5B from $3.8B. Daily active people reached 3.4B.</p>
+      <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
+      <p class="nc-impact">Ad pricing power and volume both beat, confirming the AI-driven targeting advantage. Narrowing Reality Labs losses reduce the margin drag concern. Positive read-through for the digital ad ecosystem broadly.</p>
+      <div class="nc-source">Meta IR &nbsp;·&nbsp; Earnings release</div>
+    </div>
+
+    <!-- Hidden cards -->
+    <div class="news-card hidden-card" style="display:none">
+      <div class="nc-meta">ASML &nbsp;·&nbsp; Apr 16, 2026</div>
+      <div class="nc-company">ASML Holding</div>
+      <span class="sector-badge sector-semis">Semis/AI</span>
+      <div class="nc-headline">Q1 Bookings €3.9B; High-NA EUV First Wafers at TSMC Confirmed for H2 2026</div>
+      <p class="nc-summary">ASML reported Q1 net bookings of €3.9B, with High-NA EUV (EXE:5000) on track for first production wafers at TSMC in H2 2026. Management reiterated 2025-26 revenue guidance of €30–40B, citing solid backlog from AI-driven demand for leading-edge nodes.</p>
+      <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
+      <p class="nc-impact">High-NA milestone confirms the roadmap for 2nm-and-below chip manufacturing, underpinning ASML's irreplaceable position in the AI supply chain. China export restriction headwind (~29% of prior revenue) remains the key risk to monitor.</p>
+      <div class="nc-source">ASML IR &nbsp;·&nbsp; Earnings release</div>
+    </div>
+
+    <div class="news-card hidden-card" style="display:none">
+      <div class="nc-meta">COIN &nbsp;·&nbsp; May 8, 2026</div>
+      <div class="nc-company">Coinbase Global Inc.</div>
+      <span class="sector-badge sector-fig">FIG/Crypto</span>
+      <div class="nc-headline">Q1 Transaction Revenue Beats on BTC ETF Flows; Base L2 TVL Hits $3.2B</div>
+      <p class="nc-summary">Coinbase Q1 net revenue of $2.0B beat consensus by 12%, driven by elevated crypto trading volumes amid Bitcoin ETF institutional inflows. Base Layer-2 total value locked reached $3.2B. USDC stablecoin revenue of $285M grew 18% QoQ.</p>
+      <span class="thesis-label thesis-neutral">Thesis Impact: Watch</span>
+      <p class="nc-impact">The beat confirms Coinbase's leverage to crypto cycle upswings, but sustainability depends on BTC ETF flow continuation. USDC and Base L2 are the recurring-revenue building blocks to watch — they reduce (but don't eliminate) the vol dependency.</p>
+      <div class="nc-source">Coinbase IR &nbsp;·&nbsp; Earnings release</div>
+    </div>
+
+    <div class="news-card hidden-card" style="display:none">
+      <div class="nc-meta">JPM &nbsp;·&nbsp; Apr 11, 2026</div>
+      <div class="nc-company">JPMorgan Chase &amp; Co.</div>
+      <span class="sector-badge sector-fig">FIG/Crypto</span>
+      <div class="nc-headline">Q1 NII Beats on Deposit Repricing; IB Fees Up 12% on M&amp;A Pipeline Build</div>
+      <p class="nc-summary">JPMorgan Q1 net interest income of $23.4B beat estimates by $600M as deposit repricing proved more resilient than feared. Investment banking fees of $2.1B grew 12% YoY, led by M&amp;A advisory recovery. CET1 ratio at 15.3%, well above regulatory requirements.</p>
+      <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
+      <p class="nc-impact">NII resilience removes a key near-term bear case. IB pipeline recovery is early but directionally positive for the capital markets normalization thesis. Watch credit card delinquency trends in Q2 as the leading indicator of consumer health.</p>
+      <div class="nc-source">JPMorgan IR &nbsp;·&nbsp; Earnings press release</div>
+    </div>
+
+    <div class="news-card hidden-card" style="display:none">
+      <div class="nc-meta">GS &nbsp;·&nbsp; Apr 14, 2026</div>
+      <div class="nc-company">Goldman Sachs Group</div>
+      <span class="sector-badge sector-fig">FIG/Crypto</span>
+      <div class="nc-headline">Q1 FICC Revenue Beats at $4.7B; Equity Underwriting Strongest Since 2021</div>
+      <p class="nc-summary">Goldman Sachs Q1 net revenues of $14.2B beat consensus by 8%, driven by FICC revenues of $4.7B (+15% YoY) on rates and FX volatility. Equity underwriting of $900M was the strongest quarter since 2021, reflecting the reopening IPO calendar. ROE of 14.3%.</p>
+      <span class="thesis-label thesis-positive">Thesis Impact: Positive</span>
+      <p class="nc-impact">FICC strength confirms GS's positioning advantage in the current vol environment. Equity underwriting recovery is an early read on the IB normalization cycle — if sustained, it de-risks the bull case that advisory fees will recover materially in H2 2026.</p>
+      <div class="nc-source">Goldman Sachs IR &nbsp;·&nbsp; Earnings release</div>
+    </div>
+
+  </div>
 
   <div class="show-more">
-    <a id="show-more-btn" data-open="false">Show all 8 articles ↓</a>
+    <a id="show-more-btn" data-open="false">Show all 10 articles ↓</a>
   </div>
-  <p class="last-updated" id="last-updated">Last updated: 2026-05-01 &nbsp;|&nbsp; Sources: Company IR, Reuters, WSJ, MarketScreener</p>
+  <p class="last-updated" id="last-updated">Static content · Add your FMP key in Settings to load live news</p>
 
 </main>
 
@@ -134,8 +154,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
   renderSidebarWatchlist();
 
-  const fmpKey = getKeys().fmp;
-  if (!fmpKey) return; // keep static cards if no key
+  if (!getKeys().fmp) return;
 
   const grid = document.getElementById('news-grid');
   const lu   = document.getElementById('last-updated');
@@ -145,27 +164,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!articles.length) return;
 
     grid.innerHTML = articles.map(a => {
-      const sym  = a.symbol || '';
-      const date = (a.publishedDate || '').slice(0, 10);
-      const co   = COMPANY_NAMES[sym] || sym;
-      const text = (a.text || '').slice(0, 260);
+      const sym    = a.symbol || '';
+      const sector = TICKER_SECTOR[sym] || '';
+      const badge  = sector ? `<span class="sector-badge sector-${sectorClass(sector)}">${sector}</span>` : '';
       return `
         <div class="news-card">
-          <div class="nc-meta">${sym} &nbsp;·&nbsp; ${date}</div>
-          <div class="nc-company">${co}</div>
+          <div class="nc-meta">${sym} &nbsp;·&nbsp; ${(a.publishedDate || '').slice(0, 10)}</div>
+          <div class="nc-company">${COMPANY_NAMES[sym] || sym}</div>
+          ${badge}
           <div class="nc-headline"><a href="${a.url}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">${a.title}</a></div>
-          <p class="nc-summary">${text}…</p>
+          <p class="nc-summary">${(a.text || '').slice(0, 260)}…</p>
           <div class="nc-source">${a.site || 'FMP News'}</div>
         </div>`;
     }).join('');
 
-    // hide show-more (live feed has no hidden extras)
-    const smBtn = document.getElementById('show-more-btn');
-    if (smBtn) smBtn.closest('.show-more').style.display = 'none';
-
-    lu.textContent = `Live from FMP · Refreshed ${new Date().toLocaleTimeString()} · ${articles.length} articles`;
+    document.getElementById('show-more-btn')?.closest('.show-more')?.remove();
+    lu.textContent = `Live · FMP · Refreshed ${new Date().toLocaleTimeString()} · ${articles.length} articles`;
   } catch(e) {
-    // leave static cards intact on any error
     console.warn('FMP news fetch failed:', e.message);
   }
 });

@@ -1,29 +1,34 @@
 /* ── App configuration ─────────────────────────────────────────────
-   API keys are stored in localStorage (never in this file).
-   Enter them at settings.html. They persist across page loads.
+   API keys stored in localStorage — enter at settings.html.
    ─────────────────────────────────────────────────────────────── */
 
-const WATCHLIST = ['NVDA', 'MSFT', 'COIN', 'GOOGL', 'AMD', 'CRWD', 'GS'];
+const SECTORS = {
+  'Semis/AI':       ['NVDA', 'AMD', 'TSMC', 'ASML'],
+  'Software/Cloud': ['MSFT', 'GOOGL', 'META'],
+  'FIG/Crypto':     ['COIN', 'JPM', 'GS'],
+};
+
+const WATCHLIST = Object.values(SECTORS).flat();
 
 const COMPANY_NAMES = {
   NVDA:  'NVIDIA Corporation',
-  MSFT:  'Microsoft Corporation',
-  COIN:  'Coinbase Global Inc.',
-  GOOGL: 'Alphabet Inc.',
   AMD:   'Advanced Micro Devices',
-  CRWD:  'CrowdStrike Holdings',
+  TSMC:  'Taiwan Semiconductor',
+  ASML:  'ASML Holding',
+  MSFT:  'Microsoft Corporation',
+  GOOGL: 'Alphabet Inc.',
+  META:  'Meta Platforms Inc.',
+  COIN:  'Coinbase Global Inc.',
+  JPM:   'JPMorgan Chase & Co.',
   GS:    'Goldman Sachs Group',
 };
 
-const COMPANY_SECTORS = {
-  NVDA:  'Semiconductors',
-  MSFT:  'Cloud / Software',
-  COIN:  'Crypto / Fintech',
-  GOOGL: 'Internet / Cloud',
-  AMD:   'Semiconductors',
-  CRWD:  'Cybersecurity',
-  GS:    'Investment Banking',
-};
+const TICKER_SECTOR = {};
+Object.entries(SECTORS).forEach(([s, tickers]) => tickers.forEach(t => TICKER_SECTOR[t] = s));
+
+function sectorClass(sector) {
+  return sector === 'Semis/AI' ? 'semis' : sector === 'Software/Cloud' ? 'software' : 'fig';
+}
 
 const FMP_BASE = 'https://financialmodelingprep.com/api/v3';
 const AV_BASE  = 'https://www.alphavantage.co/query';
