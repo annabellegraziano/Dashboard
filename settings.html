@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Settings — Earnings Research Dashboard</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    .settings-section { margin-bottom: 36px; }
+    .settings-section h2 { font-size: 1rem; font-weight: bold; color: #000; border-bottom: 1px solid #e4e4e0; padding-bottom: 8px; margin-bottom: 18px; }
+    .key-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .key-row label { font-size: 12px; color: #666; width: 140px; flex-shrink: 0; }
+    .key-input { flex: 1; padding: 8px 12px; border: 1px solid #ccc; font-family: Georgia, serif; font-size: 13px; border-radius: 2px; }
+    .key-input:focus { outline: none; border-color: #888; }
+    .key-toggle { padding: 7px 12px; background: none; border: 1px solid #ddd; font-size: 11px; color: #777; cursor: pointer; border-radius: 2px; white-space: nowrap; }
+    .key-toggle:hover { border-color: #888; color: #333; }
+    .test-btn { padding: 7px 14px; background: none; border: 1px solid #ccc; font-family: Georgia, serif; font-size: 12px; cursor: pointer; border-radius: 2px; color: #555; }
+    .test-btn:hover { background: #f5f5f3; }
+    .test-result { font-size: 11px; margin-top: 4px; padding: 4px 0; }
+    .test-ok  { color: #2d7a2d; }
+    .test-err { color: #c0392b; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+    .dot-ok   { background: #2d7a2d; }
+    .dot-miss { background: #e0e0e0; }
+    .dot-err  { background: #c0392b; }
+    .save-row { display: flex; gap: 10px; align-items: center; margin-top: 8px; }
+    .save-msg { font-size: 12px; color: #2d7a2d; }
+    .wl-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .wl-tag { display: flex; align-items: center; gap: 6px; background: #f5f5f3; border: 1px solid #e4e4e0; padding: 4px 10px; border-radius: 2px; font-size: 13px; font-weight: bold; }
+    .wl-tag button { background: none; border: none; color: #bbb; cursor: pointer; font-size: 14px; line-height: 1; padding: 0; }
+    .wl-tag button:hover { color: #c0392b; }
+    .wl-add-row { display: flex; gap: 8px; margin-top: 12px; }
+    .help-text { font-size: 11px; color: #aaa; margin-top: 6px; line-height: 1.5; }
+    .api-card { background: #fafaf8; border: 1px solid #e8e8e4; padding: 18px 20px; border-radius: 2px; margin-bottom: 14px; }
+    .api-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .api-card-title { font-size: 13px; font-weight: bold; color: #000; }
+    .api-card-status { font-size: 11px; color: #aaa; display: flex; align-items: center; }
+  </style>
+</head>
+<body>
+
+<aside id="sidebar">
+  <div class="sidebar-logo">Earnings<br>Research</div>
+  <ul class="sidebar-nav">
+    <li><a href="index.html">Material News</a></li>
+    <li><a href="watchlist.html">My Watchlist</a></li>
+    <li><a href="earnings-reviews.html">Earnings Reviews</a></li>
+    <li><a href="settings.html" class="active">Settings</a></li>
+  </ul>
+  <hr class="sidebar-divider"/>
+  <div class="sidebar-section-label">Watchlist</div>
+  <ul class="sidebar-watchlist-links" id="sidebar-wl-links"></ul>
+  <hr class="sidebar-divider"/>
+  <div id="sidebar-cal"></div>
+</aside>
+
+<main id="main">
+  <h1 class="page-title">Settings</h1>
+  <p class="page-subtitle-center">API keys are stored in your browser only — never sent to any server except the API provider directly.</p>
+
+  <!-- API Keys -->
+  <div class="settings-section">
+
+    <div class="api-card">
+      <div class="api-card-header">
+        <div class="api-card-title">Financial Modeling Prep (FMP)</div>
+        <div class="api-card-status"><span class="status-dot" id="dot-fmp"></span><span id="status-fmp">Not configured</span></div>
+      </div>
+      <div class="key-row">
+        <label>API Key</label>
+        <input type="password" class="key-input" id="fmp-key" placeholder="Enter your FMP API key"/>
+        <button class="key-toggle" onclick="toggleVis('fmp-key', this)">Show</button>
+      </div>
+      <div class="help-text">Used for: earnings calendar, news feed, income statements, revenue/EPS actuals, quotes.<br>
+        Free tier: 250 req/day. Get your key at <strong>financialmodelingprep.com</strong> → free plan.</div>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button class="test-btn" onclick="testFMP()">Test Connection</button>
+        <span class="test-result" id="test-fmp"></span>
+      </div>
+    </div>
+
+    <div class="api-card">
+      <div class="api-card-header">
+        <div class="api-card-title">Alpha Vantage</div>
+        <div class="api-card-status"><span class="status-dot" id="dot-av"></span><span id="status-av">Not configured</span></div>
+      </div>
+      <div class="key-row">
+        <label>API Key</label>
+        <input type="password" class="key-input" id="av-key" placeholder="Enter your Alpha Vantage API key"/>
+        <button class="key-toggle" onclick="toggleVis('av-key', this)">Show</button>
+      </div>
+      <div class="help-text">Used for: live price quotes and % change on the Watchlist page.<br>
+        Free tier: 25 req/day, 5 req/min. Results cached 15 min. Get your key at <strong>alphavantage.co</strong>.</div>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button class="test-btn" onclick="testAV()">Test Connection</button>
+        <span class="test-result" id="test-av"></span>
+      </div>
+    </div>
+
+    <div class="api-card">
+      <div class="api-card-header">
+        <div class="api-card-title">Anthropic (Claude API)</div>
+        <div class="api-card-status"><span class="status-dot" id="dot-claude"></span><span id="status-claude">Not configured</span></div>
+      </div>
+      <div class="key-row">
+        <label>API Key</label>
+        <input type="password" class="key-input" id="claude-key" placeholder="sk-ant-…"/>
+        <button class="key-toggle" onclick="toggleVis('claude-key', this)">Show</button>
+      </div>
+      <div class="help-text">Used for: "Generate Preview" and "Generate Review" buttons on company pages.<br>
+        Calls claude-sonnet-4-6. Costs ~$0.003 per generation. Get your key at <strong>console.anthropic.com</strong>.</div>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button class="test-btn" onclick="testClaude()">Test Connection</button>
+        <span class="test-result" id="test-claude"></span>
+      </div>
+    </div>
+
+    <div class="save-row">
+      <button class="add-btn" onclick="saveKeys()">Save All Keys</button>
+      <button class="test-btn" onclick="clearKeys()">Clear All Keys</button>
+      <span class="save-msg" id="save-msg"></span>
+    </div>
+  </div>
+
+  <!-- Watchlist -->
+  <div class="settings-section">
+    <h2>Watchlist</h2>
+    <p class="section-sub" style="margin-bottom:14px">Tickers tracked across all pages — earnings calendar, news feed, price quotes.</p>
+    <div class="wl-tags" id="wl-tags"></div>
+    <div class="wl-add-row">
+      <input type="text" class="add-input" id="wl-input" placeholder="e.g. AAPL" maxlength="6"/>
+      <button class="add-btn" onclick="addWLTicker()">Add Ticker</button>
+      <span class="add-msg" id="wl-msg"></span>
+    </div>
+    <div class="help-text" style="margin-top:10px">Watchlist is saved locally. Changes take effect immediately across all pages.</div>
+  </div>
+
+  <!-- Cache -->
+  <div class="settings-section">
+    <h2>Data Cache</h2>
+    <p class="section-sub" style="margin-bottom:14px">Cached data speeds up page loads and reduces API usage. Clear if data looks stale.</p>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="test-btn" onclick="clearCache()">Clear All Cached Data</button>
+      <span id="cache-msg" style="font-size:12px;color:#2d7a2d"></span>
+    </div>
+    <div class="help-text" style="margin-top:8px">Cache TTLs: News = 15 min · Prices = 5 min (FMP) / 15 min (AV) · Earnings calendar = 1 hr · Financials = 6 hrs</div>
+  </div>
+
+</main>
+
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script src="app.js"></script>
+<script>
+/* ── Populate inputs from localStorage ── */
+document.addEventListener('DOMContentLoaded', () => {
+  const keys = getKeys();
+  if (keys.fmp)    document.getElementById('fmp-key').value    = keys.fmp;
+  if (keys.av)     document.getElementById('av-key').value     = keys.av;
+  if (keys.claude) document.getElementById('claude-key').value = keys.claude;
+  updateDots();
+  renderWLTags();
+  renderSidebarWatchlist();
+});
+
+function toggleVis(id, btn) {
+  const input = document.getElementById(id);
+  input.type = input.type === 'password' ? 'text' : 'password';
+  btn.textContent = input.type === 'password' ? 'Show' : 'Hide';
+}
+
+function saveKeys() {
+  const fmp    = document.getElementById('fmp-key').value.trim();
+  const av     = document.getElementById('av-key').value.trim();
+  const claude = document.getElementById('claude-key').value.trim();
+  if (fmp)    localStorage.setItem('fmp_key', fmp);    else localStorage.removeItem('fmp_key');
+  if (av)     localStorage.setItem('av_key', av);      else localStorage.removeItem('av_key');
+  if (claude) localStorage.setItem('claude_key', claude); else localStorage.removeItem('claude_key');
+  updateDots();
+  const msg = document.getElementById('save-msg');
+  msg.textContent = 'Keys saved ✓';
+  setTimeout(() => msg.textContent = '', 2500);
+}
+
+function clearKeys() {
+  ['fmp_key','av_key','claude_key'].forEach(k => localStorage.removeItem(k));
+  ['fmp-key','av-key','claude-key'].forEach(id => document.getElementById(id).value = '');
+  updateDots();
+}
+
+function updateDots() {
+  const keys = getKeys();
+  [['fmp','dot-fmp','status-fmp'],['av','dot-av','status-av'],['claude','dot-claude','status-claude']].forEach(([k, dotId, lblId]) => {
+    const dot = document.getElementById(dotId);
+    const lbl = document.getElementById(lblId);
+    if (keys[k]) { dot.className = 'status-dot dot-ok'; lbl.textContent = 'Configured'; lbl.style.color = '#2d7a2d'; }
+    else          { dot.className = 'status-dot dot-miss'; lbl.textContent = 'Not configured'; lbl.style.color = '#aaa'; }
+  });
+}
+
+async function testFMP() {
+  const el = document.getElementById('test-fmp');
+  el.textContent = 'Testing…'; el.className = 'test-result';
+  try {
+    const key = document.getElementById('fmp-key').value.trim() || getKeys().fmp;
+    if (!key) { el.textContent = 'No key entered.'; el.className = 'test-result test-err'; return; }
+    const r = await fetch(`${FMP_BASE}/profile/AAPL?apikey=${key}`);
+    const d = await r.json();
+    if (Array.isArray(d) && d[0]) { el.textContent = `✓ Connected — ${d[0].companyName}`; el.className = 'test-result test-ok'; }
+    else { el.textContent = '✗ Invalid key or quota exceeded'; el.className = 'test-result test-err'; }
+  } catch(e) { el.textContent = '✗ ' + e.message; el.className = 'test-result test-err'; }
+}
+
+async function testAV() {
+  const el = document.getElementById('test-av');
+  el.textContent = 'Testing…'; el.className = 'test-result';
+  try {
+    const key = document.getElementById('av-key').value.trim() || getKeys().av;
+    if (!key) { el.textContent = 'No key entered.'; el.className = 'test-result test-err'; return; }
+    const r = await fetch(`${AV_BASE}?function=GLOBAL_QUOTE&symbol=MSFT&apikey=${key}`);
+    const d = await r.json();
+    if (d['Global Quote']?.['05. price']) { el.textContent = `✓ Connected — MSFT $${parseFloat(d['Global Quote']['05. price']).toFixed(2)}`; el.className = 'test-result test-ok'; }
+    else if (d.Note) { el.textContent = '✗ Rate limit hit — try again in a minute'; el.className = 'test-result test-err'; }
+    else { el.textContent = '✗ Invalid key'; el.className = 'test-result test-err'; }
+  } catch(e) { el.textContent = '✗ ' + e.message; el.className = 'test-result test-err'; }
+}
+
+async function testClaude() {
+  const el = document.getElementById('test-claude');
+  el.textContent = 'Testing…'; el.className = 'test-result';
+  try {
+    const key = document.getElementById('claude-key').value.trim() || getKeys().claude;
+    if (!key) { el.textContent = 'No key entered.'; el.className = 'test-result test-err'; return; }
+    const r = await fetch(CLAUDE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 20, messages: [{ role: 'user', content: 'Say OK' }] }),
+    });
+    if (r.ok) { el.textContent = '✓ Connected'; el.className = 'test-result test-ok'; }
+    else { const d = await r.json(); el.textContent = '✗ ' + (d.error?.message || r.status); el.className = 'test-result test-err'; }
+  } catch(e) { el.textContent = '✗ ' + e.message; el.className = 'test-result test-err'; }
+}
+
+/* ── Watchlist management ── */
+function getCustomWL() {
+  const raw = localStorage.getItem('watchlist');
+  return raw ? JSON.parse(raw) : [...WATCHLIST];
+}
+function saveCustomWL(list) { localStorage.setItem('watchlist', JSON.stringify(list)); }
+
+function renderWLTags() {
+  const container = document.getElementById('wl-tags');
+  const list = getCustomWL();
+  container.innerHTML = list.map(t => `
+    <div class="wl-tag">
+      ${t}
+      <button onclick="removeWLTicker('${t}')" title="Remove">&times;</button>
+    </div>`).join('');
+}
+function removeWLTicker(t) { saveCustomWL(getCustomWL().filter(x => x !== t)); renderWLTags(); renderSidebarWatchlist(); }
+function addWLTicker() {
+  const input = document.getElementById('wl-input');
+  const msg   = document.getElementById('wl-msg');
+  const t = input.value.toUpperCase().trim();
+  if (!t) { msg.textContent = 'Enter a ticker.'; return; }
+  const list = getCustomWL();
+  if (list.includes(t)) { msg.textContent = t + ' already on watchlist.'; return; }
+  list.push(t); saveCustomWL(list);
+  input.value = ''; msg.textContent = '';
+  renderWLTags(); renderSidebarWatchlist();
+}
+document.getElementById('wl-input')?.addEventListener('keydown', e => { if (e.key === 'Enter') addWLTicker(); });
+
+function clearCache() {
+  cacheClear();
+  const el = document.getElementById('cache-msg');
+  el.textContent = 'Cache cleared ✓';
+  setTimeout(() => el.textContent = '', 2500);
+}
+</script>
+</body>
+</html>

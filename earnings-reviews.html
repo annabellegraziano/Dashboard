@@ -16,15 +16,12 @@
     <li><a href="index.html">Material News</a></li>
     <li><a href="watchlist.html">My Watchlist</a></li>
     <li><a href="earnings-reviews.html" class="active">Earnings Reviews</a></li>
+    <li><a href="settings.html" style="color:#ccc;font-size:12px">⚙ Settings</a></li>
   </ul>
 
   <hr class="sidebar-divider"/>
   <div class="sidebar-section-label">Watchlist</div>
-  <ul class="sidebar-watchlist-links" id="sidebar-wl-links">
-    <li><a href="company.html?t=COST">COST</a></li>
-    <li><a href="company.html?t=MSFT">MSFT</a></li>
-    <li><a href="company.html?t=AMZN">AMZN</a></li>
-  </ul>
+  <ul class="sidebar-watchlist-links" id="sidebar-wl-links"></ul>
 </aside>
 
 <!-- ── Main ─────────────────────────────────────────────────────────── -->
@@ -178,28 +175,37 @@
 
 </main>
 
+<script src="config.js"></script>
+<script src="api.js"></script>
 <script src="app.js"></script>
 <script>
 function filterCards(type, btn) {
-  const watchlist = JSON.parse(localStorage.getItem('watchlist') || '["COST","MSFT","AMZN"]');
+  const watchlist = getWatchlist();
   const cards = document.querySelectorAll('.review-card');
-  // update button styles
   document.querySelectorAll('#main button').forEach(b => {
     b.style.background = '#fff'; b.style.color = '#666';
   });
   btn.style.background = '#111'; btn.style.color = '#fff';
 
   cards.forEach(card => {
-    const q  = card.dataset.quarter;
+    const q      = card.dataset.quarter;
     const ticker = card.querySelector('.rc-ticker').textContent.trim();
-    const inWL = watchlist.includes(ticker);
-    if (type === 'all')       card.style.display = 'block';
-    else if (type === 'Q1')   card.style.display = q === 'Q1' ? 'block' : 'none';
-    else if (type === 'Q4')   card.style.display = q === 'Q4' ? 'block' : 'none';
+    const inWL   = watchlist.includes(ticker);
+    if      (type === 'all')       card.style.display = 'block';
+    else if (type === 'Q1')        card.style.display = q === 'Q1' ? 'block' : 'none';
+    else if (type === 'Q4')        card.style.display = q === 'Q4' ? 'block' : 'none';
     else if (type === 'watchlist') card.style.display = inWL ? 'block' : 'none';
   });
 }
-document.addEventListener('DOMContentLoaded', () => renderSidebarWatchlist());
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderSidebarWatchlist();
+  // Update all review-card links to use dynamic review.html?t=TICKER
+  document.querySelectorAll('.review-card').forEach(card => {
+    const ticker = card.querySelector('.rc-ticker')?.textContent.trim();
+    if (ticker) card.href = `review.html?t=${ticker}`;
+  });
+});
 </script>
 </body>
 </html>

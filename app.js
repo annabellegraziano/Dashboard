@@ -1,18 +1,21 @@
 /* ── Watchlist ─────────────────────────────────────────────────────── */
 const COMPANY_INFO = {
-  COST:  { name: "Costco Wholesale Corp.", next: "Q3 2026", date: "May 29, 2026 AMC" },
-  MSFT:  { name: "Microsoft Corporation",  next: "Q3 FY2026", date: "Apr 30, 2026 AMC" },
-  AMZN:  { name: "Amazon.com Inc.",         next: "Q1 2026", date: "May 1, 2026 AMC" },
-  GOOGL: { name: "Alphabet Inc.",           next: "Q1 2026", date: "Apr 29, 2026 AMC" },
-  NVDA:  { name: "NVIDIA Corporation",      next: "Q1 FY2027", date: "May 28, 2026 AMC" },
-  META:  { name: "Meta Platforms Inc.",     next: "Q1 2026", date: "Apr 30, 2026 AMC" },
-  AMZN:  { name: "Amazon.com Inc.",         next: "Q1 2026", date: "May 1, 2026 AMC" },
-  GLW:   { name: "Corning Incorporated",    next: "Q2 2026", date: "Jul 29, 2026 AMC" },
-  TSM:   { name: "Taiwan Semiconductor",    next: "Q2 2026", date: "Jul 17, 2026" },
-  AAPL:  { name: "Apple Inc.",              next: "Q2 FY2026", date: "May 1, 2026 AMC" },
+  NVDA:  { name: "NVIDIA Corporation",      sector: "Semiconductors" },
+  MSFT:  { name: "Microsoft Corporation",   sector: "Cloud / Software" },
+  COIN:  { name: "Coinbase Global Inc.",     sector: "Crypto / Fintech" },
+  GOOGL: { name: "Alphabet Inc.",           sector: "Internet / Cloud" },
+  AMD:   { name: "Advanced Micro Devices",  sector: "Semiconductors" },
+  CRWD:  { name: "CrowdStrike Holdings",    sector: "Cybersecurity" },
+  GS:    { name: "Goldman Sachs Group",     sector: "Investment Banking" },
+  COST:  { name: "Costco Wholesale Corp.",  sector: "Consumer Staples" },
+  AMZN:  { name: "Amazon.com Inc.",         sector: "Consumer / Cloud" },
+  META:  { name: "Meta Platforms Inc.",     sector: "Digital Advertising" },
+  AAPL:  { name: "Apple Inc.",              sector: "Consumer Tech" },
+  GLW:   { name: "Corning Incorporated",    sector: "Specialty Materials" },
+  TSM:   { name: "Taiwan Semiconductor",    sector: "Foundry" },
 };
 
-const DEFAULT_WATCHLIST = ["COST", "MSFT", "AMZN"];
+const DEFAULT_WATCHLIST = ["NVDA", "MSFT", "COIN", "GOOGL", "AMD", "CRWD", "GS"];
 
 function getWatchlist() {
   const raw = localStorage.getItem("watchlist");
@@ -38,6 +41,23 @@ function removeTicker(ticker) {
   saveWatchlist(list);
 }
 
+/* ── Render sidebar earnings calendar widget ──────────────────────── */
+function renderEarningsCalendar(calendar) {
+  const el = document.getElementById('sidebar-cal');
+  if (!el) return;
+  const items = Array.isArray(calendar) ? calendar.slice(0, 7) : [];
+  if (!items.length) {
+    el.innerHTML = '<div class="sidebar-section-label">Upcoming Earnings</div><div style="font-size:11px;color:#ccc">None in next 45 days</div>';
+    return;
+  }
+  el.innerHTML = `<div class="sidebar-section-label">Upcoming Earnings</div>` +
+    items.map(e => `
+      <div class="sidebar-cal-item">
+        <span class="sidebar-cal-ticker">${e.symbol}</span>
+        <div class="sidebar-cal-date">${e.date}${e.time === 'amc' ? ' AMC' : e.time === 'bmo' ? ' BMO' : ''}</div>
+      </div>`).join('');
+}
+
 /* ── Render sidebar watchlist links ───────────────────────────────── */
 function renderSidebarWatchlist(activeTickerOrPage) {
   const el = document.getElementById("sidebar-wl-links");
@@ -59,18 +79,18 @@ function renderWatchlistCards() {
     return;
   }
   grid.innerHTML = list.map(t => {
-    const info = COMPANY_INFO[t] || { name: t, next: "—", date: "—" };
+    const info = COMPANY_INFO[t] || { name: t, sector: "" };
     return `
     <div class="wl-card" id="card-${t}">
       <button class="wl-remove" onclick="handleRemove('${t}')" title="Remove">&times;</button>
       <div class="wl-ticker">${t}</div>
       <div class="wl-name">${info.name}</div>
-      <div class="wl-row">Next earnings: <span>${info.next}</span></div>
-      <div class="wl-row">Reports: <span>${info.date}</span></div>
+      <div class="wl-row" id="wl-price-${t}" style="font-size:13px;color:#aaa">Loading price…</div>
+      <div class="wl-row" id="wl-earn-${t}" style="font-size:12px;color:#aaa">Loading earnings…</div>
       <div class="wl-links">
-        <a class="wl-link" href="preview-googl.html">Preview</a>
-        <a class="wl-link" href="financials-googl.html">Financials</a>
-        <a class="wl-link" href="review-googl.html">Review</a>
+        <a class="wl-link" href="preview.html?t=${t}">Preview</a>
+        <a class="wl-link" href="financials.html?t=${t}">Financials</a>
+        <a class="wl-link" href="review.html?t=${t}">Review</a>
       </div>
     </div>`;
   }).join("");

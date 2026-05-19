@@ -18,7 +18,7 @@
   <ul class="sidebar-nav">
     <li><a href="#" class="active">Overview</a></li>
     <li><a href="business-model-glw.html" id="s-biz">Business Model</a></li>
-    <li><a href="financials-googl.html" id="s-fin">Financials</a></li>
+    <li><a href="#" id="s-fin">Financials</a></li>
     <li><a href="#">Thematics</a></li>
     <li><a href="#">Management</a></li>
     <li><a href="#">Valuation</a></li>
@@ -26,10 +26,7 @@
   </ul>
 
   <div class="sidebar-section-label">Earnings</div>
-  <ul class="sidebar-earnings-links" id="s-earnings-links">
-    <li><a href="preview-googl.html">2026Q1 Preview</a></li>
-    <li><a href="review-googl.html">2025Q4 Review</a></li>
-  </ul>
+  <ul class="sidebar-earnings-links" id="s-earnings-links"></ul>
 </aside>
 
 <!-- ── Main ─────────────────────────────────────────────────────────── -->
@@ -142,6 +139,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.title = `${ticker} — Overview | Earnings Research Dashboard`;
   document.getElementById("s-ticker").textContent   = ticker;
   document.getElementById("s-company").textContent  = data.name;
+  document.getElementById("s-fin").href             = `financials.html?t=${ticker}`;
+  document.getElementById("s-earnings-links").innerHTML = `
+    <li><a href="preview.html?t=${ticker}">Next Earnings Preview</a></li>
+    <li><a href="review.html?t=${ticker}">Latest Review</a></li>`;
   document.getElementById("m-title").textContent    = `${ticker} — Overview`;
   document.getElementById("m-subtitle").textContent = data.subtitle;
   document.getElementById("kpi-next").textContent   = data.next;

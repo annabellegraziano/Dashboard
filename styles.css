@@ -521,6 +521,132 @@ td a.data-link {
 td.vs-beat { color: #2d7a2d; font-weight: 600; }
 td.vs-miss { color: #c0392b; font-weight: 600; }
 
+/* ── Loading / error states ───────────────────────────────────────── */
+.loading-block {
+  text-align: center;
+  padding: 100px 20px;
+  color: #aaa;
+}
+.spinner {
+  width: 26px; height: 26px;
+  border: 2px solid #e4e4e0;
+  border-top-color: #555;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.error-block {
+  border: 1px solid #f0d0cc;
+  background: #fdf5f4;
+  padding: 24px 28px;
+  border-radius: 2px;
+  margin-top: 60px;
+  color: #c0392b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ── Generate button & Claude output ──────────────────────────────── */
+.generate-btn {
+  padding: 10px 22px;
+  background: #111;
+  color: #fff;
+  border: none;
+  font-family: Georgia, serif;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 2px;
+  letter-spacing: 0.02em;
+}
+.generate-btn:hover    { background: #333; }
+.generate-btn:disabled { background: #999; cursor: default; }
+
+.gen-status { font-size: 12.5px; color: #888; }
+
+.generated-content {
+  font-size: 13.5px;
+  line-height: 1.8;
+  color: #333;
+  border: 1px solid #e8e8e4;
+  padding: 24px 28px;
+  border-radius: 2px;
+  background: #fafaf8;
+}
+
+/* ── Small utility buttons (settings page, etc.) ──────────────────── */
+.test-btn-sm {
+  padding: 6px 14px;
+  background: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+  font-family: Georgia, serif;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.test-btn-sm:hover { border-color: #999; }
+
+/* ── Live price display ───────────────────────────────────────────── */
+.live-price  { font-size: 1.1rem; font-weight: bold; color: #333; }
+.price-up    { color: #2d7a2d; }
+.price-down  { color: #c0392b; }
+
+/* ── Sidebar earnings calendar widget ────────────────────────────── */
+.sidebar-cal-item {
+  margin-bottom: 9px;
+  line-height: 1.35;
+}
+.sidebar-cal-ticker {
+  font-size: 12px;
+  font-weight: bold;
+  color: #000;
+}
+.sidebar-cal-date {
+  font-size: 10px;
+  color: #aaa;
+}
+
+/* ── Settings page inputs ─────────────────────────────────────────── */
+.settings-group {
+  border: 1px solid #e4e4e0;
+  padding: 20px 22px 18px;
+  border-radius: 2px;
+  margin-bottom: 18px;
+}
+.settings-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #bbb;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.key-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #ddd;
+  display: inline-block;
+}
+.key-dot.active { background: #2d7a2d; }
+.settings-input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #ccc;
+  font-family: Georgia, serif;
+  font-size: 13px;
+  border-radius: 2px;
+  background: #fff;
+  color: #333;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+.settings-input:focus { outline: none; border-color: #888; }
+.settings-row { display: flex; gap: 10px; align-items: center; }
+
 /* ── Responsive: narrow screens ───────────────────────────────────── */
 @media (max-width: 900px) {
   .news-grid   { grid-template-columns: repeat(2, 1fr); }

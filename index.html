@@ -16,16 +16,12 @@
     <li><a href="index.html" class="active">Material News</a></li>
     <li><a href="watchlist.html">My Watchlist</a></li>
     <li><a href="earnings-reviews.html">Earnings Reviews</a></li>
+    <li><a href="settings.html" style="color:#ccc;font-size:12px">⚙ Settings</a></li>
   </ul>
 
   <hr class="sidebar-divider"/>
   <div class="sidebar-section-label">Watchlist</div>
-  <ul class="sidebar-watchlist-links" id="sidebar-wl-links">
-    <!-- Populated by app.js -->
-    <li><a href="company.html?t=COST">COST</a></li>
-    <li><a href="company.html?t=MSFT">MSFT</a></li>
-    <li><a href="company.html?t=AMZN">AMZN</a></li>
-  </ul>
+  <ul class="sidebar-watchlist-links" id="sidebar-wl-links"></ul>
 </aside>
 
 <!-- ── Main ─────────────────────────────────────────────────────────── -->
@@ -127,10 +123,52 @@
   <div class="show-more">
     <a id="show-more-btn" data-open="false">Show all 8 articles ↓</a>
   </div>
-  <p class="last-updated">Last updated: 2026-05-01 &nbsp;|&nbsp; Sources: Company IR, Reuters, WSJ, MarketScreener</p>
+  <p class="last-updated" id="last-updated">Last updated: 2026-05-01 &nbsp;|&nbsp; Sources: Company IR, Reuters, WSJ, MarketScreener</p>
 
 </main>
 
+<script src="config.js"></script>
+<script src="api.js"></script>
 <script src="app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  renderSidebarWatchlist();
+
+  const fmpKey = getKeys().fmp;
+  if (!fmpKey) return; // keep static cards if no key
+
+  const grid = document.getElementById('news-grid');
+  const lu   = document.getElementById('last-updated');
+
+  try {
+    const articles = await fetchNews(WATCHLIST, 18);
+    if (!articles.length) return;
+
+    grid.innerHTML = articles.map(a => {
+      const sym  = a.symbol || '';
+      const date = (a.publishedDate || '').slice(0, 10);
+      const co   = COMPANY_NAMES[sym] || sym;
+      const text = (a.text || '').slice(0, 260);
+      return `
+        <div class="news-card">
+          <div class="nc-meta">${sym} &nbsp;·&nbsp; ${date}</div>
+          <div class="nc-company">${co}</div>
+          <div class="nc-headline"><a href="${a.url}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">${a.title}</a></div>
+          <p class="nc-summary">${text}…</p>
+          <div class="nc-source">${a.site || 'FMP News'}</div>
+        </div>`;
+    }).join('');
+
+    // hide show-more (live feed has no hidden extras)
+    const smBtn = document.getElementById('show-more-btn');
+    if (smBtn) smBtn.closest('.show-more').style.display = 'none';
+
+    lu.textContent = `Live from FMP · Refreshed ${new Date().toLocaleTimeString()} · ${articles.length} articles`;
+  } catch(e) {
+    // leave static cards intact on any error
+    console.warn('FMP news fetch failed:', e.message);
+  }
+});
+</script>
 </body>
 </html>
