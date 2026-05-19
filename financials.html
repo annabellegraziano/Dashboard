@@ -27,50 +27,103 @@
   <h1 class="preview-title" id="m-title">Financials</h1>
   <p class="preview-subtitle" id="m-subtitle"></p>
 
-  <div class="kpi-grid">
-    <div class="kpi-card">
-      <div class="kpi-label">TTM Revenue</div>
-      <div class="kpi-value kpi-editable" data-field="ttm-rev" contenteditable="true" spellcheck="false">—</div>
-      <div class="kpi-desc">Click to edit</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Latest Qtr YoY</div>
-      <div class="kpi-value kpi-editable" data-field="yoy" contenteditable="true" spellcheck="false">—</div>
-      <div class="kpi-desc">Click to edit</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Latest Op. Margin</div>
-      <div class="kpi-value kpi-editable" data-field="op-margin" contenteditable="true" spellcheck="false">—</div>
-      <div class="kpi-desc">Click to edit</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Latest EPS</div>
-      <div class="kpi-value kpi-editable" data-field="eps" contenteditable="true" spellcheck="false">—</div>
-      <div class="kpi-desc">Click to edit</div>
-    </div>
+  <div class="section-header">Quarterly Income Statement</div>
+  <p class="section-sub" style="margin-bottom:16px">Click any cell to edit. Values auto-save to your browser. Update each quarter after earnings.</p>
+
+  <div id="fin-table-container">
+    <!-- Rendered by renderFinTable() -->
   </div>
 
-  <div class="section-header">Income Statement Notes</div>
-  <p class="section-sub" style="margin-bottom:12px">Paste in quarterly financials, track revenue/EPS trends, note margin dynamics.</p>
+  <div class="section-header" style="margin-top:40px">Analyst Notes</div>
+  <p class="section-sub" style="margin-bottom:12px">Track revenue/EPS trends, margin dynamics, segment commentary.</p>
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
     <span class="notes-status" id="notes-status"></span>
     <button class="notes-clear" id="notes-clear">Clear</button>
   </div>
-  <textarea id="notes-ta" class="notes-editor" style="min-height:280px" placeholder="Paste quarterly income statement data here — revenue, gross profit, operating income, net income, EPS (diluted), YoY growth rates, margin trends, beat/miss vs consensus…&#10;&#10;Example format:&#10;Q1 2026: Rev $44.1B (+69% YoY), GM 73.5%, Op. Inc $27.1B, EPS $0.61 (beat $0.58 est.)&#10;Q4 2025: Rev $39.3B (+78% YoY), GM 73.0%, Op. Inc $24.0B, EPS $0.89 (beat $0.84 est.)"></textarea>
+  <textarea id="notes-ta" class="notes-editor" style="min-height:200px"
+    placeholder="Revenue/EPS trend notes, margin dynamics, segment commentary, beat/miss vs consensus…"></textarea>
 
   <p class="footer-note" style="margin-top:32px">
-    KPI cards are editable — click any value to type. Notes auto-save to your browser.
-    Source your data from earnings releases, IR pages, or Bloomberg/FactSet.
+    Table cells are editable — click any value to type. Data auto-saves to your browser.
+    Source your data from earnings releases, IR pages, or SEC EDGAR filings.
   </p>
 </main>
 
 <script src="config.js"></script>
 <script src="api.js"></script>
+<script src="financials-data.js"></script>
 <script src="app.js"></script>
 <script>
 const params = new URLSearchParams(window.location.search);
 const TICKER = (params.get('t') || 'NVDA').toUpperCase();
 const CONAME = COMPANY_NAMES[TICKER] || TICKER;
+
+function renderFinTable() {
+  const container = document.getElementById('fin-table-container');
+  const data = FINANCIALS_DATA[TICKER];
+
+  if (!data) {
+    container.innerHTML = `
+      <p class="section-sub">No pre-populated data for ${TICKER}. Use the notes area below to track financials manually.</p>`;
+    return;
+  }
+
+  const headerCells = data.quarters.map(q =>
+    `<th>${q}</th>`).join('');
+
+  const rows = data.metrics.map(metric => {
+    const cells = data.quarters.map((q, qi) => {
+      const lsKey = `fintbl_${TICKER}_${qi}_${metric.key}`;
+      const saved  = localStorage.getItem(lsKey);
+      const defVal = data.metrics.find(m => m.key === metric.key).values[qi];
+      const display = saved !== null ? saved : defVal;
+      const isEmpty = !display || display === '—';
+      return `<td><span class="fin-cell${isEmpty ? ' fin-empty' : ''}"
+        contenteditable="true" spellcheck="false"
+        data-qi="${qi}" data-mk="${metric.key}">${display}</span></td>`;
+    }).join('');
+    return `<tr><td class="fin-metric-label">${metric.label}</td>${cells}</tr>`;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="fin-table-wrap">
+      <table class="fin-table">
+        <thead>
+          <tr>
+            <th class="fin-metric-label">Metric</th>
+            ${headerCells}
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+    <p class="fin-note">${data.note}</p>
+    <a class="fin-edgar-link" href="${data.edgar}" target="_blank" rel="noopener">
+      SEC EDGAR — ${TICKER} Filings &rarr;
+    </a>`;
+
+  /* Wire up persistence */
+  container.querySelectorAll('.fin-cell').forEach(cell => {
+    const qi = cell.dataset.qi;
+    const mk = cell.dataset.mk;
+    const lsKey = `fintbl_${TICKER}_${qi}_${mk}`;
+
+    cell.addEventListener('input', () => {
+      const val = cell.textContent.trim();
+      localStorage.setItem(lsKey, val || '—');
+      cell.classList.toggle('fin-empty', !val || val === '—');
+    });
+
+    /* Select all on focus for easy overwrite */
+    cell.addEventListener('focus', () => {
+      const range = document.createRange();
+      range.selectNodeContents(cell);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    });
+  });
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   document.title = `${TICKER} — Financials`;
@@ -80,11 +133,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('s-preview').href  = `preview.html?t=${TICKER}`;
   document.getElementById('s-review').href   = `review.html?t=${TICKER}`;
   document.getElementById('m-title').textContent    = `${TICKER} — Financials`;
-  document.getElementById('m-subtitle').textContent = `${CONAME} | Income statement & key metrics`;
+  document.getElementById('m-subtitle').textContent = `${CONAME} | Quarterly income statement`;
 
   renderSidebarWatchlist(TICKER);
+  renderFinTable();
   initNotesEditor('financials', TICKER);
-  initEditableKPIs('financials', TICKER);
 });
 </script>
 </body>
