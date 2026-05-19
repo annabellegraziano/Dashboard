@@ -33,7 +33,7 @@
 
   <div class="kpi-grid" id="m-kpis">
     <div class="kpi-card">
-      <div class="kpi-label">Next Earnings</div>
+      <div class="kpi-label" id="kpi-next-label">Next Earnings</div>
       <div class="kpi-value" id="kpi-next">—</div>
       <div class="kpi-desc" id="kpi-date">—</div>
     </div>
@@ -183,6 +183,24 @@ const OVERVIEW_DATA = {
     stanceDesc: "FICC $4.7B; equities best since 2021",
     thesis: "Goldman Sachs is the highest-quality pure-play on capital markets normalization and institutional trading activity. Q1 2026 net revenues of $14.2B beat consensus by 8%, driven by FICC revenues of $4.7B (+15% YoY) on rates and FX volatility. Equity underwriting of $900M was the best since 2021, reflecting IPO calendar reopening. ROE of 14.3% is tracking toward management's 15–17% medium-term target. Key risks: trading revenue vol dependency (FICC strength is cycle-sensitive), asset management fee growth sustainability, and whether the IB normalization cycle sustains into H2 2026.",
   },
+  MSTR: {
+    name: "MicroStrategy Inc. (Strategy)",
+    subtitle: "Bitcoin treasury company & business intelligence software | Nasdaq | FIG/Crypto",
+    kpiNextLabel: "BTC per Share",
+    next: "~0.00232 BTC", date: "Bitcoin yield: +74% YTD (Q1 2026)",
+    mcap: "~$95B", stance: "Speculative Long",
+    stanceDesc: "Leveraged BTC proxy; ~1.5× NAV premium",
+    thesis: "Strategy (formerly MicroStrategy) has evolved from a software company into a leveraged Bitcoin treasury vehicle. The core thesis: management continuously issues equity and converts-to-buy Bitcoin, measured by 'Bitcoin yield' (BTC per diluted share growth), which printed +74% YTD in Q1 2026. Total holdings reached 553,555 BTC at an average cost of ~$68,459/coin. The premium-to-NAV (~1.5×) reflects the optionality of perpetual BTC accumulation and the FOMO of institutional holders who cannot hold spot BTC directly. Key metrics to track: (1) Bitcoin yield — the core KPI, should be positive every quarter; (2) premium to NAV — compression is a warning sign; (3) ATM equity issuance pace — the funding mechanism for accumulation. Key risks: BTC price decline compresses NAV and may trigger margin issues on convertible debt; regulatory reclassification; and dilution if BTC yield cannot keep pace with share issuance.",
+  },
+  IBIT: {
+    name: "iShares Bitcoin Trust ETF",
+    subtitle: "Spot Bitcoin ETF — BlackRock | Nasdaq | FIG/Crypto",
+    kpiNextLabel: "AUM",
+    next: "$50B+", date: "Updated daily · iShares.com",
+    mcap: "$50B+ (AUM-based)", stance: "BTC Proxy",
+    stanceDesc: "Tracks spot BTC; fee 0.25%; no earnings",
+    thesis: "IBIT is not a traditional equity — it holds spot Bitcoin on behalf of shareholders and has no earnings, revenue, or growth KPIs. The investment thesis is a direct expression of a bullish view on Bitcoin adoption. As the world's largest spot BTC ETF (BlackRock-backed, with the deepest liquidity), IBIT is the cleanest institutional on-ramp to Bitcoin price exposure. Key metrics to track instead of earnings: (1) Daily net flows — sustained positive flows signal institutional accumulation; reversals are the primary bear signal; (2) Total AUM — scale reinforces the liquidity advantage over smaller spot ETFs; (3) BTC holdings (currently ~575,000 BTC) — tracks institutional adoption in absolute terms. IBIT daily flow data is a leading indicator for near-term BTC price pressure and serves as a read-through for MSTR, COIN, and broader crypto risk appetite in the portfolio.",
+  },
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -202,6 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("rc-financials").href    = `financials.html?t=${ticker}`;
   document.getElementById("m-title").textContent   = `${ticker} — Overview`;
   document.getElementById("m-subtitle").textContent = data.subtitle;
+  if (data.kpiNextLabel) document.getElementById("kpi-next-label").textContent = data.kpiNextLabel;
   document.getElementById("kpi-next").textContent  = data.next;
   document.getElementById("kpi-date").textContent  = data.date;
   document.getElementById("kpi-sector").textContent = sector || "—";

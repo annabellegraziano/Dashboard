@@ -215,6 +215,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const showMoreBtn = document.getElementById("show-more-btn");
   const hiddenCards = document.querySelectorAll(".news-card.hidden-card");
   if (showMoreBtn && hiddenCards.length) {
+    const totalCards = document.querySelectorAll(".news-card").length;
+    showMoreBtn.textContent = `Show all ${totalCards} articles ↓`;
     showMoreBtn.addEventListener("click", e => {
       e.preventDefault();
       const open = showMoreBtn.dataset.open === "true";

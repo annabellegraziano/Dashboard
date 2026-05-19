@@ -5,7 +5,7 @@
 const SECTORS = {
   'Semis/AI':       ['NVDA', 'AMD', 'TSMC', 'ASML'],
   'Software/Cloud': ['MSFT', 'GOOGL', 'META'],
-  'FIG/Crypto':     ['COIN', 'JPM', 'GS'],
+  'FIG/Crypto':     ['COIN', 'JPM', 'GS', 'MSTR', 'IBIT'],
 };
 
 const WATCHLIST = Object.values(SECTORS).flat();
@@ -21,6 +21,8 @@ const COMPANY_NAMES = {
   COIN:  'Coinbase Global Inc.',
   JPM:   'JPMorgan Chase & Co.',
   GS:    'Goldman Sachs Group',
+  MSTR:  'MicroStrategy Inc. (Strategy)',
+  IBIT:  'iShares Bitcoin Trust ETF',
 };
 
 const TICKER_SECTOR = {};
