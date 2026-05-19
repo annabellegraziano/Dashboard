@@ -32,7 +32,7 @@ function sectorClass(sector) {
   return sector === 'Semis/AI' ? 'semis' : sector === 'Software/Cloud' ? 'software' : 'fig';
 }
 
-const FMP_BASE = 'https://financialmodelingprep.com/api/v3';
+const FMP_BASE = 'https://financialmodelingprep.com/stable';
 const AV_BASE  = 'https://www.alphavantage.co/query';
 
 function getKeys() {

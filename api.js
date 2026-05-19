@@ -37,7 +37,7 @@ async function fmpFetch(path, ttlMs = 300_000) {
 /* ── FMP: Stock news ───────────────────────────────────────────────── */
 
 async function fetchNews(tickers = WATCHLIST, limit = 20) {
-  const data = await fmpFetch(`/stock_news?tickers=${tickers.join(',')}&limit=${limit}`, 15 * 60_000);
+  const data = await fmpFetch(`/news/stock?symbols=${tickers.join(',')}&limit=${limit}`, 15 * 60_000);
   return Array.isArray(data) ? data : [];
 }
 
@@ -46,34 +46,34 @@ async function fetchNews(tickers = WATCHLIST, limit = 20) {
 async function fetchEarningsCalendar() {
   const from = new Date().toISOString().slice(0, 10);
   const to   = new Date(Date.now() + 45 * 86_400_000).toISOString().slice(0, 10);
-  const data = await fmpFetch(`/earning_calendar?from=${from}&to=${to}`, 60 * 60_000);
+  const data = await fmpFetch(`/earnings-calendar?from=${from}&to=${to}`, 60 * 60_000);
   return Array.isArray(data) ? data.filter(e => WATCHLIST.includes(e.symbol)) : [];
 }
 
 /* ── FMP: Earnings surprises (historical beat/miss) ────────────────── */
 
 async function fetchEarningsSurprises(ticker) {
-  const data = await fmpFetch(`/earnings-surprises/${ticker}`, 6 * 60 * 60_000);
+  const data = await fmpFetch(`/earnings-surprises?symbol=${ticker}`, 6 * 60 * 60_000);
   return Array.isArray(data) ? data.slice(0, 8) : [];
 }
 
 /* ── FMP: Quarterly income statement ──────────────────────────────── */
 
 async function fetchIncomeStatement(ticker, limit = 8) {
-  const data = await fmpFetch(`/income-statement/${ticker}?period=quarter&limit=${limit}`, 6 * 60 * 60_000);
+  const data = await fmpFetch(`/income-statement?symbol=${ticker}&period=quarter&limit=${limit}`, 6 * 60 * 60_000);
   return Array.isArray(data) ? data : [];
 }
 
 /* ── FMP: Company profile + live quote ────────────────────────────── */
 
 async function fetchProfile(ticker) {
-  const data = await fmpFetch(`/quote/${ticker}`, 5 * 60_000);
+  const data = await fmpFetch(`/quote?symbol=${ticker}`, 5 * 60_000);
   return Array.isArray(data) && data[0] ? data[0] : null;
 }
 
 async function fetchQuoteBulk(tickers) {
   const joined = tickers.join(',');
-  const data = await fmpFetch(`/quote/${joined}`, 5 * 60_000);
+  const data = await fmpFetch(`/quote?symbol=${joined}`, 5 * 60_000);
   if (!Array.isArray(data)) return {};
   const map = {};
   data.forEach(q => { map[q.symbol] = q; });
@@ -127,7 +127,7 @@ function normalizeQuote(fmpQ, avQ) {
   return {
     price:     fmpQ.price?.toFixed(2),
     change:    fmpQ.change?.toFixed(2),
-    changePct: fmpQ.changesPercentage?.toFixed(2),
+    changePct: fmpQ.changePercentage?.toFixed(2),
     source:    'FMP',
   };
 }

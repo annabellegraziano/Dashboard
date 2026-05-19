@@ -188,7 +188,7 @@ async function testFMPRaw() {
   try {
     const key = document.getElementById('fmp-key').value.trim() || getKeys().fmp;
     if (!key) { rawEl.textContent = 'No key entered.'; return; }
-    const url = `${FMP_BASE}/quote/AAPL?apikey=${key}`;
+    const url = `${FMP_BASE}/quote?symbol=AAPL&apikey=${key}`;
     const r = await fetch(url);
     const text = await r.text();
     let body;
@@ -205,7 +205,7 @@ async function testFMP() {
   try {
     const key = document.getElementById('fmp-key').value.trim() || getKeys().fmp;
     if (!key) { el.textContent = 'No key entered.'; el.className = 'test-result test-err'; return; }
-    const r = await fetch(`${FMP_BASE}/quote/AAPL?apikey=${key}`);
+    const r = await fetch(`${FMP_BASE}/quote?symbol=AAPL&apikey=${key}`);
     const d = await r.json();
     if (Array.isArray(d) && d[0]) { el.textContent = `✓ Connected — AAPL $${d[0].price?.toFixed(2)}`; el.className = 'test-result test-ok'; }
     else { el.textContent = '✗ ' + (d['Error Message'] || d.message || 'Unexpected response'); el.className = 'test-result test-err'; }
