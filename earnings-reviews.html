@@ -30,121 +30,365 @@
   <p class="page-subtitle-center">Full coverage universe — click any card to view the earnings review</p>
 
   <!-- Filter row -->
-  <div style="display:flex;gap:10px;justify-content:center;margin-bottom:8px;flex-wrap:wrap;">
-    <button class="tab-btn active" style="font-size:12px;padding:6px 14px;border:1px solid #e4e4e0;border-radius:2px;background:#111;color:#fff;" onclick="filterCards('all',this)">All</button>
-    <button class="tab-btn" style="font-size:12px;padding:6px 14px;border:1px solid #e4e4e0;border-radius:2px;background:#fff;color:#666;" onclick="filterCards('Q1',this)">Q1 2026</button>
-    <button class="tab-btn" style="font-size:12px;padding:6px 14px;border:1px solid #e4e4e0;border-radius:2px;background:#fff;color:#666;" onclick="filterCards('Q4',this)">Q4 2025</button>
-    <button class="tab-btn" style="font-size:12px;padding:6px 14px;border:1px solid #e4e4e0;border-radius:2px;background:#fff;color:#666;" onclick="filterCards('watchlist',this)">My Watchlist</button>
+  <div class="er-filter-row">
+    <button class="er-btn er-btn-active" onclick="filterCards('all',this)">All</button>
+    <button class="er-btn" onclick="filterCards('Q1-2026',this)">Q1 2026</button>
+    <button class="er-btn" onclick="filterCards('Q4-2025',this)">Q4 2025</button>
+    <button class="er-btn" onclick="filterCards('Q3-2025',this)">Q3 2025</button>
+    <button class="er-btn" onclick="filterCards('Q2-2025',this)">Q2 2025</button>
+    <button class="er-btn" onclick="filterCards('Q1-2025',this)">Q1 2025</button>
+    <button class="er-btn" onclick="filterCards('Q4-2024',this)">Q4 2024</button>
+    <button class="er-btn" onclick="filterCards('Q3-2024',this)">Q3 2024</button>
+    <button class="er-btn" onclick="filterCards('Q2-2024',this)">Q2 2024</button>
+    <button class="er-btn" onclick="filterCards('Q1-2024',this)">Q1 2024</button>
+    <button class="er-btn" onclick="filterCards('watchlist',this)">My Watchlist</button>
   </div>
 
   <div class="reviews-grid" id="reviews-grid">
 
-    <!-- Q1 2026 reviews — Semis/AI -->
-    <a class="review-card" href="#" data-quarter="Q1" data-ticker="NVDA">
-      <div class="rc-quarter">Q1 FY2027 Review</div>
-      <div class="rc-ticker">NVDA</div>
+    <!-- ── Q1 2026 ─────────────────────────────────────────────────── -->
+    <a class="review-card" href="#" data-quarter="Q1-2026" data-ticker="NVDA">
+      <div class="rc-quarter">Q1 FY27 Review</div><div class="rc-ticker">NVDA</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q1" data-ticker="AMD">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">AMD</div>
+    <a class="review-card" href="#" data-quarter="Q1-2026" data-ticker="AMD">
+      <div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">AMD</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q1" data-ticker="TSMC">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">TSMC</div>
+    <a class="review-card" href="#" data-quarter="Q1-2026" data-ticker="TSMC">
+      <div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">TSMC</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q1" data-ticker="ASML">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">ASML</div>
+    <a class="review-card" href="#" data-quarter="Q1-2026" data-ticker="ASML">
+      <div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">ASML</div>
     </a>
-
-    <!-- Q1 2026 reviews — Software/Cloud -->
-    <a class="review-card" href="#" data-quarter="Q1" data-ticker="MSFT">
-      <div class="rc-quarter">Q3 FY2026 Review</div>
-      <div class="rc-ticker">MSFT</div>
+    <a class="review-card" href="#" data-quarter="Q1-2026" data-ticker="MSFT">
+      <div class="rc-quarter">Q3 FY26 Review</div><div class="rc-ticker">MSFT</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q1" data-ticker="GOOGL">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">GOOGL</div>
+    <a class="review-card" href="#" data-quarter="Q1-2026" data-ticker="GOOGL">
+      <div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">GOOGL</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q1" data-ticker="META">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">META</div>
+    <a class="review-card" href="#" data-quarter="Q1-2026" data-ticker="META">
+      <div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">META</div>
     </a>
-
-    <!-- Q1 2026 reviews — FIG/Crypto -->
-    <a class="review-card" href="#" data-quarter="Q1" data-ticker="COIN">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">COIN</div>
+    <a class="review-card" href="#" data-quarter="Q1-2026" data-ticker="COIN">
+      <div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">COIN</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q1" data-ticker="JPM">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">JPM</div>
+    <a class="review-card" href="#" data-quarter="Q1-2026" data-ticker="JPM">
+      <div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">JPM</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q1" data-ticker="GS">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">GS</div>
+    <a class="review-card" href="#" data-quarter="Q1-2026" data-ticker="GS">
+      <div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">GS</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q1" data-ticker="MSTR">
-      <div class="rc-quarter">Q1 2026 Review</div>
-      <div class="rc-ticker">MSTR</div>
+    <a class="review-card" href="#" data-quarter="Q1-2026" data-ticker="MSTR">
+      <div class="rc-quarter">Q1 2026 Review</div><div class="rc-ticker">MSTR</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q1" data-ticker="IBIT">
-      <div class="rc-quarter">Flow Report — Q1 2026</div>
-      <div class="rc-ticker">IBIT</div>
+    <a class="review-card" href="#" data-quarter="Q1-2026" data-ticker="IBIT">
+      <div class="rc-quarter">Flow Report — Q1 2026</div><div class="rc-ticker">IBIT</div>
     </a>
 
-    <!-- Q4 2025 reviews -->
-    <a class="review-card" href="#" data-quarter="Q4" data-ticker="NVDA">
-      <div class="rc-quarter">Q4 FY2026 Review</div>
-      <div class="rc-ticker">NVDA</div>
+    <!-- ── Q4 2025 ─────────────────────────────────────────────────── -->
+    <a class="review-card" href="#" data-quarter="Q4-2025" data-ticker="NVDA">
+      <div class="rc-quarter">Q4 FY26 Review</div><div class="rc-ticker">NVDA</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q4" data-ticker="AMD">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">AMD</div>
+    <a class="review-card" href="#" data-quarter="Q4-2025" data-ticker="AMD">
+      <div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">AMD</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q4" data-ticker="TSMC">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">TSMC</div>
+    <a class="review-card" href="#" data-quarter="Q4-2025" data-ticker="TSMC">
+      <div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">TSMC</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q4" data-ticker="ASML">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">ASML</div>
+    <a class="review-card" href="#" data-quarter="Q4-2025" data-ticker="ASML">
+      <div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">ASML</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q4" data-ticker="MSFT">
-      <div class="rc-quarter">Q2 FY2026 Review</div>
-      <div class="rc-ticker">MSFT</div>
+    <a class="review-card" href="#" data-quarter="Q4-2025" data-ticker="MSFT">
+      <div class="rc-quarter">Q2 FY26 Review</div><div class="rc-ticker">MSFT</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q4" data-ticker="GOOGL">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">GOOGL</div>
+    <a class="review-card" href="#" data-quarter="Q4-2025" data-ticker="GOOGL">
+      <div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">GOOGL</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q4" data-ticker="META">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">META</div>
+    <a class="review-card" href="#" data-quarter="Q4-2025" data-ticker="META">
+      <div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">META</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q4" data-ticker="COIN">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">COIN</div>
+    <a class="review-card" href="#" data-quarter="Q4-2025" data-ticker="COIN">
+      <div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">COIN</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q4" data-ticker="JPM">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">JPM</div>
+    <a class="review-card" href="#" data-quarter="Q4-2025" data-ticker="JPM">
+      <div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">JPM</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q4" data-ticker="GS">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">GS</div>
+    <a class="review-card" href="#" data-quarter="Q4-2025" data-ticker="GS">
+      <div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">GS</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q4" data-ticker="MSTR">
-      <div class="rc-quarter">Q4 2025 Review</div>
-      <div class="rc-ticker">MSTR</div>
+    <a class="review-card" href="#" data-quarter="Q4-2025" data-ticker="MSTR">
+      <div class="rc-quarter">Q4 2025 Review</div><div class="rc-ticker">MSTR</div>
     </a>
-    <a class="review-card" href="#" data-quarter="Q4" data-ticker="IBIT">
-      <div class="rc-quarter">Flow Report — Q4 2025</div>
-      <div class="rc-ticker">IBIT</div>
+    <a class="review-card" href="#" data-quarter="Q4-2025" data-ticker="IBIT">
+      <div class="rc-quarter">Flow Report — Q4 2025</div><div class="rc-ticker">IBIT</div>
+    </a>
+
+    <!-- ── Q3 2025 ─────────────────────────────────────────────────── -->
+    <a class="review-card" href="#" data-quarter="Q3-2025" data-ticker="NVDA">
+      <div class="rc-quarter">Q3 FY26 Review</div><div class="rc-ticker">NVDA</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2025" data-ticker="AMD">
+      <div class="rc-quarter">Q3 2025 Review</div><div class="rc-ticker">AMD</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2025" data-ticker="TSMC">
+      <div class="rc-quarter">Q3 2025 Review</div><div class="rc-ticker">TSMC</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2025" data-ticker="ASML">
+      <div class="rc-quarter">Q3 2025 Review</div><div class="rc-ticker">ASML</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2025" data-ticker="MSFT">
+      <div class="rc-quarter">Q1 FY26 Review</div><div class="rc-ticker">MSFT</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2025" data-ticker="GOOGL">
+      <div class="rc-quarter">Q3 2025 Review</div><div class="rc-ticker">GOOGL</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2025" data-ticker="META">
+      <div class="rc-quarter">Q3 2025 Review</div><div class="rc-ticker">META</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2025" data-ticker="COIN">
+      <div class="rc-quarter">Q3 2025 Review</div><div class="rc-ticker">COIN</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2025" data-ticker="JPM">
+      <div class="rc-quarter">Q3 2025 Review</div><div class="rc-ticker">JPM</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2025" data-ticker="GS">
+      <div class="rc-quarter">Q3 2025 Review</div><div class="rc-ticker">GS</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2025" data-ticker="MSTR">
+      <div class="rc-quarter">Q3 2025 Review</div><div class="rc-ticker">MSTR</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2025" data-ticker="IBIT">
+      <div class="rc-quarter">Flow Report — Q3 2025</div><div class="rc-ticker">IBIT</div>
+    </a>
+
+    <!-- ── Q2 2025 ─────────────────────────────────────────────────── -->
+    <a class="review-card" href="#" data-quarter="Q2-2025" data-ticker="NVDA">
+      <div class="rc-quarter">Q2 FY26 Review</div><div class="rc-ticker">NVDA</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2025" data-ticker="AMD">
+      <div class="rc-quarter">Q2 2025 Review</div><div class="rc-ticker">AMD</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2025" data-ticker="TSMC">
+      <div class="rc-quarter">Q2 2025 Review</div><div class="rc-ticker">TSMC</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2025" data-ticker="ASML">
+      <div class="rc-quarter">Q2 2025 Review</div><div class="rc-ticker">ASML</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2025" data-ticker="MSFT">
+      <div class="rc-quarter">Q4 FY25 Review</div><div class="rc-ticker">MSFT</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2025" data-ticker="GOOGL">
+      <div class="rc-quarter">Q2 2025 Review</div><div class="rc-ticker">GOOGL</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2025" data-ticker="META">
+      <div class="rc-quarter">Q2 2025 Review</div><div class="rc-ticker">META</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2025" data-ticker="COIN">
+      <div class="rc-quarter">Q2 2025 Review</div><div class="rc-ticker">COIN</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2025" data-ticker="JPM">
+      <div class="rc-quarter">Q2 2025 Review</div><div class="rc-ticker">JPM</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2025" data-ticker="GS">
+      <div class="rc-quarter">Q2 2025 Review</div><div class="rc-ticker">GS</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2025" data-ticker="MSTR">
+      <div class="rc-quarter">Q2 2025 Review</div><div class="rc-ticker">MSTR</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2025" data-ticker="IBIT">
+      <div class="rc-quarter">Flow Report — Q2 2025</div><div class="rc-ticker">IBIT</div>
+    </a>
+
+    <!-- ── Q1 2025 ─────────────────────────────────────────────────── -->
+    <a class="review-card" href="#" data-quarter="Q1-2025" data-ticker="NVDA">
+      <div class="rc-quarter">Q1 FY26 Review</div><div class="rc-ticker">NVDA</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2025" data-ticker="AMD">
+      <div class="rc-quarter">Q1 2025 Review</div><div class="rc-ticker">AMD</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2025" data-ticker="TSMC">
+      <div class="rc-quarter">Q1 2025 Review</div><div class="rc-ticker">TSMC</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2025" data-ticker="ASML">
+      <div class="rc-quarter">Q1 2025 Review</div><div class="rc-ticker">ASML</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2025" data-ticker="MSFT">
+      <div class="rc-quarter">Q3 FY25 Review</div><div class="rc-ticker">MSFT</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2025" data-ticker="GOOGL">
+      <div class="rc-quarter">Q1 2025 Review</div><div class="rc-ticker">GOOGL</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2025" data-ticker="META">
+      <div class="rc-quarter">Q1 2025 Review</div><div class="rc-ticker">META</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2025" data-ticker="COIN">
+      <div class="rc-quarter">Q1 2025 Review</div><div class="rc-ticker">COIN</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2025" data-ticker="JPM">
+      <div class="rc-quarter">Q1 2025 Review</div><div class="rc-ticker">JPM</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2025" data-ticker="GS">
+      <div class="rc-quarter">Q1 2025 Review</div><div class="rc-ticker">GS</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2025" data-ticker="MSTR">
+      <div class="rc-quarter">Q1 2025 Review</div><div class="rc-ticker">MSTR</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2025" data-ticker="IBIT">
+      <div class="rc-quarter">Flow Report — Q1 2025</div><div class="rc-ticker">IBIT</div>
+    </a>
+
+    <!-- ── Q4 2024 ─────────────────────────────────────────────────── -->
+    <a class="review-card" href="#" data-quarter="Q4-2024" data-ticker="NVDA">
+      <div class="rc-quarter">Q4 FY25 Review</div><div class="rc-ticker">NVDA</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q4-2024" data-ticker="AMD">
+      <div class="rc-quarter">Q4 2024 Review</div><div class="rc-ticker">AMD</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q4-2024" data-ticker="TSMC">
+      <div class="rc-quarter">Q4 2024 Review</div><div class="rc-ticker">TSMC</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q4-2024" data-ticker="ASML">
+      <div class="rc-quarter">Q4 2024 Review</div><div class="rc-ticker">ASML</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q4-2024" data-ticker="MSFT">
+      <div class="rc-quarter">Q2 FY25 Review</div><div class="rc-ticker">MSFT</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q4-2024" data-ticker="GOOGL">
+      <div class="rc-quarter">Q4 2024 Review</div><div class="rc-ticker">GOOGL</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q4-2024" data-ticker="META">
+      <div class="rc-quarter">Q4 2024 Review</div><div class="rc-ticker">META</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q4-2024" data-ticker="COIN">
+      <div class="rc-quarter">Q4 2024 Review</div><div class="rc-ticker">COIN</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q4-2024" data-ticker="JPM">
+      <div class="rc-quarter">Q4 2024 Review</div><div class="rc-ticker">JPM</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q4-2024" data-ticker="GS">
+      <div class="rc-quarter">Q4 2024 Review</div><div class="rc-ticker">GS</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q4-2024" data-ticker="MSTR">
+      <div class="rc-quarter">Q4 2024 Review</div><div class="rc-ticker">MSTR</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q4-2024" data-ticker="IBIT">
+      <div class="rc-quarter">Flow Report — Q4 2024</div><div class="rc-ticker">IBIT</div>
+    </a>
+
+    <!-- ── Q3 2024 ─────────────────────────────────────────────────── -->
+    <a class="review-card" href="#" data-quarter="Q3-2024" data-ticker="NVDA">
+      <div class="rc-quarter">Q3 FY25 Review</div><div class="rc-ticker">NVDA</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2024" data-ticker="AMD">
+      <div class="rc-quarter">Q3 2024 Review</div><div class="rc-ticker">AMD</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2024" data-ticker="TSMC">
+      <div class="rc-quarter">Q3 2024 Review</div><div class="rc-ticker">TSMC</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2024" data-ticker="ASML">
+      <div class="rc-quarter">Q3 2024 Review</div><div class="rc-ticker">ASML</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2024" data-ticker="MSFT">
+      <div class="rc-quarter">Q1 FY25 Review</div><div class="rc-ticker">MSFT</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2024" data-ticker="GOOGL">
+      <div class="rc-quarter">Q3 2024 Review</div><div class="rc-ticker">GOOGL</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2024" data-ticker="META">
+      <div class="rc-quarter">Q3 2024 Review</div><div class="rc-ticker">META</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2024" data-ticker="COIN">
+      <div class="rc-quarter">Q3 2024 Review</div><div class="rc-ticker">COIN</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2024" data-ticker="JPM">
+      <div class="rc-quarter">Q3 2024 Review</div><div class="rc-ticker">JPM</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2024" data-ticker="GS">
+      <div class="rc-quarter">Q3 2024 Review</div><div class="rc-ticker">GS</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2024" data-ticker="MSTR">
+      <div class="rc-quarter">Q3 2024 Review</div><div class="rc-ticker">MSTR</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q3-2024" data-ticker="IBIT">
+      <div class="rc-quarter">Flow Report — Q3 2024</div><div class="rc-ticker">IBIT</div>
+    </a>
+
+    <!-- ── Q2 2024 ─────────────────────────────────────────────────── -->
+    <a class="review-card" href="#" data-quarter="Q2-2024" data-ticker="NVDA">
+      <div class="rc-quarter">Q2 FY25 Review</div><div class="rc-ticker">NVDA</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2024" data-ticker="AMD">
+      <div class="rc-quarter">Q2 2024 Review</div><div class="rc-ticker">AMD</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2024" data-ticker="TSMC">
+      <div class="rc-quarter">Q2 2024 Review</div><div class="rc-ticker">TSMC</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2024" data-ticker="ASML">
+      <div class="rc-quarter">Q2 2024 Review</div><div class="rc-ticker">ASML</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2024" data-ticker="MSFT">
+      <div class="rc-quarter">Q4 FY24 Review</div><div class="rc-ticker">MSFT</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2024" data-ticker="GOOGL">
+      <div class="rc-quarter">Q2 2024 Review</div><div class="rc-ticker">GOOGL</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2024" data-ticker="META">
+      <div class="rc-quarter">Q2 2024 Review</div><div class="rc-ticker">META</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2024" data-ticker="COIN">
+      <div class="rc-quarter">Q2 2024 Review</div><div class="rc-ticker">COIN</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2024" data-ticker="JPM">
+      <div class="rc-quarter">Q2 2024 Review</div><div class="rc-ticker">JPM</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2024" data-ticker="GS">
+      <div class="rc-quarter">Q2 2024 Review</div><div class="rc-ticker">GS</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2024" data-ticker="MSTR">
+      <div class="rc-quarter">Q2 2024 Review</div><div class="rc-ticker">MSTR</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q2-2024" data-ticker="IBIT">
+      <div class="rc-quarter">Flow Report — Q2 2024</div><div class="rc-ticker">IBIT</div>
+    </a>
+
+    <!-- ── Q1 2024 ─────────────────────────────────────────────────── -->
+    <a class="review-card" href="#" data-quarter="Q1-2024" data-ticker="NVDA">
+      <div class="rc-quarter">Q1 FY25 Review</div><div class="rc-ticker">NVDA</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2024" data-ticker="AMD">
+      <div class="rc-quarter">Q1 2024 Review</div><div class="rc-ticker">AMD</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2024" data-ticker="TSMC">
+      <div class="rc-quarter">Q1 2024 Review</div><div class="rc-ticker">TSMC</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2024" data-ticker="ASML">
+      <div class="rc-quarter">Q1 2024 Review</div><div class="rc-ticker">ASML</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2024" data-ticker="MSFT">
+      <div class="rc-quarter">Q3 FY24 Review</div><div class="rc-ticker">MSFT</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2024" data-ticker="GOOGL">
+      <div class="rc-quarter">Q1 2024 Review</div><div class="rc-ticker">GOOGL</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2024" data-ticker="META">
+      <div class="rc-quarter">Q1 2024 Review</div><div class="rc-ticker">META</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2024" data-ticker="COIN">
+      <div class="rc-quarter">Q1 2024 Review</div><div class="rc-ticker">COIN</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2024" data-ticker="JPM">
+      <div class="rc-quarter">Q1 2024 Review</div><div class="rc-ticker">JPM</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2024" data-ticker="GS">
+      <div class="rc-quarter">Q1 2024 Review</div><div class="rc-ticker">GS</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2024" data-ticker="MSTR">
+      <div class="rc-quarter">Q1 2024 Review</div><div class="rc-ticker">MSTR</div>
+    </a>
+    <a class="review-card" href="#" data-quarter="Q1-2024" data-ticker="IBIT">
+      <div class="rc-quarter">Flow Report — Q1 2024</div><div class="rc-ticker">IBIT</div>
     </a>
 
   </div>
-
 </main>
 
 <script src="config.js"></script>
@@ -153,20 +397,15 @@
 <script>
 function filterCards(type, btn) {
   const watchlist = getWatchlist();
-  const cards = document.querySelectorAll('.review-card');
-  document.querySelectorAll('#main button').forEach(b => {
-    b.style.background = '#fff'; b.style.color = '#666';
-  });
-  btn.style.background = '#111'; btn.style.color = '#fff';
+  document.querySelectorAll('.er-btn').forEach(b => b.classList.remove('er-btn-active'));
+  btn.classList.add('er-btn-active');
 
-  cards.forEach(card => {
+  document.querySelectorAll('.review-card').forEach(card => {
     const q      = card.dataset.quarter;
     const ticker = card.dataset.ticker;
-    const inWL   = watchlist.includes(ticker);
-    if      (type === 'all')       card.style.display = 'block';
-    else if (type === 'Q1')        card.style.display = q === 'Q1' ? 'block' : 'none';
-    else if (type === 'Q4')        card.style.display = q === 'Q4' ? 'block' : 'none';
-    else if (type === 'watchlist') card.style.display = inWL ? 'block' : 'none';
+    if      (type === 'all')       card.style.display = '';
+    else if (type === 'watchlist') card.style.display = watchlist.includes(ticker) ? '' : 'none';
+    else                           card.style.display = q === type ? '' : 'none';
   });
 }
 

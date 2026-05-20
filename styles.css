@@ -822,6 +822,27 @@ td.vs-miss { color: #c0392b; font-weight: 600; }
 .sidebar-sector-tickers a.active { font-weight: bold; color: #000; }
 .sidebar-sector-tickers a.active::before { content: "> "; }
 
+/* ── Earnings reviews filter buttons ─────────────────────────────── */
+.er-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+.er-btn {
+  padding: 5px 13px;
+  font-size: 12px;
+  font-family: inherit;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  background: #fff;
+  color: #555;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.er-btn:hover { background: #f0f0ec; border-color: #bbb; }
+.er-btn-active { background: #1a3a5c; color: #fff; border-color: #1a3a5c; }
+
 /* ── Sector badges on news cards ──────────────────────────────────── */
 .sector-badge {
   display: inline-block;
