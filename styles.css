@@ -596,6 +596,31 @@ td a.data-link {
 }
 .fin-edgar-link:hover { background: #2c5f8a; color: #fff; }
 
+/* ── Source Filings section ───────────────────────────────────── */
+.filings-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.filing-link {
+  display: inline-block;
+  font-size: 12px;
+  font-family: Georgia, serif;
+  color: #2c5f8a;
+  text-decoration: none;
+  padding: 6px 16px;
+  border: 1px solid #2c5f8a;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+.filing-link:hover { background: #2c5f8a; color: #fff; }
+.filing-link-ir {
+  color: #555;
+  border-color: #bbb;
+}
+.filing-link-ir:hover { background: #555; color: #fff; border-color: #555; }
+
 /* ── Footer note ──────────────────────────────────────────────────── */
 .footer-note {
   font-size: 11px;

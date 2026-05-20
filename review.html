@@ -64,6 +64,7 @@
 
 <script src="config.js"></script>
 <script src="api.js"></script>
+<script src="financials-data.js"></script>
 <script src="app.js"></script>
 <script>
 const params = new URLSearchParams(window.location.search);
@@ -81,6 +82,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('m-subtitle').textContent = `${CONAME} | Updated ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
 
   renderSidebarWatchlist(TICKER);
+
+  /* Pre-populate KPI cards from training data if user hasn't typed yet */
+  const rd = (typeof FINANCIALS_DATA !== 'undefined') && FINANCIALS_DATA[TICKER]?.review;
+  if (rd) {
+    populateKPIIfEmpty('review', TICKER, 'eps',      rd.eps);
+    populateKPIIfEmpty('review', TICKER, 'rev',      rd.rev);
+    populateKPIIfEmpty('review', TICKER, 'margin',   rd.margin);
+    populateKPIIfEmpty('review', TICKER, 'surprise', rd.surprise);
+  }
+
   initNotesEditor('review', TICKER);
   initEditableKPIs('review', TICKER);
 });

@@ -27,13 +27,21 @@
   <h1 class="preview-title" id="m-title">Financials</h1>
   <p class="preview-subtitle" id="m-subtitle"></p>
 
+  <!-- Historical Table -->
   <div class="section-header">Quarterly Income Statement</div>
   <p class="section-sub" style="margin-bottom:16px">Click any cell to edit. Values auto-save to your browser. Update each quarter after earnings.</p>
+  <div id="fin-table-container"></div>
 
-  <div id="fin-table-container">
-    <!-- Rendered by renderFinTable() -->
-  </div>
+  <!-- Consensus Estimates -->
+  <div class="section-header" style="margin-top:40px">Consensus Estimates</div>
+  <p class="section-sub" style="margin-bottom:16px">Wall Street consensus — all cells editable. Update as estimates change.</p>
+  <div id="est-table-container"></div>
 
+  <!-- Source Filings -->
+  <div class="section-header" style="margin-top:40px">Source Filings</div>
+  <div id="filings-container"></div>
+
+  <!-- Notes -->
   <div class="section-header" style="margin-top:40px">Analyst Notes</div>
   <p class="section-sub" style="margin-bottom:12px">Track revenue/EPS trends, margin dynamics, segment commentary.</p>
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
@@ -44,8 +52,8 @@
     placeholder="Revenue/EPS trend notes, margin dynamics, segment commentary, beat/miss vs consensus…"></textarea>
 
   <p class="footer-note" style="margin-top:32px">
-    Table cells are editable — click any value to type. Data auto-saves to your browser.
-    Source your data from earnings releases, IR pages, or SEC EDGAR filings.
+    All table cells are editable — click any value to type. Data auto-saves to your browser.
+    Source actuals from earnings releases and SEC filings.
   </p>
 </main>
 
@@ -58,24 +66,46 @@ const params = new URLSearchParams(window.location.search);
 const TICKER = (params.get('t') || 'NVDA').toUpperCase();
 const CONAME = COMPANY_NAMES[TICKER] || TICKER;
 
+/* ── Shared: wire contenteditable cells with localStorage ── */
+function wireFinCells(container, nsPrefix) {
+  container.querySelectorAll('.fin-cell').forEach(cell => {
+    const qi  = cell.dataset.qi;
+    const mk  = cell.dataset.mk;
+    const lsKey = `${nsPrefix}_${TICKER}_${qi}_${mk}`;
+
+    cell.addEventListener('input', () => {
+      const val = cell.textContent.trim();
+      localStorage.setItem(lsKey, val || '—');
+      cell.classList.toggle('fin-empty', !val || val === '—');
+    });
+
+    cell.addEventListener('focus', () => {
+      const range = document.createRange();
+      range.selectNodeContents(cell);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    });
+  });
+}
+
+/* ── Historical quarterly table ── */
 function renderFinTable() {
   const container = document.getElementById('fin-table-container');
   const data = FINANCIALS_DATA[TICKER];
 
   if (!data) {
-    container.innerHTML = `
-      <p class="section-sub">No pre-populated data for ${TICKER}. Use the notes area below to track financials manually.</p>`;
+    container.innerHTML = `<p class="section-sub">No pre-populated data for ${TICKER}. Use the notes area below.</p>`;
     return;
   }
 
-  const headerCells = data.quarters.map(q =>
-    `<th>${q}</th>`).join('');
+  const headerCells = data.quarters.map(q => `<th>${q}</th>`).join('');
 
   const rows = data.metrics.map(metric => {
     const cells = data.quarters.map((q, qi) => {
-      const lsKey = `fintbl_${TICKER}_${qi}_${metric.key}`;
+      const lsKey  = `fintbl_${TICKER}_${qi}_${metric.key}`;
       const saved  = localStorage.getItem(lsKey);
-      const defVal = data.metrics.find(m => m.key === metric.key).values[qi];
+      const defVal = metric.values[qi];
       const display = saved !== null ? saved : defVal;
       const isEmpty = !display || display === '—';
       return `<td><span class="fin-cell${isEmpty ? ' fin-empty' : ''}"
@@ -88,41 +118,86 @@ function renderFinTable() {
   container.innerHTML = `
     <div class="fin-table-wrap">
       <table class="fin-table">
-        <thead>
-          <tr>
-            <th class="fin-metric-label">Metric</th>
-            ${headerCells}
-          </tr>
-        </thead>
+        <thead><tr><th class="fin-metric-label">Metric</th>${headerCells}</tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </div>
-    <p class="fin-note">${data.note}</p>
-    <a class="fin-edgar-link" href="${data.edgar}" target="_blank" rel="noopener">
-      SEC EDGAR — ${TICKER} Filings &rarr;
+    <p class="fin-note">${data.note}</p>`;
+
+  wireFinCells(container, 'fintbl');
+}
+
+/* ── Consensus estimates table ── */
+function renderEstTable() {
+  const container = document.getElementById('est-table-container');
+  const data = FINANCIALS_DATA[TICKER];
+
+  if (!data?.estimates) {
+    container.innerHTML = `<p class="section-sub">No consensus data for ${TICKER}.</p>`;
+    return;
+  }
+
+  const est = data.estimates;
+  const headerCells = est.years.map(y => `<th>${y}</th>`).join('');
+
+  const rows = est.rows.map(row => {
+    const cells = est.years.map((y, qi) => {
+      const lsKey  = `esttbl_${TICKER}_${qi}_${row.key}`;
+      const saved  = localStorage.getItem(lsKey);
+      const defVal = row.values[qi];
+      const display = saved !== null ? saved : defVal;
+      const isEmpty = !display || display === '—';
+      return `<td><span class="fin-cell${isEmpty ? ' fin-empty' : ''}"
+        contenteditable="true" spellcheck="false"
+        data-qi="${qi}" data-mk="${row.key}">${display}</span></td>`;
+    }).join('');
+    return `<tr><td class="fin-metric-label">${row.label}</td>${cells}</tr>`;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="fin-table-wrap">
+      <table class="fin-table">
+        <thead><tr><th class="fin-metric-label">Metric</th>${headerCells}</tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+    <p class="fin-note">${est.yearNote}</p>
+    <p class="fin-note" style="font-style:italic;color:#c0392b">
+      Consensus estimates sourced from Claude training data — verify against Bloomberg or FactSet before use.
+    </p>`;
+
+  wireFinCells(container, 'esttbl');
+}
+
+/* ── Source filings section ── */
+function renderFilings() {
+  const container = document.getElementById('filings-container');
+  const data = FINANCIALS_DATA[TICKER];
+  if (!data) { container.innerHTML = ''; return; }
+
+  const t  = data.edgarTicker || TICKER;
+  const ft = data.filingTypes || ['10-K','10-Q'];
+
+  /* Build EDGAR filing links */
+  const filingLinks = ft.map(type => {
+    const url = `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&ticker=${t}&type=${encodeURIComponent(type)}&dateb=&owner=include&count=5`;
+    return `<a class="filing-link" href="${url}" target="_blank" rel="noopener">
+      SEC EDGAR — ${type} Filings &rarr;
     </a>`;
+  }).join('');
 
-  /* Wire up persistence */
-  container.querySelectorAll('.fin-cell').forEach(cell => {
-    const qi = cell.dataset.qi;
-    const mk = cell.dataset.mk;
-    const lsKey = `fintbl_${TICKER}_${qi}_${mk}`;
+  /* IR page link */
+  const irLink = data.ir
+    ? `<a class="filing-link filing-link-ir" href="${data.ir}" target="_blank" rel="noopener">
+        IR Page — ${CONAME} &rarr;
+      </a>`
+    : '';
 
-    cell.addEventListener('input', () => {
-      const val = cell.textContent.trim();
-      localStorage.setItem(lsKey, val || '—');
-      cell.classList.toggle('fin-empty', !val || val === '—');
-    });
-
-    /* Select all on focus for easy overwrite */
-    cell.addEventListener('focus', () => {
-      const range = document.createRange();
-      range.selectNodeContents(cell);
-      const sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
-    });
-  });
+  container.innerHTML = `
+    <div class="filings-grid">
+      ${filingLinks}
+      ${irLink}
+    </div>`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -133,10 +208,12 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('s-preview').href  = `preview.html?t=${TICKER}`;
   document.getElementById('s-review').href   = `review.html?t=${TICKER}`;
   document.getElementById('m-title').textContent    = `${TICKER} — Financials`;
-  document.getElementById('m-subtitle').textContent = `${CONAME} | Quarterly income statement`;
+  document.getElementById('m-subtitle').textContent = `${CONAME} | Quarterly income statement & consensus`;
 
   renderSidebarWatchlist(TICKER);
   renderFinTable();
+  renderEstTable();
+  renderFilings();
   initNotesEditor('financials', TICKER);
 });
 </script>
